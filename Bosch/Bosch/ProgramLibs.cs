@@ -52,6 +52,7 @@ namespace Bosch
         #region Conversion
         /* enums */
         internal enum StringType { Normal, With_0x  };
+        internal enum FileType { Excel, DBC, Undefined };
         internal static StringType CheckTheInputFormat(string input)
         {
             if (input.StartsWith("0x"))
@@ -157,9 +158,19 @@ namespace Bosch
         #endregion Search
 
         #region OpenFile
-        internal static bool OpenExcelFile()
+        internal bool OpenFile(FileType fileType)
         {
-            
+            switch (fileType)
+            {
+                case FileType.Excel:
+                    break;
+
+                case FileType.DBC:
+                    break;
+
+                default:
+                    return false;
+            }
             return true;
         }
         #endregion OpenFile

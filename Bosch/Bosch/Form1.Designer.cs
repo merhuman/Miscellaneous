@@ -56,6 +56,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btn_OpenFileExcel_Misc = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_TestButton2 = new System.Windows.Forms.Button();
@@ -63,7 +64,7 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
-            this.btn_OpenFile_Misc = new System.Windows.Forms.Button();
+            this.btn_OpenFileDBC_Misc = new System.Windows.Forms.Button();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -376,13 +377,24 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.btn_OpenFile_Misc);
+            this.groupBox5.Controls.Add(this.btn_OpenFileDBC_Misc);
+            this.groupBox5.Controls.Add(this.btn_OpenFileExcel_Misc);
             this.groupBox5.Location = new System.Drawing.Point(6, 131);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(388, 139);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Input Signal";
+            // 
+            // btn_OpenFileExcel_Misc
+            // 
+            this.btn_OpenFileExcel_Misc.Location = new System.Drawing.Point(22, 29);
+            this.btn_OpenFileExcel_Misc.Name = "btn_OpenFileExcel_Misc";
+            this.btn_OpenFileExcel_Misc.Size = new System.Drawing.Size(94, 26);
+            this.btn_OpenFileExcel_Misc.TabIndex = 0;
+            this.btn_OpenFileExcel_Misc.Text = "Open Excel File";
+            this.btn_OpenFileExcel_Misc.UseVisualStyleBackColor = true;
+            this.btn_OpenFileExcel_Misc.Click += new System.EventHandler(this.btn_OpenFile_Misc_Click);
             // 
             // groupBox4
             // 
@@ -445,15 +457,15 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
-            // btn_OpenFile_Misc
+            // btn_OpenFileDBC_Misc
             // 
-            this.btn_OpenFile_Misc.Location = new System.Drawing.Point(22, 29);
-            this.btn_OpenFile_Misc.Name = "btn_OpenFile_Misc";
-            this.btn_OpenFile_Misc.Size = new System.Drawing.Size(94, 26);
-            this.btn_OpenFile_Misc.TabIndex = 0;
-            this.btn_OpenFile_Misc.Text = "Open File";
-            this.btn_OpenFile_Misc.UseVisualStyleBackColor = true;
-            this.btn_OpenFile_Misc.Click += new System.EventHandler(this.btn_OpenFile_Misc_Click);
+            this.btn_OpenFileDBC_Misc.Location = new System.Drawing.Point(22, 61);
+            this.btn_OpenFileDBC_Misc.Name = "btn_OpenFileDBC_Misc";
+            this.btn_OpenFileDBC_Misc.Size = new System.Drawing.Size(94, 23);
+            this.btn_OpenFileDBC_Misc.TabIndex = 1;
+            this.btn_OpenFileDBC_Misc.Text = "Open DBC File";
+            this.btn_OpenFileDBC_Misc.UseVisualStyleBackColor = true;
+            this.btn_OpenFileDBC_Misc.Click += new System.EventHandler(this.btn_OpenFileDBC_Misc_Click);
             // 
             // Form1
             // 
@@ -519,7 +531,8 @@
         private System.Windows.Forms.Button btn_Clear;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Button btn_OpenFile_Misc;
+        private System.Windows.Forms.Button btn_OpenFileExcel_Misc;
+        private System.Windows.Forms.Button btn_OpenFileDBC_Misc;
     }
 }
 
