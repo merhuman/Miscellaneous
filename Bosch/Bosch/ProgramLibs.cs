@@ -149,23 +149,22 @@ namespace Bosch
 
         #endregion Conversion
 
-        #region Search
-        internal bool SearchString()
-        {
-
-            return false;
-        }
-        #endregion Search
-
         #region OpenFile
-        internal bool OpenFile(FileType fileType)
+        internal static bool OpenFile(FileType fileType, string inputFilePath, string fileName)
         {
+            string l_sourcePath = "./Configuration";
+            Directory.CreateDirectory(l_sourcePath);
+            l_sourcePath = Path.Combine(l_sourcePath, fileName);
+
             switch (fileType)
             {
                 case FileType.Excel:
+                    File.Copy(inputFilePath, l_sourcePath, true);
                     break;
 
                 case FileType.DBC:
+                    l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert dbc file to txt file for more convenient purpose
+                    File.Copy(inputFilePath, l_sourcePath, true);
                     break;
 
                 default:
@@ -174,5 +173,20 @@ namespace Bosch
             return true;
         }
         #endregion OpenFile
+
+
+        #region Search
+        internal static bool SearchString(string inputString)
+        {
+
+            return false;
+        }
+
+        internal static bool GetNodesFromDBCFile()
+        {
+
+            return true;
+        }
+        #endregion Search
     }
 }

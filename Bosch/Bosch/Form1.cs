@@ -40,6 +40,7 @@ namespace Bosch
         string g_fileName = string.Empty;
         string g_fileContent = string.Empty;
 
+        string[] g_signalName;
         public Form1()
         {
             InitializeComponent();
@@ -664,7 +665,7 @@ namespace Bosch
                         {
                             if (worksheet.Cells.Value != null)
                             {
-                                excelData.Add(worksheet.Cells[row, column].Value.ToString());
+                                
                             }
                         }
                     }
@@ -675,7 +676,7 @@ namespace Bosch
 
         private void btn_OpenFileDBC_Misc_Click(object sender, EventArgs e)
         {
-            g_odf_Misc.Filter = "Excel Workbook (*.xlsx)|*.xlsx|Excel Macro-Enabled Workbook (*.xlsm)|*.xlsm|Excel 97-2003 (*.xls)|*.xls|All files (*.*)|*.*";
+            g_odf_Misc.Filter = "CANdb++ Database (.mdc)(*.mdc)|*.mdc|CANdb Network (.dbc)(*.dbc)|*.dbc|CAN Database (.mdc;.dbc)(*.mdc;*.dbc)|*.mdc, *dbc |All files (*.*)|*.*";
             List<string> excelData = new List<string>();
             g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Bosch\Bosch\Configuration";
 
@@ -686,6 +687,8 @@ namespace Bosch
                 g_fileName = g_odf_Misc.SafeFileName;
                 g_filePath = g_odf_Misc.FileName;
             }
+
+            ProgramLibs.OpenFile(ProgramLibs.FileType.DBC, g_filePath, g_fileName);
         }
     }
 }
