@@ -160,6 +160,7 @@ namespace Bosch
             {
                 case FileType.Excel:
                     File.Copy(inputFilePath, l_sourcePath, true);
+                    ReadAllSignalNames(l_sourcePath);
                     break;
 
                 case FileType.DBC:
@@ -172,6 +173,32 @@ namespace Bosch
             }
             return true;
         }
+
+        internal static List<string> ReadAllSignalNames(string filePath)
+        {
+            List<string> l_signalNameList = new List<string>();
+            byte[] bin = File.ReadAllBytes(filePath);
+
+            using (MemoryStream stream = new MemoryStream(bin))
+            using (ExcelPackage excelPackage = new ExcelPackage(stream))
+            {
+                foreach (ExcelWorksheet worksheet in excelPackage.Workbook.Worksheets)
+                {
+                    for (int row = worksheet.Dimension.Start.Row; row <= worksheet.Dimension.End.Row; row++)
+                    {
+                        for (int column = worksheet.Dimension.Start.Column; column <= worksheet.Dimension.End.Column; column++)
+                        {
+                            if (worksheet.Cells.Value != null)
+                            {
+                                l_signalNameList.Add(worksheet.Cells[row, column].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            return l_signalNameList;
+        }
+
         #endregion OpenFile
 
 

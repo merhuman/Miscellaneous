@@ -40,7 +40,7 @@ namespace Bosch
         string g_fileName = string.Empty;
         string g_fileContent = string.Empty;
 
-        string[] g_signalName;
+        List<string> g_signalName = new List<string>();
         public Form1()
         {
             InitializeComponent();
@@ -179,7 +179,11 @@ namespace Bosch
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            string[] test = new string[4];
+            for (int i = 0; i <= 3; i++)
+            {
+                test[i] = Convert.ToString(i);
+            }
         }
 
         private void tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)
@@ -653,24 +657,7 @@ namespace Bosch
                 g_filePath = g_odf_Misc.FileName;
             }
 
-            byte[] bin = File.ReadAllBytes(g_filePath);
-            using (MemoryStream stream = new MemoryStream(bin))
-            using (ExcelPackage excelPackage = new ExcelPackage(stream))
-            {
-                foreach (ExcelWorksheet worksheet in excelPackage.Workbook.Worksheets)
-                {
-                    for (int row = worksheet.Dimension.Start.Row; row <= worksheet.Dimension.End.Row; row++)
-                    {
-                        for (int column = worksheet.Dimension.Start.Column; column <= worksheet.Dimension.End.Column; column++)
-                        {
-                            if (worksheet.Cells.Value != null)
-                            {
-                                
-                            }
-                        }
-                    }
-                }
-            }               
+            
 
         }
 
