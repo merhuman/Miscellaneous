@@ -40,7 +40,8 @@ namespace Bosch
         string g_fileName = string.Empty;
         string g_fileContent = string.Empty;
 
-        List<string> g_signalName = new List<string>();
+        List<string> g_signalNameList = new List<string>();
+        List<string> g_nodeNameList = new List<string>();
         public Form1()
         {
             InitializeComponent();
@@ -179,11 +180,10 @@ namespace Bosch
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string[] test = new string[4];
-            for (int i = 0; i <= 3; i++)
-            {
-                test[i] = Convert.ToString(i);
-            }
+            List<string> test = new List<string>() { "dddd", "tttttt" };
+            Console.WriteLine(test[0]);
+            Console.WriteLine(test[1]);
+
         }
 
         private void tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)
@@ -649,23 +649,20 @@ namespace Bosch
             List<string> excelData = new List<string>();
             g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Bosch\Bosch\Configuration";
 
-            string testString = string.Empty;
-
             if (g_odf_Misc.ShowDialog() == DialogResult.OK)
             {
                 g_fileName = g_odf_Misc.SafeFileName;
                 g_filePath = g_odf_Misc.FileName;
             }
 
-            
-
+            ProgramLibs.OpenFile(ProgramLibs.FileType.Excel, g_filePath, g_fileName, ref g_signalNameList);
         }
 
         private void btn_OpenFileDBC_Misc_Click(object sender, EventArgs e)
         {
             g_odf_Misc.Filter = "CANdb++ Database (.mdc)(*.mdc)|*.mdc|CANdb Network (.dbc)(*.dbc)|*.dbc|CAN Database (.mdc;.dbc)(*.mdc;*.dbc)|*.mdc, *dbc |All files (*.*)|*.*";
             List<string> excelData = new List<string>();
-            g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Bosch\Bosch\Configuration";
+            g_odf_Misc.InitialDirectory = @"D:\TH\csharp";
 
             string testString = string.Empty;
 
@@ -675,7 +672,7 @@ namespace Bosch
                 g_filePath = g_odf_Misc.FileName;
             }
 
-            ProgramLibs.OpenFile(ProgramLibs.FileType.DBC, g_filePath, g_fileName);
+            ProgramLibs.OpenFile(ProgramLibs.FileType.DBC, g_filePath, g_fileName, ref g_nodeNameList);
         }
     }
 }

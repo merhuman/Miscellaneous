@@ -18,10 +18,6 @@ namespace Bosch
         }
 
         #region UnderDevelopment
-        static void ReadExcelFile()
-        {
-            
-        }
         #endregion UnderDevelopment
 
         #region GeneralFunction
@@ -150,7 +146,7 @@ namespace Bosch
         #endregion Conversion
 
         #region OpenFile
-        internal static bool OpenFile(FileType fileType, string inputFilePath, string fileName)
+        internal static bool OpenFile(FileType fileType, string inputFilePath, string fileName, ref List<string> nameList)
         {
             string l_sourcePath = "./Configuration";
             Directory.CreateDirectory(l_sourcePath);
@@ -160,12 +156,13 @@ namespace Bosch
             {
                 case FileType.Excel:
                     File.Copy(inputFilePath, l_sourcePath, true);
-                    ReadAllSignalNames(l_sourcePath);
+                    ReadAllSignalNames(l_sourcePath, ref nameList);
                     break;
 
                 case FileType.DBC:
                     l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert dbc file to txt file for more convenient purpose
                     File.Copy(inputFilePath, l_sourcePath, true);
+                    GetNodesFromDBCFile(l_sourcePath, ref nameList);
                     break;
 
                 default:
@@ -174,7 +171,7 @@ namespace Bosch
             return true;
         }
 
-        internal static List<string> ReadAllSignalNames(string filePath)
+        internal static bool ReadAllSignalNames(string filePath, ref List<string> signalNameList)
         {
             List<string> l_signalNameList = new List<string>();
             byte[] bin = File.ReadAllBytes(filePath);
@@ -190,13 +187,14 @@ namespace Bosch
                         {
                             if (worksheet.Cells.Value != null)
                             {
-                                l_signalNameList.Add(worksheet.Cells[row, column].ToString());
+                                l_signalNameList.Add(worksheet.Cells[row, column].Value.ToString());
                             }
                         }
                     }
                 }
             }
-            return l_signalNameList;
+            signalNameList = l_signalNameList;
+            return true;
         }
 
         #endregion OpenFile
@@ -209,10 +207,19 @@ namespace Bosch
             return false;
         }
 
-        internal static bool GetNodesFromDBCFile()
+        internal static bool GetNodesFromDBCFile(string filePath, ref List<string> nodeList)
         {
-
-            return true;
+            string[] l_nodeNameList;
+            foreach (var line in File.ReadAllLines(filePath))
+            {
+                if (line.StartsWith("BU_:"))
+                {
+                    l_nodeNameList = line.Split(' ');
+                    nodeList = l_nodeNameList.ToList<string>();
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion Search
     }
