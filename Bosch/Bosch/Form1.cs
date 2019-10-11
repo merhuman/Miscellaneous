@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using NPOI.XSSF.UserModel;
-using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;  // remove later, use OfficeOpenXml instead
+using NPOI.SS.UserModel;    // remove later, use OfficeOpenXml instead
 using System.Text.RegularExpressions;
 
 // update lib
 using OfficeOpenXml;
+
 
 namespace Bosch
 {
@@ -180,9 +181,7 @@ namespace Bosch
 
         private void button4_Click(object sender, EventArgs e)
         {
-            List<string> test = new List<string>() { "dddd", "tttttt" };
-            Console.WriteLine(test[0]);
-            Console.WriteLine(test[1]);
+            
 
         }
 
