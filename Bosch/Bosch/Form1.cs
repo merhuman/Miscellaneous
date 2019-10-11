@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 
 // update lib
 using OfficeOpenXml;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Bosch
