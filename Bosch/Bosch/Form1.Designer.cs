@@ -30,6 +30,8 @@
         {
             this.tab_FunctionControl = new System.Windows.Forms.TabControl();
             this.tab_Convert = new System.Windows.Forms.TabPage();
+            this.btn_ClearOutput = new System.Windows.Forms.Button();
+            this.btn_ClearInput = new System.Windows.Forms.Button();
             this.btn_Clear = new System.Windows.Forms.Button();
             this.btn_Compare = new System.Windows.Forms.Button();
             this.btn_AddDrop = new System.Windows.Forms.Button();
@@ -56,6 +58,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btn_OpenFileDBC_Misc = new System.Windows.Forms.Button();
             this.btn_OpenFileExcel_Misc = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -64,7 +67,11 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
-            this.btn_OpenFileDBC_Misc = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -74,6 +81,7 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.sts_Strip.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab_FunctionControl
@@ -83,11 +91,14 @@
             this.tab_FunctionControl.Location = new System.Drawing.Point(3, 3);
             this.tab_FunctionControl.Name = "tab_FunctionControl";
             this.tab_FunctionControl.SelectedIndex = 0;
-            this.tab_FunctionControl.Size = new System.Drawing.Size(788, 311);
+            this.tab_FunctionControl.Size = new System.Drawing.Size(791, 391);
             this.tab_FunctionControl.TabIndex = 2;
             // 
             // tab_Convert
             // 
+            this.tab_Convert.Controls.Add(this.groupBox6);
+            this.tab_Convert.Controls.Add(this.btn_ClearOutput);
+            this.tab_Convert.Controls.Add(this.btn_ClearInput);
             this.tab_Convert.Controls.Add(this.btn_Clear);
             this.tab_Convert.Controls.Add(this.btn_Compare);
             this.tab_Convert.Controls.Add(this.btn_AddDrop);
@@ -100,16 +111,36 @@
             this.tab_Convert.Location = new System.Drawing.Point(4, 22);
             this.tab_Convert.Name = "tab_Convert";
             this.tab_Convert.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_Convert.Size = new System.Drawing.Size(780, 285);
+            this.tab_Convert.Size = new System.Drawing.Size(783, 365);
             this.tab_Convert.TabIndex = 0;
             this.tab_Convert.Text = "Convert";
             this.tab_Convert.UseVisualStyleBackColor = true;
+            // 
+            // btn_ClearOutput
+            // 
+            this.btn_ClearOutput.Location = new System.Drawing.Point(336, 248);
+            this.btn_ClearOutput.Name = "btn_ClearOutput";
+            this.btn_ClearOutput.Size = new System.Drawing.Size(75, 23);
+            this.btn_ClearOutput.TabIndex = 11;
+            this.btn_ClearOutput.Text = "Clear Output";
+            this.btn_ClearOutput.UseVisualStyleBackColor = true;
+            this.btn_ClearOutput.Click += new System.EventHandler(this.btn_ClearOutput_Click);
+            // 
+            // btn_ClearInput
+            // 
+            this.btn_ClearInput.Location = new System.Drawing.Point(255, 248);
+            this.btn_ClearInput.Name = "btn_ClearInput";
+            this.btn_ClearInput.Size = new System.Drawing.Size(75, 23);
+            this.btn_ClearInput.TabIndex = 10;
+            this.btn_ClearInput.Text = "Clear Input";
+            this.btn_ClearInput.UseVisualStyleBackColor = true;
+            this.btn_ClearInput.Click += new System.EventHandler(this.btn_ClearInput_Click);
             // 
             // btn_Clear
             // 
             this.btn_Clear.Location = new System.Drawing.Point(417, 248);
             this.btn_Clear.Name = "btn_Clear";
-            this.btn_Clear.Size = new System.Drawing.Size(70, 25);
+            this.btn_Clear.Size = new System.Drawing.Size(70, 31);
             this.btn_Clear.TabIndex = 9;
             this.btn_Clear.Text = "Clear";
             this.btn_Clear.UseVisualStyleBackColor = true;
@@ -137,7 +168,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(682, 242);
+            this.button4.Location = new System.Drawing.Point(687, 273);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 6;
@@ -370,7 +401,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(780, 285);
+            this.tabPage2.Size = new System.Drawing.Size(783, 365);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Miscellaneous";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -385,6 +416,16 @@
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Input Signal";
+            // 
+            // btn_OpenFileDBC_Misc
+            // 
+            this.btn_OpenFileDBC_Misc.Location = new System.Drawing.Point(22, 61);
+            this.btn_OpenFileDBC_Misc.Name = "btn_OpenFileDBC_Misc";
+            this.btn_OpenFileDBC_Misc.Size = new System.Drawing.Size(94, 23);
+            this.btn_OpenFileDBC_Misc.TabIndex = 1;
+            this.btn_OpenFileDBC_Misc.Text = "Open DBC File";
+            this.btn_OpenFileDBC_Misc.UseVisualStyleBackColor = true;
+            this.btn_OpenFileDBC_Misc.Click += new System.EventHandler(this.btn_OpenFileDBC_Misc_Click);
             // 
             // btn_OpenFileExcel_Misc
             // 
@@ -442,9 +483,9 @@
             // 
             this.sts_Strip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ts_Status});
-            this.sts_Strip.Location = new System.Drawing.Point(0, 317);
+            this.sts_Strip.Location = new System.Drawing.Point(0, 397);
             this.sts_Strip.Name = "sts_Strip";
-            this.sts_Strip.Size = new System.Drawing.Size(791, 22);
+            this.sts_Strip.Size = new System.Drawing.Size(794, 22);
             this.sts_Strip.TabIndex = 4;
             this.sts_Strip.Text = "statusStrip1";
             // 
@@ -457,21 +498,56 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
-            // btn_OpenFileDBC_Misc
+            // groupBox6
             // 
-            this.btn_OpenFileDBC_Misc.Location = new System.Drawing.Point(22, 61);
-            this.btn_OpenFileDBC_Misc.Name = "btn_OpenFileDBC_Misc";
-            this.btn_OpenFileDBC_Misc.Size = new System.Drawing.Size(94, 23);
-            this.btn_OpenFileDBC_Misc.TabIndex = 1;
-            this.btn_OpenFileDBC_Misc.Text = "Open DBC File";
-            this.btn_OpenFileDBC_Misc.UseVisualStyleBackColor = true;
-            this.btn_OpenFileDBC_Misc.Click += new System.EventHandler(this.btn_OpenFileDBC_Misc_Click);
+            this.groupBox6.Controls.Add(this.textBox2);
+            this.groupBox6.Controls.Add(this.textBox1);
+            this.groupBox6.Controls.Add(this.label8);
+            this.groupBox6.Controls.Add(this.label7);
+            this.groupBox6.Location = new System.Drawing.Point(6, 251);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(232, 108);
+            this.groupBox6.TabIndex = 12;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Additional Information";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 27);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(88, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Number of Bytes:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 52);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(98, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Number of Spaces:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(130, 22);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(44, 20);
+            this.textBox1.TabIndex = 13;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(130, 48);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(44, 20);
+            this.textBox2.TabIndex = 15;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(791, 339);
+            this.ClientSize = new System.Drawing.Size(794, 419);
             this.Controls.Add(this.sts_Strip);
             this.Controls.Add(this.tab_FunctionControl);
             this.Name = "Form1";
@@ -490,6 +566,8 @@
             this.groupBox4.ResumeLayout(false);
             this.sts_Strip.ResumeLayout(false);
             this.sts_Strip.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -533,6 +611,13 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button btn_OpenFileExcel_Misc;
         private System.Windows.Forms.Button btn_OpenFileDBC_Misc;
+        private System.Windows.Forms.Button btn_ClearOutput;
+        private System.Windows.Forms.Button btn_ClearInput;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

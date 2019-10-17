@@ -674,5 +674,15 @@ namespace Bosch
 
             ProgramLibs.OpenFile(ProgramLibs.FileType.DBC, g_filePath, g_fileName, ref g_nodeNameList);
         }
+
+        private void btn_ClearInput_Click(object sender, EventArgs e)
+        {
+            tb_Input.Clear();
+        }
+
+        private void btn_ClearOutput_Click(object sender, EventArgs e)
+        {
+            tb_Output.Clear();
+        }
     }
 }

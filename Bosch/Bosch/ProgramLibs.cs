@@ -7,6 +7,7 @@ using System.IO;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using OfficeOpenXml;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bosch
 {
@@ -196,9 +197,7 @@ namespace Bosch
             signalNameList = l_signalNameList;
             return true;
         }
-
         #endregion OpenFile
-
 
         #region Search
         internal static bool SearchString(string inputString)
@@ -222,5 +221,9 @@ namespace Bosch
             return false;
         }
         #endregion Search
+    }
+
+    class BloggingContext : DbContext
+    {
     }
 }
