@@ -22,7 +22,6 @@ namespace Bosch
 {
     public partial class Form1 : Form
     {
-
         /* enums */
         /** Conversion part **/
         enum test { on, off };
@@ -585,7 +584,22 @@ namespace Bosch
 
         private void tb_Input_TextChanged(object sender, EventArgs e)
         {
+            ProgramLibs.StringType l_inputFormat;
+            l_inputFormat = ProgramLibs.CheckTheInputFormat(tb_Input.Text);
+            switch (l_inputFormat)
+            {
+                case ProgramLibs.StringType.With_0x:
 
+                    break;
+
+                case ProgramLibs.StringType.Normal:
+
+                    break;
+
+                default:
+                    // input string is empty or null
+                    break;
+            }
         }
 
         private void cb_SID_SelectedIndexChanged(object sender, EventArgs e)

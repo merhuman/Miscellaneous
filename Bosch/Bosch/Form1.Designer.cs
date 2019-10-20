@@ -30,6 +30,10 @@
         {
             this.tab_FunctionControl = new System.Windows.Forms.TabControl();
             this.tab_Convert = new System.Windows.Forms.TabPage();
+            this.tb_NumberOfSpacesInput = new System.Windows.Forms.TextBox();
+            this.tb_NumberOfBytesInput = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.btn_ClearOutput = new System.Windows.Forms.Button();
             this.btn_ClearInput = new System.Windows.Forms.Button();
             this.btn_Clear = new System.Windows.Forms.Button();
@@ -67,11 +71,10 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tb_NumberOfBytesOutput = new System.Windows.Forms.TextBox();
+            this.tb_NumberOfSpacesOutput = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -81,7 +84,6 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.sts_Strip.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab_FunctionControl
@@ -96,9 +98,6 @@
             // 
             // tab_Convert
             // 
-            this.tab_Convert.Controls.Add(this.groupBox6);
-            this.tab_Convert.Controls.Add(this.btn_ClearOutput);
-            this.tab_Convert.Controls.Add(this.btn_ClearInput);
             this.tab_Convert.Controls.Add(this.btn_Clear);
             this.tab_Convert.Controls.Add(this.btn_Compare);
             this.tab_Convert.Controls.Add(this.btn_AddDrop);
@@ -116,9 +115,41 @@
             this.tab_Convert.Text = "Convert";
             this.tab_Convert.UseVisualStyleBackColor = true;
             // 
+            // tb_NumberOfSpacesInput
+            // 
+            this.tb_NumberOfSpacesInput.Location = new System.Drawing.Point(268, 106);
+            this.tb_NumberOfSpacesInput.Name = "tb_NumberOfSpacesInput";
+            this.tb_NumberOfSpacesInput.Size = new System.Drawing.Size(44, 20);
+            this.tb_NumberOfSpacesInput.TabIndex = 15;
+            // 
+            // tb_NumberOfBytesInput
+            // 
+            this.tb_NumberOfBytesInput.Location = new System.Drawing.Point(100, 105);
+            this.tb_NumberOfBytesInput.Name = "tb_NumberOfBytesInput";
+            this.tb_NumberOfBytesInput.Size = new System.Drawing.Size(44, 20);
+            this.tb_NumberOfBytesInput.TabIndex = 13;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(164, 110);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(98, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Number of Spaces:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 109);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(88, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Number of Bytes:";
+            // 
             // btn_ClearOutput
             // 
-            this.btn_ClearOutput.Location = new System.Drawing.Point(336, 248);
+            this.btn_ClearOutput.Location = new System.Drawing.Point(400, 108);
             this.btn_ClearOutput.Name = "btn_ClearOutput";
             this.btn_ClearOutput.Size = new System.Drawing.Size(75, 23);
             this.btn_ClearOutput.TabIndex = 11;
@@ -128,7 +159,7 @@
             // 
             // btn_ClearInput
             // 
-            this.btn_ClearInput.Location = new System.Drawing.Point(255, 248);
+            this.btn_ClearInput.Location = new System.Drawing.Point(400, 105);
             this.btn_ClearInput.Name = "btn_ClearInput";
             this.btn_ClearInput.Size = new System.Drawing.Size(75, 23);
             this.btn_ClearInput.TabIndex = 10;
@@ -138,7 +169,7 @@
             // 
             // btn_Clear
             // 
-            this.btn_Clear.Location = new System.Drawing.Point(417, 248);
+            this.btn_Clear.Location = new System.Drawing.Point(417, 303);
             this.btn_Clear.Name = "btn_Clear";
             this.btn_Clear.Size = new System.Drawing.Size(70, 31);
             this.btn_Clear.TabIndex = 9;
@@ -197,10 +228,15 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.tb_NumberOfSpacesOutput);
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Controls.Add(this.tb_NumberOfBytesOutput);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.btn_ClearOutput);
             this.groupBox3.Controls.Add(this.tb_Output);
-            this.groupBox3.Location = new System.Drawing.Point(6, 127);
+            this.groupBox3.Location = new System.Drawing.Point(6, 152);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(481, 118);
+            this.groupBox3.Size = new System.Drawing.Size(481, 144);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Output";
@@ -215,10 +251,15 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tb_NumberOfSpacesInput);
+            this.groupBox2.Controls.Add(this.btn_ClearInput);
+            this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.tb_Input);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.tb_NumberOfBytesInput);
             this.groupBox2.Location = new System.Drawing.Point(6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(481, 115);
+            this.groupBox2.Size = new System.Drawing.Size(481, 140);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Input";
@@ -498,50 +539,37 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
-            // groupBox6
+            // label9
             // 
-            this.groupBox6.Controls.Add(this.textBox2);
-            this.groupBox6.Controls.Add(this.textBox1);
-            this.groupBox6.Controls.Add(this.label8);
-            this.groupBox6.Controls.Add(this.label7);
-            this.groupBox6.Location = new System.Drawing.Point(6, 251);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(232, 108);
-            this.groupBox6.TabIndex = 12;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Additional Information";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 113);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(88, 13);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "Number of Bytes:";
             // 
-            // label7
+            // tb_NumberOfBytesOutput
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 27);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(88, 13);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Number of Bytes:";
+            this.tb_NumberOfBytesOutput.Location = new System.Drawing.Point(100, 110);
+            this.tb_NumberOfBytesOutput.Name = "tb_NumberOfBytesOutput";
+            this.tb_NumberOfBytesOutput.Size = new System.Drawing.Size(44, 20);
+            this.tb_NumberOfBytesOutput.TabIndex = 15;
             // 
-            // label8
+            // tb_NumberOfSpacesOutput
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 52);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(98, 13);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Number of Spaces:";
+            this.tb_NumberOfSpacesOutput.Location = new System.Drawing.Point(268, 109);
+            this.tb_NumberOfSpacesOutput.Name = "tb_NumberOfSpacesOutput";
+            this.tb_NumberOfSpacesOutput.Size = new System.Drawing.Size(44, 20);
+            this.tb_NumberOfSpacesOutput.TabIndex = 17;
             // 
-            // textBox1
+            // label10
             // 
-            this.textBox1.Location = new System.Drawing.Point(130, 22);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(44, 20);
-            this.textBox1.TabIndex = 13;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(130, 48);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(44, 20);
-            this.textBox2.TabIndex = 15;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(164, 113);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(98, 13);
+            this.label10.TabIndex = 16;
+            this.label10.Text = "Number of Spaces:";
             // 
             // Form1
             // 
@@ -566,8 +594,6 @@
             this.groupBox4.ResumeLayout(false);
             this.sts_Strip.ResumeLayout(false);
             this.sts_Strip.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -613,11 +639,14 @@
         private System.Windows.Forms.Button btn_OpenFileDBC_Misc;
         private System.Windows.Forms.Button btn_ClearOutput;
         private System.Windows.Forms.Button btn_ClearInput;
-        private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tb_NumberOfSpacesInput;
+        private System.Windows.Forms.TextBox tb_NumberOfBytesInput;
+        private System.Windows.Forms.TextBox tb_NumberOfSpacesOutput;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox tb_NumberOfBytesOutput;
+        private System.Windows.Forms.Label label9;
     }
 }
 

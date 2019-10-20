@@ -18,10 +18,36 @@ namespace Bosch
 
         }
 
+        /* enums */
+        internal enum StringType { Normal, With_0x, Empty };
+        internal enum FileType { Excel, DBC, Undefined };
+
         #region UnderDevelopment
         #endregion UnderDevelopment
 
         #region GeneralFunction
+        internal static StringType CheckTheInputFormat(string input)
+        {
+            /*
+             * This Check function will be updated later to identify more precisely
+             * Such as:
+             * whether the input string is truly a With_0x type or not? If it starts with 0x
+             * but the following sub string does not contain other 0x then this means the input
+             * string is not a With_0x type
+             * And so on...
+             * */
+            if (string.IsNullOrEmpty(input))
+            {
+                return StringType.Empty;
+            }
+            else if (input.StartsWith("0x"))
+            {
+                return StringType.With_0x;
+            }
+            
+            return StringType.Normal;
+        }
+
         internal string AddSpacesBetweenDTCString(string input)
         {
             /* 
@@ -38,27 +64,37 @@ namespace Bosch
             return res;
         }
 
-        internal bool CheckPattern(string pattern)
+        internal static string RemoveWhiteSpace(string input)
         {
-
-            return true;
+            return input.ToCharArray()
+                    .Where(c => !Char.IsWhiteSpace(c))
+                    .Select(c => c.ToString())
+                    .Aggregate((a, b) => a + b);
         }
- 
+
+        internal int CountNumberOfByte(string inputString)
+        {
+            /*
+             * This function counts the number of bytes by counting the "0x" combinations in string.
+             * */
+            int l_dataLength = 0;
+            
+            return l_dataLength;
+        }
+
+        internal int CountNumberOfSpace(string inputString)
+        {
+            /* 
+             * This function counts the number of spaces
+             * */
+            int l_numberOfSpaces = 0;
+
+            return l_numberOfSpaces;
+        }
+
         #endregion GeneralFunction
 
         #region Conversion
-        /* enums */
-        internal enum StringType { Normal, With_0x  };
-        internal enum FileType { Excel, DBC, Undefined };
-        internal static StringType CheckTheInputFormat(string input)
-        {
-            if (input.StartsWith("0x"))
-            {
-                return StringType.With_0x;
-            }
-            return StringType.Normal;
-        }
-
         internal static bool CheckAndAddSpace(string input)
         {
             /*
@@ -78,14 +114,6 @@ namespace Bosch
             /**/
 
             return true;
-        }
-
-        internal static string RemoveWhiteSpace(string input)
-        {
-            return input.ToCharArray()
-                    .Where(c => !Char.IsWhiteSpace(c))
-                    .Select(c => c.ToString())
-                    .Aggregate((a, b) => a + b);
         }
 
         internal static string HexStringToString(string hexString)
