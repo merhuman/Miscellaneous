@@ -30,12 +30,6 @@
         {
             this.tab_FunctionControl = new System.Windows.Forms.TabControl();
             this.tab_Convert = new System.Windows.Forms.TabPage();
-            this.tb_NumberOfSpacesInput = new System.Windows.Forms.TextBox();
-            this.tb_NumberOfBytesInput = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.btn_ClearOutput = new System.Windows.Forms.Button();
-            this.btn_ClearInput = new System.Windows.Forms.Button();
             this.btn_Clear = new System.Windows.Forms.Button();
             this.btn_Compare = new System.Windows.Forms.Button();
             this.btn_AddDrop = new System.Windows.Forms.Button();
@@ -43,9 +37,21 @@
             this.btn_Convert = new System.Windows.Forms.Button();
             this.btn_Save = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tb_countOutput = new System.Windows.Forms.Button();
+            this.tb_NumberOfSpacesOutput = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tb_NumberOfChunksOutput = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btn_ClearOutput = new System.Windows.Forms.Button();
             this.tb_Output = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btn_countInput = new System.Windows.Forms.Button();
+            this.tb_NumberOfSpacesInput = new System.Windows.Forms.TextBox();
+            this.btn_ClearInput = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             this.tb_Input = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tb_NumberOfChunksInput = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cb_SID = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -71,10 +77,10 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tb_NumberOfBytesOutput = new System.Windows.Forms.TextBox();
-            this.tb_NumberOfSpacesOutput = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tb_NumberOfCharsInput = new System.Windows.Forms.TextBox();
+            this.tb_NumberOfCharsOutput = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -115,66 +121,15 @@
             this.tab_Convert.Text = "Convert";
             this.tab_Convert.UseVisualStyleBackColor = true;
             // 
-            // tb_NumberOfSpacesInput
-            // 
-            this.tb_NumberOfSpacesInput.Location = new System.Drawing.Point(268, 106);
-            this.tb_NumberOfSpacesInput.Name = "tb_NumberOfSpacesInput";
-            this.tb_NumberOfSpacesInput.Size = new System.Drawing.Size(44, 20);
-            this.tb_NumberOfSpacesInput.TabIndex = 15;
-            // 
-            // tb_NumberOfBytesInput
-            // 
-            this.tb_NumberOfBytesInput.Location = new System.Drawing.Point(100, 105);
-            this.tb_NumberOfBytesInput.Name = "tb_NumberOfBytesInput";
-            this.tb_NumberOfBytesInput.Size = new System.Drawing.Size(44, 20);
-            this.tb_NumberOfBytesInput.TabIndex = 13;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(164, 110);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(98, 13);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Number of Spaces:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 109);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(88, 13);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Number of Bytes:";
-            // 
-            // btn_ClearOutput
-            // 
-            this.btn_ClearOutput.Location = new System.Drawing.Point(400, 108);
-            this.btn_ClearOutput.Name = "btn_ClearOutput";
-            this.btn_ClearOutput.Size = new System.Drawing.Size(75, 23);
-            this.btn_ClearOutput.TabIndex = 11;
-            this.btn_ClearOutput.Text = "Clear Output";
-            this.btn_ClearOutput.UseVisualStyleBackColor = true;
-            this.btn_ClearOutput.Click += new System.EventHandler(this.btn_ClearOutput_Click);
-            // 
-            // btn_ClearInput
-            // 
-            this.btn_ClearInput.Location = new System.Drawing.Point(400, 105);
-            this.btn_ClearInput.Name = "btn_ClearInput";
-            this.btn_ClearInput.Size = new System.Drawing.Size(75, 23);
-            this.btn_ClearInput.TabIndex = 10;
-            this.btn_ClearInput.Text = "Clear Input";
-            this.btn_ClearInput.UseVisualStyleBackColor = true;
-            this.btn_ClearInput.Click += new System.EventHandler(this.btn_ClearInput_Click);
-            // 
             // btn_Clear
             // 
-            this.btn_Clear.Location = new System.Drawing.Point(417, 303);
+            this.btn_Clear.BackColor = System.Drawing.Color.Yellow;
+            this.btn_Clear.Location = new System.Drawing.Point(417, 328);
             this.btn_Clear.Name = "btn_Clear";
             this.btn_Clear.Size = new System.Drawing.Size(70, 31);
             this.btn_Clear.TabIndex = 9;
             this.btn_Clear.Text = "Clear";
-            this.btn_Clear.UseVisualStyleBackColor = true;
+            this.btn_Clear.UseVisualStyleBackColor = false;
             this.btn_Clear.Click += new System.EventHandler(this.btn_Clear_Click);
             // 
             // btn_Compare
@@ -228,18 +183,78 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.tb_NumberOfCharsOutput);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.tb_countOutput);
             this.groupBox3.Controls.Add(this.tb_NumberOfSpacesOutput);
             this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Controls.Add(this.tb_NumberOfBytesOutput);
+            this.groupBox3.Controls.Add(this.tb_NumberOfChunksOutput);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.btn_ClearOutput);
             this.groupBox3.Controls.Add(this.tb_Output);
-            this.groupBox3.Location = new System.Drawing.Point(6, 152);
+            this.groupBox3.Location = new System.Drawing.Point(6, 165);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(481, 144);
+            this.groupBox3.Size = new System.Drawing.Size(481, 157);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Output";
+            // 
+            // tb_countOutput
+            // 
+            this.tb_countOutput.Location = new System.Drawing.Point(332, 109);
+            this.tb_countOutput.Name = "tb_countOutput";
+            this.tb_countOutput.Size = new System.Drawing.Size(51, 23);
+            this.tb_countOutput.TabIndex = 18;
+            this.tb_countOutput.Text = "Count";
+            this.tb_countOutput.UseVisualStyleBackColor = true;
+            this.tb_countOutput.Click += new System.EventHandler(this.tb_countOutput_Click);
+            // 
+            // tb_NumberOfSpacesOutput
+            // 
+            this.tb_NumberOfSpacesOutput.Location = new System.Drawing.Point(268, 110);
+            this.tb_NumberOfSpacesOutput.Name = "tb_NumberOfSpacesOutput";
+            this.tb_NumberOfSpacesOutput.ReadOnly = true;
+            this.tb_NumberOfSpacesOutput.Size = new System.Drawing.Size(44, 20);
+            this.tb_NumberOfSpacesOutput.TabIndex = 17;
+            this.tb_NumberOfSpacesOutput.Text = "0";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(164, 113);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(98, 13);
+            this.label10.TabIndex = 16;
+            this.label10.Text = "Number of Spaces:";
+            // 
+            // tb_NumberOfChunksOutput
+            // 
+            this.tb_NumberOfChunksOutput.Location = new System.Drawing.Point(110, 109);
+            this.tb_NumberOfChunksOutput.Name = "tb_NumberOfChunksOutput";
+            this.tb_NumberOfChunksOutput.ReadOnly = true;
+            this.tb_NumberOfChunksOutput.Size = new System.Drawing.Size(44, 20);
+            this.tb_NumberOfChunksOutput.TabIndex = 15;
+            this.tb_NumberOfChunksOutput.Text = "0";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 113);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(98, 13);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "Number of Chunks:";
+            // 
+            // btn_ClearOutput
+            // 
+            this.btn_ClearOutput.BackColor = System.Drawing.Color.Yellow;
+            this.btn_ClearOutput.Location = new System.Drawing.Point(400, 109);
+            this.btn_ClearOutput.Name = "btn_ClearOutput";
+            this.btn_ClearOutput.Size = new System.Drawing.Size(75, 23);
+            this.btn_ClearOutput.TabIndex = 11;
+            this.btn_ClearOutput.Text = "Clear Output";
+            this.btn_ClearOutput.UseVisualStyleBackColor = false;
+            this.btn_ClearOutput.Click += new System.EventHandler(this.btn_ClearOutput_Click);
             // 
             // tb_Output
             // 
@@ -251,18 +266,60 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tb_NumberOfCharsInput);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.btn_countInput);
             this.groupBox2.Controls.Add(this.tb_NumberOfSpacesInput);
             this.groupBox2.Controls.Add(this.btn_ClearInput);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.tb_Input);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.tb_NumberOfBytesInput);
+            this.groupBox2.Controls.Add(this.tb_NumberOfChunksInput);
             this.groupBox2.Location = new System.Drawing.Point(6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(481, 140);
+            this.groupBox2.Size = new System.Drawing.Size(481, 156);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Input";
+            // 
+            // btn_countInput
+            // 
+            this.btn_countInput.Location = new System.Drawing.Point(332, 105);
+            this.btn_countInput.Name = "btn_countInput";
+            this.btn_countInput.Size = new System.Drawing.Size(51, 23);
+            this.btn_countInput.TabIndex = 16;
+            this.btn_countInput.Text = "Count";
+            this.btn_countInput.UseVisualStyleBackColor = true;
+            this.btn_countInput.Click += new System.EventHandler(this.tb_countInput_Click);
+            // 
+            // tb_NumberOfSpacesInput
+            // 
+            this.tb_NumberOfSpacesInput.Location = new System.Drawing.Point(268, 106);
+            this.tb_NumberOfSpacesInput.Name = "tb_NumberOfSpacesInput";
+            this.tb_NumberOfSpacesInput.ReadOnly = true;
+            this.tb_NumberOfSpacesInput.Size = new System.Drawing.Size(44, 20);
+            this.tb_NumberOfSpacesInput.TabIndex = 15;
+            this.tb_NumberOfSpacesInput.Text = "0";
+            // 
+            // btn_ClearInput
+            // 
+            this.btn_ClearInput.BackColor = System.Drawing.Color.Yellow;
+            this.btn_ClearInput.Location = new System.Drawing.Point(400, 105);
+            this.btn_ClearInput.Name = "btn_ClearInput";
+            this.btn_ClearInput.Size = new System.Drawing.Size(75, 23);
+            this.btn_ClearInput.TabIndex = 10;
+            this.btn_ClearInput.Text = "Clear Input";
+            this.btn_ClearInput.UseVisualStyleBackColor = false;
+            this.btn_ClearInput.Click += new System.EventHandler(this.btn_ClearInput_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(164, 109);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(98, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Number of Spaces:";
             // 
             // tb_Input
             // 
@@ -271,7 +328,24 @@
             this.tb_Input.Name = "tb_Input";
             this.tb_Input.Size = new System.Drawing.Size(469, 79);
             this.tb_Input.TabIndex = 0;
-            this.tb_Input.TextChanged += new System.EventHandler(this.tb_Input_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 108);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(98, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Number of Chunks:";
+            // 
+            // tb_NumberOfChunksInput
+            // 
+            this.tb_NumberOfChunksInput.Location = new System.Drawing.Point(110, 105);
+            this.tb_NumberOfChunksInput.Name = "tb_NumberOfChunksInput";
+            this.tb_NumberOfChunksInput.ReadOnly = true;
+            this.tb_NumberOfChunksInput.Size = new System.Drawing.Size(44, 20);
+            this.tb_NumberOfChunksInput.TabIndex = 13;
+            this.tb_NumberOfChunksInput.Text = "0";
             // 
             // groupBox1
             // 
@@ -539,37 +613,41 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
-            // label9
+            // label11
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 113);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(88, 13);
-            this.label9.TabIndex = 14;
-            this.label9.Text = "Number of Bytes:";
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 132);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(89, 13);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "Number of Chars:";
             // 
-            // tb_NumberOfBytesOutput
+            // tb_NumberOfCharsInput
             // 
-            this.tb_NumberOfBytesOutput.Location = new System.Drawing.Point(100, 110);
-            this.tb_NumberOfBytesOutput.Name = "tb_NumberOfBytesOutput";
-            this.tb_NumberOfBytesOutput.Size = new System.Drawing.Size(44, 20);
-            this.tb_NumberOfBytesOutput.TabIndex = 15;
+            this.tb_NumberOfCharsInput.Location = new System.Drawing.Point(110, 129);
+            this.tb_NumberOfCharsInput.Name = "tb_NumberOfCharsInput";
+            this.tb_NumberOfCharsInput.ReadOnly = true;
+            this.tb_NumberOfCharsInput.Size = new System.Drawing.Size(44, 20);
+            this.tb_NumberOfCharsInput.TabIndex = 18;
+            this.tb_NumberOfCharsInput.Text = "0";
             // 
-            // tb_NumberOfSpacesOutput
+            // tb_NumberOfCharsOutput
             // 
-            this.tb_NumberOfSpacesOutput.Location = new System.Drawing.Point(268, 109);
-            this.tb_NumberOfSpacesOutput.Name = "tb_NumberOfSpacesOutput";
-            this.tb_NumberOfSpacesOutput.Size = new System.Drawing.Size(44, 20);
-            this.tb_NumberOfSpacesOutput.TabIndex = 17;
+            this.tb_NumberOfCharsOutput.Location = new System.Drawing.Point(110, 133);
+            this.tb_NumberOfCharsOutput.Name = "tb_NumberOfCharsOutput";
+            this.tb_NumberOfCharsOutput.ReadOnly = true;
+            this.tb_NumberOfCharsOutput.Size = new System.Drawing.Size(44, 20);
+            this.tb_NumberOfCharsOutput.TabIndex = 20;
+            this.tb_NumberOfCharsOutput.Text = "0";
             // 
-            // label10
+            // label12
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(164, 113);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(98, 13);
-            this.label10.TabIndex = 16;
-            this.label10.Text = "Number of Spaces:";
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 136);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(89, 13);
+            this.label12.TabIndex = 19;
+            this.label12.Text = "Number of Chars:";
             // 
             // Form1
             // 
@@ -642,11 +720,17 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tb_NumberOfSpacesInput;
-        private System.Windows.Forms.TextBox tb_NumberOfBytesInput;
+        private System.Windows.Forms.TextBox tb_NumberOfChunksInput;
         private System.Windows.Forms.TextBox tb_NumberOfSpacesOutput;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox tb_NumberOfBytesOutput;
+        private System.Windows.Forms.TextBox tb_NumberOfChunksOutput;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button tb_countOutput;
+        private System.Windows.Forms.Button btn_countInput;
+        private System.Windows.Forms.TextBox tb_NumberOfCharsOutput;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox tb_NumberOfCharsInput;
+        private System.Windows.Forms.Label label11;
     }
 }
 

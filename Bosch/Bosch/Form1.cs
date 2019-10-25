@@ -181,8 +181,19 @@ namespace Bosch
 
         private void button4_Click(object sender, EventArgs e)
         {
-            
+            string test = "Hello";
+            int number;
+            List<char> testarray = test.ToList<char>();
+            number = test.ToList<char>().Aggregate(0, (n, c) => !char.IsWhiteSpace(c) ? ++n : n);
+            Console.WriteLine(number);
 
+            int[] ints = { 4, 8, 8, 3, 9, 0, 7, 8, 2 };
+
+            // Count the even numbers in the array, using a seed value of 0.
+            int numEven = ints.Aggregate(0, (total, next) =>
+                                                next % 2 == 0 ? total + 1 : total);
+
+            Console.WriteLine("The number of even integers is: {0}", numEven);
         }
 
         private void tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)
@@ -480,6 +491,9 @@ namespace Bosch
         {
             tb_Input.Clear();
             tb_Output.Clear();
+
+            tb_NumberOfChunksInput.Text = tb_NumberOfSpacesInput.Text = tb_NumberOfCharsInput.Text = "0";
+            tb_NumberOfChunksOutput.Text = tb_NumberOfSpacesOutput.Text = tb_NumberOfCharsOutput.Text = "0";
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -582,26 +596,6 @@ namespace Bosch
             }
         }
 
-        private void tb_Input_TextChanged(object sender, EventArgs e)
-        {
-            ProgramLibs.StringType l_inputFormat;
-            l_inputFormat = ProgramLibs.CheckTheInputFormat(tb_Input.Text);
-            switch (l_inputFormat)
-            {
-                case ProgramLibs.StringType.With_0x:
-
-                    break;
-
-                case ProgramLibs.StringType.Normal:
-
-                    break;
-
-                default:
-                    // input string is empty or null
-                    break;
-            }
-        }
-
         private void cb_SID_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch(cb_SID.SelectedIndex)
@@ -692,11 +686,27 @@ namespace Bosch
         private void btn_ClearInput_Click(object sender, EventArgs e)
         {
             tb_Input.Clear();
+            tb_NumberOfChunksInput.Text = tb_NumberOfSpacesInput.Text = tb_NumberOfCharsInput.Text = "0";
         }
 
         private void btn_ClearOutput_Click(object sender, EventArgs e)
         {
             tb_Output.Clear();
+            tb_NumberOfChunksOutput.Text = tb_NumberOfSpacesOutput.Text = tb_NumberOfCharsOutput.Text = "0";
+        }
+
+        private void tb_countInput_Click(object sender, EventArgs e)
+        {
+            tb_NumberOfChunksInput.Text = ProgramLibs.CountNumberOfChunks(tb_Input.Text).ToString();
+            tb_NumberOfSpacesInput.Text = ProgramLibs.CountNumberOfSpace(tb_Input.Text).ToString();
+            tb_NumberOfCharsInput.Text = tb_Input.Text.Count().ToString();
+        }
+
+        private void tb_countOutput_Click(object sender, EventArgs e)
+        {
+            tb_NumberOfChunksOutput.Text = ProgramLibs.CountNumberOfChunks(tb_Output.Text).ToString();
+            tb_NumberOfSpacesOutput.Text = ProgramLibs.CountNumberOfSpace(tb_Output.Text).ToString();
+            tb_NumberOfCharsOutput.Text = tb_Output.Text.Count().ToString();
         }
     }
 }

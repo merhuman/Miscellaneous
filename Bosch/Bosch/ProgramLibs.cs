@@ -72,23 +72,41 @@ namespace Bosch
                     .Aggregate((a, b) => a + b);
         }
 
-        internal int CountNumberOfByte(string inputString)
+        internal static int CountNumberOfChunks(string inputString)
         {
             /*
              * This function counts the number of bytes by counting the "0x" combinations in string.
              * */
             int l_dataLength = 0;
+            StringType l_stringType;
+            string l_string = inputString.Trim();
+            l_stringType = CheckTheInputFormat(l_string);
             
+            switch (l_stringType)
+            {
+                case StringType.With_0x:
+                    l_dataLength = l_string.Split(',').Count();
+                    break;
+
+                case StringType.Normal:
+                    l_dataLength = l_string.Aggregate(0, (total, next) => char.IsWhiteSpace(next) ? total = total + 1 : total);
+                    l_dataLength++; // Real number of bytes.
+                    break;
+
+                default:
+                    break;
+            }
+
             return l_dataLength;
         }
 
-        internal int CountNumberOfSpace(string inputString)
+        internal static int CountNumberOfSpace(string inputString)
         {
             /* 
              * This function counts the number of spaces
              * */
             int l_numberOfSpaces = 0;
-
+            l_numberOfSpaces = inputString.Aggregate(0, (total, next) => char.IsWhiteSpace(next) ? total = total + 1 : total);
             return l_numberOfSpaces;
         }
 
