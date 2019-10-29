@@ -8,6 +8,8 @@ using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using OfficeOpenXml;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SQLite;
+
 
 namespace Bosch
 {
@@ -202,6 +204,7 @@ namespace Bosch
             switch (fileType)
             {
                 case FileType.Excel:
+                    // Might add try catch structure here later.
                     File.Copy(inputFilePath, l_sourcePath, true);
                     ReadAllSignalNames(l_sourcePath, ref nameList);
                     break;
@@ -228,15 +231,12 @@ namespace Bosch
             {
                 foreach (ExcelWorksheet worksheet in excelPackage.Workbook.Worksheets)
                 {
-                    for (int row = worksheet.Dimension.Start.Row; row <= worksheet.Dimension.End.Row; row++)
+                    for (int row = worksheet.Dimension.Start.Row + 1; row <= worksheet.Dimension.End.Row; row++)
                     {
-                        for (int column = worksheet.Dimension.Start.Column; column <= worksheet.Dimension.End.Column; column++)
+                        if (worksheet.Cells.Value != null)
                         {
-                            if (worksheet.Cells.Value != null)
-                            {
-                                l_signalNameList.Add(worksheet.Cells[row, column].Value.ToString());
-                            }
-                        }
+                            l_signalNameList.Add(worksheet.Cells[row, 0].Value.ToString());
+                        }  
                     }
                 }
             }
@@ -267,9 +267,5 @@ namespace Bosch
             return false;
         }
         #endregion Search
-    }
-
-    class BloggingContext : DbContext
-    {
     }
 }

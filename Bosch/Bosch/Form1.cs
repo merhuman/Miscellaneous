@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 // update lib
 using OfficeOpenXml;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SQLite;
 
 
 namespace Bosch
@@ -181,19 +182,7 @@ namespace Bosch
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string test = "Hello";
-            int number;
-            List<char> testarray = test.ToList<char>();
-            number = test.ToList<char>().Aggregate(0, (n, c) => !char.IsWhiteSpace(c) ? ++n : n);
-            Console.WriteLine(number);
-
-            int[] ints = { 4, 8, 8, 3, 9, 0, 7, 8, 2 };
-
-            // Count the even numbers in the array, using a seed value of 0.
-            int numEven = ints.Aggregate(0, (total, next) =>
-                                                next % 2 == 0 ? total + 1 : total);
-
-            Console.WriteLine("The number of even integers is: {0}", numEven);
+            string[] test = new string[500];
         }
 
         private void tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)
@@ -661,9 +650,8 @@ namespace Bosch
             {
                 g_fileName = g_odf_Misc.SafeFileName;
                 g_filePath = g_odf_Misc.FileName;
+                ProgramLibs.OpenFile(ProgramLibs.FileType.Excel, g_filePath, g_fileName, ref g_signalNameList);
             }
-
-            ProgramLibs.OpenFile(ProgramLibs.FileType.Excel, g_filePath, g_fileName, ref g_signalNameList);
         }
 
         private void btn_OpenFileDBC_Misc_Click(object sender, EventArgs e)
