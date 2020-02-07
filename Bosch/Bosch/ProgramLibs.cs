@@ -200,25 +200,28 @@ namespace Bosch
             string l_sourcePath = "./Configuration";
             Directory.CreateDirectory(l_sourcePath);
             l_sourcePath = Path.Combine(l_sourcePath, fileName);
-
-            switch (fileType)
+            if (!string.IsNullOrEmpty(inputFilePath))
             {
-                case FileType.Excel:
-                    // Might add try catch structure here later.
-                    File.Copy(inputFilePath, l_sourcePath, true);
-                    ReadAllSignalNames(l_sourcePath, ref nameList);
-                    break;
+                switch (fileType)
+                {
+                    case FileType.Excel:
+                        // Might add try catch structure here later.
+                        File.Copy(inputFilePath, l_sourcePath, true);
+                        ReadAllSignalNames(l_sourcePath, ref nameList);
+                        break;
 
-                case FileType.DBC:
-                    l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert dbc file to txt file for more convenient purpose
-                    File.Copy(inputFilePath, l_sourcePath, true);
-                    GetNodesFromDBCFile(l_sourcePath, ref nameList);
-                    break;
+                    case FileType.DBC:
+                        l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert dbc file to txt file for more convenient purpose
+                        File.Copy(inputFilePath, l_sourcePath, true);
+                        GetNodesFromDBCFile(l_sourcePath, ref nameList);
+                        break;
 
-                default:
-                    return false;
+                    default:
+                        return false;
+                }
+                return true;
             }
-            return true;
+            return false;
         }
 
         internal static bool ReadAllSignalNames(string filePath, ref List<string> signalNameList)
