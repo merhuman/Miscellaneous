@@ -25,7 +25,7 @@ namespace Bosch
     {
         /* enums */
         /** Conversion part **/
-        enum test { on, off };
+        enum test { on = 6, off = 9};
         enum ConvertMode { StringToHex, HexToString, Add0x, Drop0x };
         string g_SID;
         string g_DID;
@@ -101,7 +101,8 @@ namespace Bosch
                     if (l_numberOfData >= tb_Input.Text.Length || l_numberOfData == 0)
                     {
                         l_accessoryByte = l_numberOfData - tb_Input.Text.Length;
-                        l_paddingByte = (cb_Padding.Text == "") ? "0x00" : cb_Padding.SelectedText;
+                        l_paddingByte = (cb_Padding.Text == "") ? "0x00" : cb_Padding.Text;
+                        string testString = cb_Padding.Text;
 
                         /* Change to normal hex string with space */
                         foreach (char letter in tb_Input.Text)
@@ -121,8 +122,8 @@ namespace Bosch
                         if (l_numberOfData > 0)
                         {
                             l_paddingByte = l_paddingByte.Substring(2); // drop the 0x part of padding byte.
-                            l_outputResult1 += string.Concat(Enumerable.Repeat(l_paddingByte, l_accessoryByte));
-                            l_outputResult2 += string.Concat(Enumerable.Repeat(l_paddingByte, l_accessoryByte));
+                            l_outputResult1 += string.Concat(Enumerable.Repeat(" " + l_paddingByte, l_accessoryByte));
+                            l_outputResult2 += string.Concat(Enumerable.Repeat(",0x" + l_paddingByte, l_accessoryByte));
                         }
 
                         /* Add SID and DID */
@@ -182,7 +183,7 @@ namespace Bosch
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string[] test = new string[500];
+            Console.WriteLine("Value of enum is " + Convert.ToString((int)test.on));
         }
 
         private void tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)
