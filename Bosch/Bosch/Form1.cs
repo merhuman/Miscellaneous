@@ -183,7 +183,12 @@ namespace Bosch
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Value of enum is " + Convert.ToString((int)test.on));
+            int[] testArray = {0, 1, 2, 1, 4, 5, 4 };
+            if (testArray.Any(x => x > 3))
+                Console.WriteLine("True");
+            else
+                Console.WriteLine("False");
+            
         }
 
         private void tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)

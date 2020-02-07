@@ -269,6 +269,12 @@ namespace Bosch
             }
             return false;
         }
+
+        internal static int[] FindAllIndexOf (int[] values, int val)
+        {
+            return values.Select((b, i) => object.Equals(b, val) ? i : -1).Where(i => i != -1).ToArray();
+        }
+
         #endregion Search
     }
 }
