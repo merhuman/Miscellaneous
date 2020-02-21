@@ -183,11 +183,7 @@ namespace Bosch
 
         private void button4_Click(object sender, EventArgs e)
         {
-            int[] testArray = {0, 1, 2, 1, 4, 5, 4 };
-            if (testArray.Any(x => x > 3))
-                Console.WriteLine("True");
-            else
-                Console.WriteLine("False");
+            string[] name = { "Tom", "Ron", "Jane" };
             
         }
 
@@ -341,7 +337,7 @@ namespace Bosch
             /* Drop 0x from the string */
             else if (cb_Mode.SelectedIndex == 3)
             {
-                tb_Output.Text = tb_Input.Text.Replace(",0x", " ").Substring(2);
+                tb_Output.Text = tb_Input.Text.Replace("0x", " ").Replace(",", "").Replace("  ", " ").Trim();
                 /*
                  * This line will replace all ",0x" and take string from 3rd letter to neglect
                  */
