@@ -33,11 +33,13 @@
             this.btn_Clear = new System.Windows.Forms.Button();
             this.btn_Compare = new System.Windows.Forms.Button();
             this.btn_AddDrop = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btn_Test = new System.Windows.Forms.Button();
             this.btn_Convert = new System.Windows.Forms.Button();
             this.btn_Save = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.tb_countOutput = new System.Windows.Forms.Button();
+            this.tb_NumberOfCharsOutput = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.btn_countOutput = new System.Windows.Forms.Button();
             this.tb_NumberOfSpacesOutput = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tb_NumberOfChunksOutput = new System.Windows.Forms.TextBox();
@@ -45,6 +47,8 @@
             this.btn_ClearOutput = new System.Windows.Forms.Button();
             this.tb_Output = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tb_NumberOfCharsInput = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.btn_countInput = new System.Windows.Forms.Button();
             this.tb_NumberOfSpacesInput = new System.Windows.Forms.TextBox();
             this.btn_ClearInput = new System.Windows.Forms.Button();
@@ -77,10 +81,8 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
-            this.label11 = new System.Windows.Forms.Label();
-            this.tb_NumberOfCharsInput = new System.Windows.Forms.TextBox();
-            this.tb_NumberOfCharsOutput = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.cb_TitleInclude = new System.Windows.Forms.CheckBox();
+            this.btn_LoadProject = new System.Windows.Forms.Button();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -107,7 +109,7 @@
             this.tab_Convert.Controls.Add(this.btn_Clear);
             this.tab_Convert.Controls.Add(this.btn_Compare);
             this.tab_Convert.Controls.Add(this.btn_AddDrop);
-            this.tab_Convert.Controls.Add(this.button4);
+            this.tab_Convert.Controls.Add(this.btn_Test);
             this.tab_Convert.Controls.Add(this.btn_Convert);
             this.tab_Convert.Controls.Add(this.btn_Save);
             this.tab_Convert.Controls.Add(this.groupBox3);
@@ -130,7 +132,7 @@
             this.btn_Clear.TabIndex = 9;
             this.btn_Clear.Text = "Clear";
             this.btn_Clear.UseVisualStyleBackColor = false;
-            this.btn_Clear.Click += new System.EventHandler(this.btn_Clear_Click);
+            this.btn_Clear.Click += new System.EventHandler(this.Btn_Clear_Click);
             // 
             // btn_Compare
             // 
@@ -140,7 +142,7 @@
             this.btn_Compare.TabIndex = 8;
             this.btn_Compare.Text = "Compare";
             this.btn_Compare.UseVisualStyleBackColor = true;
-            this.btn_Compare.Click += new System.EventHandler(this.btn_Compare_Click);
+            this.btn_Compare.Click += new System.EventHandler(this.Btn_Compare_Click);
             // 
             // btn_AddDrop
             // 
@@ -150,17 +152,17 @@
             this.btn_AddDrop.TabIndex = 7;
             this.btn_AddDrop.Text = "Add 0x";
             this.btn_AddDrop.UseVisualStyleBackColor = true;
-            this.btn_AddDrop.Click += new System.EventHandler(this.btn_AddDrop_Click);
+            this.btn_AddDrop.Click += new System.EventHandler(this.Btn_AddDrop_Click);
             // 
-            // button4
+            // btn_Test
             // 
-            this.button4.Location = new System.Drawing.Point(687, 273);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "test button";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btn_Test.Location = new System.Drawing.Point(687, 273);
+            this.btn_Test.Name = "btn_Test";
+            this.btn_Test.Size = new System.Drawing.Size(75, 23);
+            this.btn_Test.TabIndex = 6;
+            this.btn_Test.Text = "test button";
+            this.btn_Test.UseVisualStyleBackColor = true;
+            this.btn_Test.Click += new System.EventHandler(this.Btn_Test_Click);
             // 
             // btn_Convert
             // 
@@ -170,7 +172,7 @@
             this.btn_Convert.TabIndex = 1;
             this.btn_Convert.Text = "Convert";
             this.btn_Convert.UseVisualStyleBackColor = true;
-            this.btn_Convert.Click += new System.EventHandler(this.btn_Convert_Click);
+            this.btn_Convert.Click += new System.EventHandler(this.Btn_Convert_Click);
             // 
             // btn_Save
             // 
@@ -185,7 +187,7 @@
             // 
             this.groupBox3.Controls.Add(this.tb_NumberOfCharsOutput);
             this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.tb_countOutput);
+            this.groupBox3.Controls.Add(this.btn_countOutput);
             this.groupBox3.Controls.Add(this.tb_NumberOfSpacesOutput);
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.tb_NumberOfChunksOutput);
@@ -199,15 +201,33 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Output";
             // 
-            // tb_countOutput
+            // tb_NumberOfCharsOutput
             // 
-            this.tb_countOutput.Location = new System.Drawing.Point(332, 109);
-            this.tb_countOutput.Name = "tb_countOutput";
-            this.tb_countOutput.Size = new System.Drawing.Size(51, 23);
-            this.tb_countOutput.TabIndex = 18;
-            this.tb_countOutput.Text = "Count";
-            this.tb_countOutput.UseVisualStyleBackColor = true;
-            this.tb_countOutput.Click += new System.EventHandler(this.tb_countOutput_Click);
+            this.tb_NumberOfCharsOutput.Location = new System.Drawing.Point(110, 133);
+            this.tb_NumberOfCharsOutput.Name = "tb_NumberOfCharsOutput";
+            this.tb_NumberOfCharsOutput.ReadOnly = true;
+            this.tb_NumberOfCharsOutput.Size = new System.Drawing.Size(44, 20);
+            this.tb_NumberOfCharsOutput.TabIndex = 20;
+            this.tb_NumberOfCharsOutput.Text = "0";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 136);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(89, 13);
+            this.label12.TabIndex = 19;
+            this.label12.Text = "Number of Chars:";
+            // 
+            // btn_countOutput
+            // 
+            this.btn_countOutput.Location = new System.Drawing.Point(332, 109);
+            this.btn_countOutput.Name = "btn_countOutput";
+            this.btn_countOutput.Size = new System.Drawing.Size(51, 23);
+            this.btn_countOutput.TabIndex = 18;
+            this.btn_countOutput.Text = "Count";
+            this.btn_countOutput.UseVisualStyleBackColor = true;
+            this.btn_countOutput.Click += new System.EventHandler(this.Btn_countOutput_Click);
             // 
             // tb_NumberOfSpacesOutput
             // 
@@ -254,7 +274,7 @@
             this.btn_ClearOutput.TabIndex = 11;
             this.btn_ClearOutput.Text = "Clear Output";
             this.btn_ClearOutput.UseVisualStyleBackColor = false;
-            this.btn_ClearOutput.Click += new System.EventHandler(this.btn_ClearOutput_Click);
+            this.btn_ClearOutput.Click += new System.EventHandler(this.Btn_ClearOutput_Click);
             // 
             // tb_Output
             // 
@@ -282,6 +302,24 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Input";
             // 
+            // tb_NumberOfCharsInput
+            // 
+            this.tb_NumberOfCharsInput.Location = new System.Drawing.Point(110, 129);
+            this.tb_NumberOfCharsInput.Name = "tb_NumberOfCharsInput";
+            this.tb_NumberOfCharsInput.ReadOnly = true;
+            this.tb_NumberOfCharsInput.Size = new System.Drawing.Size(44, 20);
+            this.tb_NumberOfCharsInput.TabIndex = 18;
+            this.tb_NumberOfCharsInput.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 132);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(89, 13);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "Number of Chars:";
+            // 
             // btn_countInput
             // 
             this.btn_countInput.Location = new System.Drawing.Point(332, 105);
@@ -290,7 +328,7 @@
             this.btn_countInput.TabIndex = 16;
             this.btn_countInput.Text = "Count";
             this.btn_countInput.UseVisualStyleBackColor = true;
-            this.btn_countInput.Click += new System.EventHandler(this.tb_countInput_Click);
+            this.btn_countInput.Click += new System.EventHandler(this.Btn_countInput_Click);
             // 
             // tb_NumberOfSpacesInput
             // 
@@ -310,7 +348,7 @@
             this.btn_ClearInput.TabIndex = 10;
             this.btn_ClearInput.Text = "Clear Input";
             this.btn_ClearInput.UseVisualStyleBackColor = false;
-            this.btn_ClearInput.Click += new System.EventHandler(this.btn_ClearInput_Click);
+            this.btn_ClearInput.Click += new System.EventHandler(this.Btn_ClearInput_Click);
             // 
             // label8
             // 
@@ -451,7 +489,7 @@
             this.tb_NumberOfData.Name = "tb_NumberOfData";
             this.tb_NumberOfData.Size = new System.Drawing.Size(121, 20);
             this.tb_NumberOfData.TabIndex = 5;
-            this.tb_NumberOfData.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_NumberOfData_KeyPress);
+            this.tb_NumberOfData.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Tb_NumberOfData_KeyPress);
             // 
             // label3
             // 
@@ -475,7 +513,7 @@
             this.cb_Mode.Name = "cb_Mode";
             this.cb_Mode.Size = new System.Drawing.Size(121, 21);
             this.cb_Mode.TabIndex = 3;
-            this.cb_Mode.SelectedIndexChanged += new System.EventHandler(this.cb_Mode_SelectedIndexChanged);
+            this.cb_Mode.SelectedIndexChanged += new System.EventHandler(this.Cb_Mode_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -523,6 +561,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.btn_LoadProject);
+            this.groupBox5.Controls.Add(this.cb_TitleInclude);
             this.groupBox5.Controls.Add(this.btn_OpenFileDBC_Misc);
             this.groupBox5.Controls.Add(this.btn_OpenFileExcel_Misc);
             this.groupBox5.Location = new System.Drawing.Point(6, 131);
@@ -540,7 +580,7 @@
             this.btn_OpenFileDBC_Misc.TabIndex = 1;
             this.btn_OpenFileDBC_Misc.Text = "Open DBC File";
             this.btn_OpenFileDBC_Misc.UseVisualStyleBackColor = true;
-            this.btn_OpenFileDBC_Misc.Click += new System.EventHandler(this.btn_OpenFileDBC_Misc_Click);
+            this.btn_OpenFileDBC_Misc.Click += new System.EventHandler(this.Btn_OpenFileDBC_Misc_Click);
             // 
             // btn_OpenFileExcel_Misc
             // 
@@ -550,7 +590,7 @@
             this.btn_OpenFileExcel_Misc.TabIndex = 0;
             this.btn_OpenFileExcel_Misc.Text = "Open Excel File";
             this.btn_OpenFileExcel_Misc.UseVisualStyleBackColor = true;
-            this.btn_OpenFileExcel_Misc.Click += new System.EventHandler(this.btn_OpenFile_Misc_Click);
+            this.btn_OpenFileExcel_Misc.Click += new System.EventHandler(this.Btn_OpenFile_Misc_Click);
             // 
             // groupBox4
             // 
@@ -582,7 +622,7 @@
             this.btn_TestButton2.TabIndex = 3;
             this.btn_TestButton2.Text = "Arrange";
             this.btn_TestButton2.UseVisualStyleBackColor = true;
-            this.btn_TestButton2.Click += new System.EventHandler(this.btn_TestButton2_Click);
+            this.btn_TestButton2.Click += new System.EventHandler(this.Btn_TestButton2_Click);
             // 
             // btn_ArrangeMisc
             // 
@@ -592,7 +632,7 @@
             this.btn_ArrangeMisc.TabIndex = 2;
             this.btn_ArrangeMisc.Text = "Obsolete";
             this.btn_ArrangeMisc.UseVisualStyleBackColor = false;
-            this.btn_ArrangeMisc.Click += new System.EventHandler(this.btn_AddMisc_Click);
+            this.btn_ArrangeMisc.Click += new System.EventHandler(this.Btn_AddMisc_Click);
             // 
             // sts_Strip
             // 
@@ -613,41 +653,25 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
-            // label11
+            // cb_TitleInclude
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 132);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(89, 13);
-            this.label11.TabIndex = 17;
-            this.label11.Text = "Number of Chars:";
+            this.cb_TitleInclude.AutoSize = true;
+            this.cb_TitleInclude.Location = new System.Drawing.Point(145, 35);
+            this.cb_TitleInclude.Name = "cb_TitleInclude";
+            this.cb_TitleInclude.Size = new System.Drawing.Size(84, 17);
+            this.cb_TitleInclude.TabIndex = 2;
+            this.cb_TitleInclude.Text = "Include Title";
+            this.cb_TitleInclude.UseVisualStyleBackColor = true;
             // 
-            // tb_NumberOfCharsInput
+            // btn_LoadProject
             // 
-            this.tb_NumberOfCharsInput.Location = new System.Drawing.Point(110, 129);
-            this.tb_NumberOfCharsInput.Name = "tb_NumberOfCharsInput";
-            this.tb_NumberOfCharsInput.ReadOnly = true;
-            this.tb_NumberOfCharsInput.Size = new System.Drawing.Size(44, 20);
-            this.tb_NumberOfCharsInput.TabIndex = 18;
-            this.tb_NumberOfCharsInput.Text = "0";
-            // 
-            // tb_NumberOfCharsOutput
-            // 
-            this.tb_NumberOfCharsOutput.Location = new System.Drawing.Point(110, 133);
-            this.tb_NumberOfCharsOutput.Name = "tb_NumberOfCharsOutput";
-            this.tb_NumberOfCharsOutput.ReadOnly = true;
-            this.tb_NumberOfCharsOutput.Size = new System.Drawing.Size(44, 20);
-            this.tb_NumberOfCharsOutput.TabIndex = 20;
-            this.tb_NumberOfCharsOutput.Text = "0";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 136);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(89, 13);
-            this.label12.TabIndex = 19;
-            this.label12.Text = "Number of Chars:";
+            this.btn_LoadProject.Location = new System.Drawing.Point(267, 35);
+            this.btn_LoadProject.Name = "btn_LoadProject";
+            this.btn_LoadProject.Size = new System.Drawing.Size(75, 23);
+            this.btn_LoadProject.TabIndex = 3;
+            this.btn_LoadProject.Text = "Load Project";
+            this.btn_LoadProject.UseVisualStyleBackColor = true;
+            this.btn_LoadProject.Click += new System.EventHandler(this.Btn_LoadProject_Click);
             // 
             // Form1
             // 
@@ -669,6 +693,7 @@
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.sts_Strip.ResumeLayout(false);
             this.sts_Strip.PerformLayout();
@@ -701,7 +726,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tb_ID;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btn_Test;
         private System.Windows.Forms.ToolStripStatusLabel ts_Status;
         private System.Windows.Forms.ComboBox cb_SID;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -725,12 +750,14 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox tb_NumberOfChunksOutput;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button tb_countOutput;
+        private System.Windows.Forms.Button btn_countOutput;
         private System.Windows.Forms.Button btn_countInput;
         private System.Windows.Forms.TextBox tb_NumberOfCharsOutput;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox tb_NumberOfCharsInput;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.CheckBox cb_TitleInclude;
+        private System.Windows.Forms.Button btn_LoadProject;
     }
 }
 

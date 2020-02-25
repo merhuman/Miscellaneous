@@ -263,3 +263,6 @@ __pycache__/
 # VS and VSCode config files.
 .vs
 .vscode
+
+# ini files.
+.ini

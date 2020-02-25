@@ -25,7 +25,7 @@ namespace Bosch
     {
         /* enums */
         /** Conversion part **/
-        enum test { on = 6, off = 9};
+        enum Test { on = 6, off = 9};
         enum ConvertMode { StringToHex, HexToString, Add0x, Drop0x };
         string g_SID;
         string g_DID;
@@ -83,7 +83,7 @@ namespace Bosch
             testform.ShowDialog();
         }
 
-        private void btn_Convert_Click(object sender, EventArgs e)
+        private void Btn_Convert_Click(object sender, EventArgs e)
         {
             int l_numberOfData;
             int l_accessoryByte;
@@ -181,13 +181,13 @@ namespace Bosch
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void Btn_Test_Click(object sender, EventArgs e)
         {
             string[] name = { "Tom", "Ron", "Jane" };
             
         }
 
-        private void tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)
+        private void Tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)
         {
             /* Prevent user from inputing a not digit value */
             if(!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
@@ -196,7 +196,7 @@ namespace Bosch
             }
         }
 
-        private void btn_AddMisc_Click(object sender, EventArgs e)
+        private void Btn_AddMisc_Click(object sender, EventArgs e)
         {
             /* Initial definition */
             string[] PAS_WorkCmd = new string[] { "True", "False"};
@@ -290,7 +290,7 @@ namespace Bosch
             }
         }
 
-        private void cb_Mode_SelectedIndexChanged(object sender, EventArgs e)
+        private void Cb_Mode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cb_Mode.SelectedIndex == 0)
             {
@@ -319,7 +319,7 @@ namespace Bosch
                 
         }
 
-        private void btn_AddDrop_Click(object sender, EventArgs e)
+        private void Btn_AddDrop_Click(object sender, EventArgs e)
         {
             /*
              * Currently this function is not complete, it's just usable.
@@ -344,7 +344,7 @@ namespace Bosch
             }
         }
 
-        private void btn_Compare_Click(object sender, EventArgs e)
+        private void Btn_Compare_Click(object sender, EventArgs e)
         {
             if (tb_Input.Text == tb_Output.Text)
             {
@@ -356,7 +356,7 @@ namespace Bosch
             }
         }
 
-        private void btn_TestButton2_Click(object sender, EventArgs e)
+        private void Btn_TestButton2_Click(object sender, EventArgs e)
         {
             /*
              * This function will be modified to be more effective than the current one.
@@ -478,7 +478,7 @@ namespace Bosch
             }
         }
 
-        private void btn_Clear_Click(object sender, EventArgs e)
+        private void Btn_Clear_Click(object sender, EventArgs e)
         {
             tb_Input.Clear();
             tb_Output.Clear();
@@ -642,7 +642,7 @@ namespace Bosch
             g_DID = tb_DID.Text;
         }
 
-        private void btn_OpenFile_Misc_Click(object sender, EventArgs e)
+        private void Btn_OpenFile_Misc_Click(object sender, EventArgs e)
         {
             g_odf_Misc.Filter = "Excel Workbook (*.xlsx)|*.xlsx|Excel Macro-Enabled Workbook (*.xlsm)|*.xlsm|Excel 97-2003 (*.xls)|*.xls|All files (*.*)|*.*";
             List<string> excelData = new List<string>();
@@ -652,11 +652,11 @@ namespace Bosch
             {
                 g_fileName = g_odf_Misc.SafeFileName;
                 g_filePath = g_odf_Misc.FileName;
-                ProgramLibs.OpenFile(ProgramLibs.FileType.Excel, g_filePath, g_fileName, ref g_signalNameList);
+                ProgramLibs.OpenFile(ProgramLibs.FileType.Excel, g_filePath, g_fileName, ref g_signalNameList, cb_TitleInclude.Checked);
             }
         }
 
-        private void btn_OpenFileDBC_Misc_Click(object sender, EventArgs e)
+        private void Btn_OpenFileDBC_Misc_Click(object sender, EventArgs e)
         {
             g_odf_Misc.Filter = "CANdb++ Database (.mdc)(*.mdc)|*.mdc|CANdb Network (.dbc)(*.dbc)|*.dbc|CAN Database (.mdc;.dbc)(*.mdc;*.dbc)|*.mdc, *dbc |All files (*.*)|*.*";
             List<string> excelData = new List<string>();
@@ -670,33 +670,47 @@ namespace Bosch
                 g_filePath = g_odf_Misc.FileName;
             }
 
-            ProgramLibs.OpenFile(ProgramLibs.FileType.DBC, g_filePath, g_fileName, ref g_nodeNameList);
+            ProgramLibs.OpenFile(ProgramLibs.FileType.DBC, g_filePath, g_fileName, ref g_nodeNameList, null);
         }
 
-        private void btn_ClearInput_Click(object sender, EventArgs e)
+        private void Btn_ClearInput_Click(object sender, EventArgs e)
         {
             tb_Input.Clear();
             tb_NumberOfChunksInput.Text = tb_NumberOfSpacesInput.Text = tb_NumberOfCharsInput.Text = "0";
         }
 
-        private void btn_ClearOutput_Click(object sender, EventArgs e)
+        private void Btn_ClearOutput_Click(object sender, EventArgs e)
         {
             tb_Output.Clear();
             tb_NumberOfChunksOutput.Text = tb_NumberOfSpacesOutput.Text = tb_NumberOfCharsOutput.Text = "0";
         }
 
-        private void tb_countInput_Click(object sender, EventArgs e)
+        private void Btn_countInput_Click(object sender, EventArgs e)
         {
             tb_NumberOfChunksInput.Text = ProgramLibs.CountNumberOfChunks(tb_Input.Text).ToString();
             tb_NumberOfSpacesInput.Text = ProgramLibs.CountNumberOfSpace(tb_Input.Text).ToString();
             tb_NumberOfCharsInput.Text = tb_Input.Text.Count().ToString();
         }
 
-        private void tb_countOutput_Click(object sender, EventArgs e)
+        private void Btn_countOutput_Click(object sender, EventArgs e)
         {
             tb_NumberOfChunksOutput.Text = ProgramLibs.CountNumberOfChunks(tb_Output.Text).ToString();
             tb_NumberOfSpacesOutput.Text = ProgramLibs.CountNumberOfSpace(tb_Output.Text).ToString();
             tb_NumberOfCharsOutput.Text = tb_Output.Text.Count().ToString();
+        }
+
+        private void Btn_LoadProject_Click(object sender, EventArgs e)
+        {
+            g_odf_Misc.Filter = "ini files (*.ini)|*.ini|All files (*.*)|*.*";
+            List<string> excelData = new List<string>();
+            g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Bosch\Bosch\Configuration";
+
+            if (g_odf_Misc.ShowDialog() == DialogResult.OK)
+            {
+                g_fileName = g_odf_Misc.SafeFileName;
+                g_filePath = g_odf_Misc.FileName;
+                
+            }
         }
     }
 }

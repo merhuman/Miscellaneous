@@ -195,7 +195,7 @@ namespace Bosch
         #endregion Conversion
 
         #region OpenFile
-        internal static bool OpenFile(FileType fileType, string inputFilePath, string fileName, ref List<string> nameList)
+        internal static bool OpenFile(FileType fileType, string inputFilePath, string fileName, ref List<string> nameList, Nullable<bool> includeTitle)
         {
             string l_sourcePath = "./Configuration";
             Directory.CreateDirectory(l_sourcePath);
@@ -206,8 +206,11 @@ namespace Bosch
                 {
                     case FileType.Excel:
                         // Might add try catch structure here later.
-                        File.Copy(inputFilePath, l_sourcePath, true);
-                        ReadAllSignalNames(l_sourcePath, ref nameList);
+                        File.Copy(inputFilePath, l_sourcePath, true);                       
+                        if (includeTitle == null || includeTitle == false)
+                            ReadAllSignalNamesFromExcel(l_sourcePath, ref nameList, includeTitle: false);
+                        else
+                            ReadAllSignalNamesFromExcel(l_sourcePath, ref nameList, includeTitle: true);
                         break;
 
                     case FileType.DBC:
@@ -224,7 +227,7 @@ namespace Bosch
             return false;
         }
 
-        internal static bool ReadAllSignalNames(string filePath, ref List<string> signalNameList)
+        internal static bool ReadAllSignalNamesFromExcel(string filePath, ref List<string> signalNameList, bool includeTitle)
         {
             List<string> l_signalNameList = new List<string>();
             byte[] bin = File.ReadAllBytes(filePath);
@@ -232,13 +235,15 @@ namespace Bosch
             using (MemoryStream stream = new MemoryStream(bin))
             using (ExcelPackage excelPackage = new ExcelPackage(stream))
             {
+                
                 foreach (ExcelWorksheet worksheet in excelPackage.Workbook.Worksheets)
                 {
-                    for (int row = worksheet.Dimension.Start.Row + 1; row <= worksheet.Dimension.End.Row; row++)
+                    int l_startRow = (includeTitle == true) ? (worksheet.Dimension.Start.Row + 1) : worksheet.Dimension.Start.Row;
+                    for (int row = l_startRow; row <= worksheet.Dimension.End.Row; row++)
                     {
                         if (worksheet.Cells.Value != null)
                         {
-                            l_signalNameList.Add(worksheet.Cells[row, 0].Value.ToString());
+                            l_signalNameList.Add(worksheet.Cells[row, 1].Value.ToString());
                         }  
                     }
                 }
