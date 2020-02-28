@@ -72,6 +72,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btn_LoadProject = new System.Windows.Forms.Button();
+            this.cb_TitleInclude = new System.Windows.Forms.CheckBox();
             this.btn_OpenFileDBC_Misc = new System.Windows.Forms.Button();
             this.btn_OpenFileExcel_Misc = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -81,8 +83,6 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
-            this.cb_TitleInclude = new System.Windows.Forms.CheckBox();
-            this.btn_LoadProject = new System.Windows.Forms.Button();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -427,7 +427,7 @@
             this.cb_SID.Name = "cb_SID";
             this.cb_SID.Size = new System.Drawing.Size(66, 21);
             this.cb_SID.TabIndex = 12;
-            this.cb_SID.SelectedIndexChanged += new System.EventHandler(this.cb_SID_SelectedIndexChanged);
+            this.cb_SID.SelectedIndexChanged += new System.EventHandler(this.Cb_SID_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -460,7 +460,7 @@
             this.tb_DID.Name = "tb_DID";
             this.tb_DID.Size = new System.Drawing.Size(66, 20);
             this.tb_DID.TabIndex = 8;
-            this.tb_DID.TextChanged += new System.EventHandler(this.tb_DID_TextChanged);
+            this.tb_DID.TextChanged += new System.EventHandler(this.Tb_DID_TextChanged);
             // 
             // label4
             // 
@@ -572,6 +572,26 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Input Signal";
             // 
+            // btn_LoadProject
+            // 
+            this.btn_LoadProject.Location = new System.Drawing.Point(267, 35);
+            this.btn_LoadProject.Name = "btn_LoadProject";
+            this.btn_LoadProject.Size = new System.Drawing.Size(75, 23);
+            this.btn_LoadProject.TabIndex = 3;
+            this.btn_LoadProject.Text = "Load Project";
+            this.btn_LoadProject.UseVisualStyleBackColor = true;
+            this.btn_LoadProject.Click += new System.EventHandler(this.Btn_LoadProject_Click);
+            // 
+            // cb_TitleInclude
+            // 
+            this.cb_TitleInclude.AutoSize = true;
+            this.cb_TitleInclude.Location = new System.Drawing.Point(145, 35);
+            this.cb_TitleInclude.Name = "cb_TitleInclude";
+            this.cb_TitleInclude.Size = new System.Drawing.Size(84, 17);
+            this.cb_TitleInclude.TabIndex = 2;
+            this.cb_TitleInclude.Text = "Include Title";
+            this.cb_TitleInclude.UseVisualStyleBackColor = true;
+            // 
             // btn_OpenFileDBC_Misc
             // 
             this.btn_OpenFileDBC_Misc.Location = new System.Drawing.Point(22, 61);
@@ -652,26 +672,6 @@
             // ofd_OpenfileMisc
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
-            // 
-            // cb_TitleInclude
-            // 
-            this.cb_TitleInclude.AutoSize = true;
-            this.cb_TitleInclude.Location = new System.Drawing.Point(145, 35);
-            this.cb_TitleInclude.Name = "cb_TitleInclude";
-            this.cb_TitleInclude.Size = new System.Drawing.Size(84, 17);
-            this.cb_TitleInclude.TabIndex = 2;
-            this.cb_TitleInclude.Text = "Include Title";
-            this.cb_TitleInclude.UseVisualStyleBackColor = true;
-            // 
-            // btn_LoadProject
-            // 
-            this.btn_LoadProject.Location = new System.Drawing.Point(267, 35);
-            this.btn_LoadProject.Name = "btn_LoadProject";
-            this.btn_LoadProject.Size = new System.Drawing.Size(75, 23);
-            this.btn_LoadProject.TabIndex = 3;
-            this.btn_LoadProject.Text = "Load Project";
-            this.btn_LoadProject.UseVisualStyleBackColor = true;
-            this.btn_LoadProject.Click += new System.EventHandler(this.Btn_LoadProject_Click);
             // 
             // Form1
             // 

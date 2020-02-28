@@ -587,7 +587,7 @@ namespace Bosch
             }
         }
 
-        private void cb_SID_SelectedIndexChanged(object sender, EventArgs e)
+        private void Cb_SID_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch(cb_SID.SelectedIndex)
             {
@@ -637,7 +637,7 @@ namespace Bosch
             }
         }
 
-        private void tb_DID_TextChanged(object sender, EventArgs e)
+        private void Tb_DID_TextChanged(object sender, EventArgs e)
         {
             g_DID = tb_DID.Text;
         }
@@ -701,16 +701,11 @@ namespace Bosch
 
         private void Btn_LoadProject_Click(object sender, EventArgs e)
         {
-            g_odf_Misc.Filter = "ini files (*.ini)|*.ini|All files (*.*)|*.*";
+            g_odf_Misc.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
             List<string> excelData = new List<string>();
             g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Bosch\Bosch\Configuration";
 
-            if (g_odf_Misc.ShowDialog() == DialogResult.OK)
-            {
-                g_fileName = g_odf_Misc.SafeFileName;
-                g_filePath = g_odf_Misc.FileName;
-                
-            }
+            
         }
     }
 }
