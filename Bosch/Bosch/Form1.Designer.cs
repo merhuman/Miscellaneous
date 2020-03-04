@@ -680,6 +680,7 @@
             this.ClientSize = new System.Drawing.Size(794, 419);
             this.Controls.Add(this.sts_Strip);
             this.Controls.Add(this.tab_FunctionControl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Form1";
             this.Text = "Supportive Application";
             this.Load += new System.EventHandler(this.Form1_Load);

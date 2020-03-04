@@ -154,8 +154,11 @@ namespace Bosch
                 else
                 {
                     int.TryParse(tb_NumberOfData.Text, out l_numberOfData);
-                    l_accessoryByte = l_numberOfData;
-                    l_paddingByte = (cb_Padding.Text == "") ? cb_Padding.SelectedText : "0x00";
+                    l_paddingByte = (cb_Padding.Text == "") ? "0x00" : cb_Padding.Text;
+                    l_paddingByte = l_paddingByte.Substring(2); // drop the 0x part of padding byte.
+                    l_outputResult1 += string.Concat(Enumerable.Repeat(" " + l_paddingByte, l_numberOfData));
+                    l_outputResult2 += string.Concat(Enumerable.Repeat(",0x" + l_paddingByte, l_numberOfData));
+                    tb_Output.Text = l_outputResult1.Trim() + Environment.NewLine + l_outputResult2.Substring(1);
                 }
             }
             else if (g_convertMode == ConvertMode.HexToString)
