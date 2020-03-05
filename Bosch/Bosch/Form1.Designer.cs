@@ -72,6 +72,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btn_LoadProject = new System.Windows.Forms.Button();
             this.cb_TitleInclude = new System.Windows.Forms.CheckBox();
             this.btn_OpenFileDBC_Misc = new System.Windows.Forms.Button();
@@ -83,6 +86,12 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
+            this.tb_PhysValue = new System.Windows.Forms.TextBox();
+            this.tb_VSMValue = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tb_OffsetValue = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -90,6 +99,7 @@
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.sts_Strip.SuspendLayout();
             this.SuspendLayout();
@@ -561,16 +571,51 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.button3);
+            this.groupBox5.Controls.Add(this.button2);
+            this.groupBox5.Controls.Add(this.tb_OffsetValue);
+            this.groupBox5.Controls.Add(this.label15);
+            this.groupBox5.Controls.Add(this.tb_VSMValue);
+            this.groupBox5.Controls.Add(this.tb_PhysValue);
+            this.groupBox5.Controls.Add(this.label14);
+            this.groupBox5.Controls.Add(this.label13);
+            this.groupBox5.Controls.Add(this.pictureBox1);
             this.groupBox5.Controls.Add(this.btn_LoadProject);
             this.groupBox5.Controls.Add(this.cb_TitleInclude);
             this.groupBox5.Controls.Add(this.btn_OpenFileDBC_Misc);
             this.groupBox5.Controls.Add(this.btn_OpenFileExcel_Misc);
             this.groupBox5.Location = new System.Drawing.Point(6, 131);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(388, 139);
+            this.groupBox5.Size = new System.Drawing.Size(388, 228);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Input Signal";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(131, 150);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(60, 13);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "VSM Value";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(131, 104);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(76, 13);
+            this.label13.TabIndex = 5;
+            this.label13.Text = "Physical Value";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(22, 101);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
             // 
             // btn_LoadProject
             // 
@@ -673,6 +718,54 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
+            // tb_PhysValue
+            // 
+            this.tb_PhysValue.Location = new System.Drawing.Point(213, 101);
+            this.tb_PhysValue.Name = "tb_PhysValue";
+            this.tb_PhysValue.Size = new System.Drawing.Size(65, 20);
+            this.tb_PhysValue.TabIndex = 7;
+            // 
+            // tb_VSMValue
+            // 
+            this.tb_VSMValue.Location = new System.Drawing.Point(213, 147);
+            this.tb_VSMValue.Name = "tb_VSMValue";
+            this.tb_VSMValue.Size = new System.Drawing.Size(65, 20);
+            this.tb_VSMValue.TabIndex = 8;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(131, 127);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(65, 13);
+            this.label15.TabIndex = 9;
+            this.label15.Text = "Offset Value";
+            // 
+            // tb_OffsetValue
+            // 
+            this.tb_OffsetValue.Location = new System.Drawing.Point(213, 124);
+            this.tb_OffsetValue.Name = "tb_OffsetValue";
+            this.tb_OffsetValue.Size = new System.Drawing.Size(65, 20);
+            this.tb_OffsetValue.TabIndex = 10;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(284, 101);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(77, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "Phys -> VSM";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(284, 130);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(77, 23);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "VSM -> Phys";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -695,6 +788,7 @@
             this.tabPage2.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.sts_Strip.ResumeLayout(false);
             this.sts_Strip.PerformLayout();
@@ -759,6 +853,15 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox cb_TitleInclude;
         private System.Windows.Forms.Button btn_LoadProject;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox tb_OffsetValue;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox tb_VSMValue;
+        private System.Windows.Forms.TextBox tb_PhysValue;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
     }
 }
 
