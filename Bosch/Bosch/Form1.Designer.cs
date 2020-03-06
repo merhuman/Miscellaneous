@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tab_FunctionControl = new System.Windows.Forms.TabControl();
             this.tab_Convert = new System.Windows.Forms.TabPage();
             this.btn_Clear = new System.Windows.Forms.Button();
@@ -72,6 +73,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.tb_OffsetValue = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tb_VSMValue = new System.Windows.Forms.TextBox();
+            this.tb_PhysValue = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -86,12 +93,8 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
-            this.tb_PhysValue = new System.Windows.Forms.TextBox();
-            this.tb_VSMValue = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.tb_OffsetValue = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.tb_ResolutionValue = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -571,6 +574,9 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label16);
+            this.groupBox5.Controls.Add(this.tb_ResolutionValue);
+            this.groupBox5.Controls.Add(this.pictureBox1);
             this.groupBox5.Controls.Add(this.button3);
             this.groupBox5.Controls.Add(this.button2);
             this.groupBox5.Controls.Add(this.tb_OffsetValue);
@@ -579,22 +585,69 @@
             this.groupBox5.Controls.Add(this.tb_PhysValue);
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.label13);
-            this.groupBox5.Controls.Add(this.pictureBox1);
             this.groupBox5.Controls.Add(this.btn_LoadProject);
             this.groupBox5.Controls.Add(this.cb_TitleInclude);
             this.groupBox5.Controls.Add(this.btn_OpenFileDBC_Misc);
             this.groupBox5.Controls.Add(this.btn_OpenFileExcel_Misc);
             this.groupBox5.Location = new System.Drawing.Point(6, 131);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(388, 228);
+            this.groupBox5.Size = new System.Drawing.Size(469, 228);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Input Signal";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(170, 127);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(77, 23);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "VSM -> Phys";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(170, 99);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(77, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "Phys -> VSM";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // tb_OffsetValue
+            // 
+            this.tb_OffsetValue.Location = new System.Drawing.Point(99, 146);
+            this.tb_OffsetValue.Name = "tb_OffsetValue";
+            this.tb_OffsetValue.Size = new System.Drawing.Size(65, 20);
+            this.tb_OffsetValue.TabIndex = 10;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(17, 149);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(65, 13);
+            this.label15.TabIndex = 9;
+            this.label15.Text = "Offset Value";
+            // 
+            // tb_VSMValue
+            // 
+            this.tb_VSMValue.Location = new System.Drawing.Point(99, 169);
+            this.tb_VSMValue.Name = "tb_VSMValue";
+            this.tb_VSMValue.Size = new System.Drawing.Size(65, 20);
+            this.tb_VSMValue.TabIndex = 8;
+            // 
+            // tb_PhysValue
+            // 
+            this.tb_PhysValue.Location = new System.Drawing.Point(99, 99);
+            this.tb_PhysValue.Name = "tb_PhysValue";
+            this.tb_PhysValue.Size = new System.Drawing.Size(65, 20);
+            this.tb_PhysValue.TabIndex = 7;
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(131, 150);
+            this.label14.Location = new System.Drawing.Point(17, 172);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(60, 13);
             this.label14.TabIndex = 6;
@@ -603,7 +656,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(131, 104);
+            this.label13.Location = new System.Drawing.Point(17, 102);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(76, 13);
             this.label13.TabIndex = 5;
@@ -611,9 +664,10 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(22, 101);
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(267, 99);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.Size = new System.Drawing.Size(184, 62);
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
@@ -664,7 +718,7 @@
             this.groupBox4.Controls.Add(this.btn_ArrangeMisc);
             this.groupBox4.Location = new System.Drawing.Point(6, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(388, 119);
+            this.groupBox4.Size = new System.Drawing.Size(469, 119);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Re-Arrange";
@@ -718,53 +772,21 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
-            // tb_PhysValue
+            // tb_ResolutionValue
             // 
-            this.tb_PhysValue.Location = new System.Drawing.Point(213, 101);
-            this.tb_PhysValue.Name = "tb_PhysValue";
-            this.tb_PhysValue.Size = new System.Drawing.Size(65, 20);
-            this.tb_PhysValue.TabIndex = 7;
+            this.tb_ResolutionValue.Location = new System.Drawing.Point(99, 123);
+            this.tb_ResolutionValue.Name = "tb_ResolutionValue";
+            this.tb_ResolutionValue.Size = new System.Drawing.Size(65, 20);
+            this.tb_ResolutionValue.TabIndex = 13;
             // 
-            // tb_VSMValue
+            // label16
             // 
-            this.tb_VSMValue.Location = new System.Drawing.Point(213, 147);
-            this.tb_VSMValue.Name = "tb_VSMValue";
-            this.tb_VSMValue.Size = new System.Drawing.Size(65, 20);
-            this.tb_VSMValue.TabIndex = 8;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(131, 127);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(65, 13);
-            this.label15.TabIndex = 9;
-            this.label15.Text = "Offset Value";
-            // 
-            // tb_OffsetValue
-            // 
-            this.tb_OffsetValue.Location = new System.Drawing.Point(213, 124);
-            this.tb_OffsetValue.Name = "tb_OffsetValue";
-            this.tb_OffsetValue.Size = new System.Drawing.Size(65, 20);
-            this.tb_OffsetValue.TabIndex = 10;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(284, 101);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(77, 23);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Phys -> VSM";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(284, 130);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(77, 23);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "VSM -> Phys";
-            this.button3.UseVisualStyleBackColor = true;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(17, 125);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(57, 13);
+            this.label16.TabIndex = 14;
+            this.label16.Text = "Resolution";
             // 
             // Form1
             // 
@@ -862,6 +884,8 @@
         private System.Windows.Forms.TextBox tb_PhysValue;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox tb_ResolutionValue;
     }
 }
 
