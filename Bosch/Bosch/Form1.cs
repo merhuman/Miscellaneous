@@ -710,5 +710,15 @@ namespace Bosch
 
             
         }
+
+        private void btn_Input2VSM_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btn_VSM2Input_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
