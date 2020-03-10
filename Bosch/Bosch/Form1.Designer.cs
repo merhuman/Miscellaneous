@@ -83,7 +83,7 @@
             this.tb_OffsetValue = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.tb_VSMValue = new System.Windows.Forms.TextBox();
-            this.tb_PhysValue = new System.Windows.Forms.TextBox();
+            this.tb_InputValue = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.btn_LoadProject = new System.Windows.Forms.Button();
@@ -586,7 +586,7 @@
             this.groupBox5.Controls.Add(this.tb_OffsetValue);
             this.groupBox5.Controls.Add(this.label15);
             this.groupBox5.Controls.Add(this.tb_VSMValue);
-            this.groupBox5.Controls.Add(this.tb_PhysValue);
+            this.groupBox5.Controls.Add(this.tb_InputValue);
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.label13);
             this.groupBox5.Controls.Add(this.btn_LoadProject);
@@ -684,12 +684,12 @@
             this.tb_VSMValue.Size = new System.Drawing.Size(65, 20);
             this.tb_VSMValue.TabIndex = 8;
             // 
-            // tb_PhysValue
+            // tb_InputValue
             // 
-            this.tb_PhysValue.Location = new System.Drawing.Point(108, 99);
-            this.tb_PhysValue.Name = "tb_PhysValue";
-            this.tb_PhysValue.Size = new System.Drawing.Size(65, 20);
-            this.tb_PhysValue.TabIndex = 7;
+            this.tb_InputValue.Location = new System.Drawing.Point(108, 99);
+            this.tb_InputValue.Name = "tb_InputValue";
+            this.tb_InputValue.Size = new System.Drawing.Size(65, 20);
+            this.tb_InputValue.TabIndex = 7;
             // 
             // label14
             // 
@@ -903,7 +903,7 @@
         private System.Windows.Forms.TextBox tb_OffsetValue;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox tb_VSMValue;
-        private System.Windows.Forms.TextBox tb_PhysValue;
+        private System.Windows.Forms.TextBox tb_InputValue;
         private System.Windows.Forms.Button btn_VSM2Input;
         private System.Windows.Forms.Button btn_Input2VSM;
         private System.Windows.Forms.Label label16;

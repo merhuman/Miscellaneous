@@ -186,7 +186,8 @@ namespace Bosch
 
         private void Btn_Test_Click(object sender, EventArgs e)
         {
-            string[] name = { "Tom", "Ron", "Jane" };
+            double testVar = 0.50625;
+            Console.WriteLine(Math.Round(testVar));
             
         }
 
@@ -713,12 +714,32 @@ namespace Bosch
 
         private void btn_Input2VSM_Click(object sender, EventArgs e)
         {
-            
+            double l_inputValue;
+            double l_resolutionValue;
+            double l_offSetValue;
+            double l_rawValue;
+            double l_vsmValue;
+            double.TryParse(tb_InputValue.Text, out l_inputValue);
+            double.TryParse(tb_ResolutionValue.Text, out l_resolutionValue);
+            double.TryParse(tb_OffsetValue.Text, out l_offSetValue);
+            l_rawValue = Math.Round((l_inputValue - l_offSetValue) / l_resolutionValue);
+            l_vsmValue = l_rawValue * l_resolutionValue + l_offSetValue;
+            tb_VSMValue.Text = l_vsmValue.ToString();
         }
 
         private void btn_VSM2Input_Click(object sender, EventArgs e)
         {
-
+            double l_inputValue;
+            double l_resolutionValue;
+            double l_offSetValue;
+            double l_rawValue;
+            double l_vsmValue;
+            double.TryParse(tb_VSMValue.Text, out l_vsmValue);
+            double.TryParse(tb_ResolutionValue.Text, out l_resolutionValue);
+            double.TryParse(tb_OffsetValue.Text, out l_offSetValue);
+            l_rawValue = Math.Round((l_vsmValue - l_offSetValue) / l_resolutionValue);
+            l_inputValue = l_rawValue * l_resolutionValue + l_offSetValue;
+            tb_InputValue.Text = l_inputValue.ToString();
         }
     }
 }
