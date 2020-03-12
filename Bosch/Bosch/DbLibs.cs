@@ -27,6 +27,25 @@ namespace Bosch
             string vsmName { set; get; }
             string adiName { set; get; }
             List<string> valueTable { set; get; }
+
+            SignalDB()
+            {
+
+            }
+        }
+
+        class JsonSetupFile
+        {
+            string projectName { get; set; }
+            string nodePrefix { get; set; }
+            string messagePrefix { get; set; }
+            string signalPrefix { get; set; }
+            string valueTablePrefix { get; set; }
+
+            JsonSetupFile(string projectName)
+            {
+
+            }
         }
 
         static SQLiteConnection m_dbConnection;
