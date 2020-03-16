@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using NPOI.XSSF.UserModel;  // remove later, use OfficeOpenXml instead
-using NPOI.SS.UserModel;    // remove later, use OfficeOpenXml instead
 using System.Text.RegularExpressions;
 
 // update lib
@@ -57,24 +55,7 @@ namespace Bosch
          
         private void button1_Click(object sender, EventArgs e)
         {
-            XSSFWorkbook wb;
-            using (FileStream file = new FileStream(@"C:\Users\DELL\source\test.xlsx", FileMode.Open, FileAccess.ReadWrite))
-            {
-                wb = new XSSFWorkbook(file);
-
-            }
-            
-            ISheet sheet = wb.GetSheet("Sheet1");
-
-            var rowIndex = 0;
-            var row = sheet.CreateRow(rowIndex);
-            row.CreateCell(0).SetCellValue("Username");
-            using (FileStream file2 = new FileStream(@"C:\Users\DELL\source\test.xlsx", FileMode.Create, FileAccess.ReadWrite))
-            {
-                wb.Write(file2);
-                file2.Close();
-
-            }
+           
         }
       
         private void button2_Click(object sender, EventArgs e)
@@ -202,96 +183,7 @@ namespace Bosch
 
         private void Btn_AddMisc_Click(object sender, EventArgs e)
         {
-            /* Initial definition */
-            string[] PAS_WorkCmd = new string[] { "True", "False"};
-            string[] FPAS_AutoStgySts = new string[] { "On", "Off" };
-            string[] Gear = new string[] { "D", "N", "R", "P" };
-            string[] EPB = new string[] { "On", "Off" };
-            string[] Speed = new string[] { "16", "9", "0" };
-            string[] Obstacle = new string[] { "Yes", "No" };
-            string[] ObstacleUnchanged = new string[] { "Yes", "No" };
-
-            /* Read the existing excel file */
-            XSSFWorkbook wb;
-            using (FileStream file = new FileStream(@"E:\Work\2_Projects Update\GWM_VV5_6_7\GWM_VV\Opentest\PP5\3.Design\Configuration\PASDisplaySound.xlsx", FileMode.Open, FileAccess.Read))
-            {
-                wb = new XSSFWorkbook(file);
-                file.Close();
-            }
-
-            ISheet sheet = wb.GetSheet("Sheet1");
-
-            int rowIndex = 0;
-
-            var row = sheet.CreateRow(rowIndex);
-
-            row.CreateCell(0).SetCellValue("PAS_WorkCmd");
-            row.CreateCell(1).SetCellValue("FPAS_AutoStgySts");
-            row.CreateCell(2).SetCellValue("Gear");
-            row.CreateCell(3).SetCellValue("EPB");
-            row.CreateCell(4).SetCellValue("Speed");
-            row.CreateCell(5).SetCellValue("Obstacle");
-            row.CreateCell(6).SetCellValue("Obstacle unchange in 5s");
-            row.CreateCell(7).SetCellValue("FPAS_WorkSts");
-            row.CreateCell(8).SetCellValue("FPAS_DispCmd");
-            row.CreateCell(9).SetCellValue("FPAS_SoundIndcn");
-            row.CreateCell(10).SetCellValue("RPAS_WorkSts");
-            row.CreateCell(11).SetCellValue("RPAS_SoundIndcn");
-            rowIndex++;
-
-            foreach (var pasCmd in PAS_WorkCmd)
-            {
-                foreach (var autoSts in FPAS_AutoStgySts)
-                {
-                    foreach (var gear in Gear)
-                    {
-                        foreach (var epb in EPB)
-                        {
-                            foreach (var speed in Speed)
-                            {
-                                foreach (var obstacle in Obstacle)
-                                {
-                                    foreach (var obstacleUnchanged in ObstacleUnchanged)
-                                    {
-                                        row = sheet.CreateRow(rowIndex);
-                                        row.CreateCell(0).SetCellValue(pasCmd);
-                                        row.CreateCell(1).SetCellValue(autoSts);
-                                        row.CreateCell(2).SetCellValue(gear);
-                                        row.CreateCell(3).SetCellValue(epb);
-                                        row.CreateCell(4).SetCellValue(speed);
-                                        row.CreateCell(5).SetCellValue(obstacle);
-                                        row.CreateCell(6).SetCellValue(obstacleUnchanged);
-
-                                        /* Expected status FPAS_WorkSts */
-                                        row.CreateCell(7).SetCellValue((pasCmd == "True" || (pasCmd == "False" && (gear == "D" || gear == "N"))) ? "Active" : "Enable");
-
-                                        /* Expected status FPAS_DispCmd */
-                                        row.CreateCell(8).SetCellValue(((speed == "9" && obstacle == "Yes") || (speed == "0" && obstacle == "Yes" && obstacleUnchanged == "No"))? "On" : "Off");
-
-                                        /* Expected status FPAS_SoundIncn */
-                                        row.CreateCell(9).SetCellValue((pasCmd == "True" && gear != "P") || (((speed == "9" && obstacle == "Yes") || (speed == "0" && obstacle == "Yes" && obstacleUnchanged == "No"))) ? "On" : "Off");
-
-                                        /* Expected status RPAS_WorkSts */
-                                        row.CreateCell(10).SetCellValue((pasCmd == "True") ? "Active" : "Enable");
-
-                                        /* Expected status RPAS_SoundIncn */
-                                        row.CreateCell(11).SetCellValue((pasCmd == "True" && gear != "P") ? "On" : "Off");
-
-                                        rowIndex++;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            /* Write new data into excel file */
-            using (FileStream file2 = new FileStream(@"E:\Work\2_Projects Update\GWM_VV5_6_7\GWM_VV\Opentest\PP5\3.Design\Configuration\PASDisplaySound.xlsx", FileMode.Create, FileAccess.ReadWrite))
-            {
-                wb.Write(file2);
-                file2.Close();
-            }
+            
         }
 
         private void Cb_Mode_SelectedIndexChanged(object sender, EventArgs e)
@@ -362,124 +254,7 @@ namespace Bosch
 
         private void Btn_TestButton2_Click(object sender, EventArgs e)
         {
-            /*
-             * This function will be modified to be more effective than the current one.
-             * */
-            int l_numberOfProperties = new int();
-            List<string> l_informationNames = new List<string>();
-            List<List<string>> l_informationValues = new List<List<string>>();
             
-            XSSFWorkbook wb;
-            using (FileStream file_read = new FileStream(@"C:\Users\ghy3hc\Desktop\Miscellaneous\Bosch\Bosch\Configuration\Status.xlsx", FileMode.Open, FileAccess.Read))
-            {
-                wb = new XSSFWorkbook(file_read);
-                file_read.Close();
-            }
-
-            ISheet sheet = wb.GetSheet("Information");
-
-            // Get number of properties, please set the value to the exact cell.
-            l_numberOfProperties = Convert.ToUInt16(sheet.GetRow(1).GetCell(0).ToString());
-            int[] l_numberOfValues = new int[l_numberOfProperties]; // Declare an array to store number of values per property
-
-            // Get the names of properties
-            for (int column = 0; column < l_numberOfProperties; column++)
-            {
-                l_informationNames.Add(sheet.GetRow(0).GetCell(column + 1).ToString());
-                l_numberOfValues[column] = Convert.ToInt16(sheet.GetRow(1).GetCell(column + 1).ToString());
-            }
-
-            // Get the values belonging to each property
-            for (int column = 0; column < l_numberOfProperties; column++)
-            {
-                List<string> l_valueList = new List<string>();
-                for (int row = 0; row < l_numberOfValues[column]; row++)
-                {
-                    l_valueList.Add(sheet.GetRow(row + 2).GetCell(column + 1).ToString());
-                }
-                l_informationValues.Add(l_valueList);
-            }
-
-            int[] l_numberOfDuplicationPerProp = new int[l_numberOfProperties];
-            int[] l_numberOfDuplicationPerSet = new int[l_numberOfProperties];
-
-            // Get the duplication times of values of each property
-            int l_maximumDuplicationTime = 1;
-            for (int i = 0; i < l_numberOfProperties; i++)
-            {
-                l_maximumDuplicationTime *= l_numberOfValues[i];
-            }
-            
-            // Get the duplication times of value in each set belonging to each property
-            for (int i = 0; i < l_numberOfProperties; i++)
-            {
-                int tempNumber = 1;
-                for (int j = i + 1; j < l_numberOfProperties; j++)
-                    tempNumber *= l_numberOfValues[j];
-                l_numberOfDuplicationPerProp[i] = tempNumber;
-            }
-
-            // Get the duplication times of each set belonging to each property
-            for (int i = 0; i < l_numberOfProperties; i++)
-            {
-                l_numberOfDuplicationPerSet[i] = l_maximumDuplicationTime / l_numberOfValues[i];
-                l_numberOfDuplicationPerSet[i] = l_numberOfDuplicationPerSet[i] / l_numberOfDuplicationPerProp[i];
-            }
-
-            // Write all of values into excel file
-            ISheet sheetOutput = wb.GetSheet("Variant Handling");
-
-            // Clear old information in the sheet
-            /* This hasnt been defined yet */
-
-            // Create the rows for filling information
-            for (int row = 0; row < l_maximumDuplicationTime; row++)
-            {
-                IRow rowSheet = sheetOutput.CreateRow(row);
-            }
-
-            //for (int column = 0; column < l_numberOfProperties - 1; column++)
-            //{
-            //    for (int row = 0; row < l_numberOfValues[column]; row++)
-            //    {
-            //        for (int time = 0; time < l_numberOfDuplicationPerProp[column]; time++)
-            //        {
-            //            IRow rowSheet = sheetOutput.GetRow(time + row*l_numberOfDuplicationPerProp[column]);
-            //            rowSheet.CreateCell(column).SetCellValue(l_informationValues[column][row]);
-            //        }
-            //    }
-
-            //}
-
-            //for (int time = 0; time < l_numberOfDuplicationPerProp[l_numberOfProperties - 1]; time++)
-            //{
-            //    for (int row = 0; row < l_numberOfValues[l_numberOfProperties - 1]; row++)
-            //    {
-            //        IRow rowSheet = sheetOutput.GetRow(row + time * l_numberOfValues[l_numberOfProperties - 1]);
-            //        rowSheet.CreateCell(l_numberOfProperties - 1).SetCellValue(l_informationValues[l_numberOfProperties - 1][row]);
-            //    }
-            //}
-
-            for (int column = 0; column < l_numberOfProperties; column++)
-            {
-                for (int dup = 0; dup < l_numberOfDuplicationPerSet[column]; dup++)
-                {
-                    for (int row = 0; row < l_numberOfValues[column]; row++)
-                    {
-                        for (int time = 0; time < l_numberOfDuplicationPerProp[column]; time++)
-                        {
-                            IRow rowSheet = sheetOutput.GetRow(time + row * l_numberOfDuplicationPerProp[column] + dup * l_numberOfValues[column] * l_numberOfDuplicationPerProp[column]);
-                            rowSheet.CreateCell(column).SetCellValue(l_informationValues[column][row]);
-                        }
-                    }
-                }
-            }
-
-            using (FileStream file_write = new FileStream(@"C:\Users\ghy3hc\Desktop\Miscellaneous\Bosch\Bosch\Configuration\Status.xlsx", FileMode.Create, FileAccess.Write))
-            {
-                wb.Write(file_write);
-                file_write.Close();
-            }
         }
 
         private void Btn_Clear_Click(object sender, EventArgs e)
@@ -493,102 +268,7 @@ namespace Bosch
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            /*
-             * This function will be modified to be more effective than the current one.
-             * */
-            int l_numberOfProperties = new int();
-            List<string> l_informationNames = new List<string>();
-            List<List<string>> l_informationValues = new List<List<string>>();
-
-            XSSFWorkbook wb;
-            using (FileStream file_read = new FileStream(@"C:\Users\ghy3hc\Desktop\Miscellaneous\Bosch\Bosch\Configuration\Status.xlsx", FileMode.Open, FileAccess.Read))
-            {
-                wb = new XSSFWorkbook(file_read);
-                file_read.Close();
-            }
-
-            ISheet sheet = wb.GetSheet("Information2");
-
-            // Get number of properties, please set the value to the exact cell.
-            l_numberOfProperties = Convert.ToUInt16(sheet.GetRow(1).GetCell(0).ToString());
-            int[] l_numberOfValues = new int[l_numberOfProperties]; // Declare an array to store number of values per property
-
-            // Get the names of properties
-            for (int column = 0; column < l_numberOfProperties; column++)
-            {
-                l_informationNames.Add(sheet.GetRow(0).GetCell(column + 1).ToString());
-                l_numberOfValues[column] = Convert.ToInt16(sheet.GetRow(1).GetCell(column + 1).ToString());
-            }
-
-            // Get the values belonging to each property
-            for (int column = 0; column < l_numberOfProperties; column++)
-            {
-                List<string> l_valueList = new List<string>();
-                for (int row = 0; row < l_numberOfValues[column]; row++)
-                {
-                    l_valueList.Add(sheet.GetRow(row + 2).GetCell(column + 1).ToString());
-                }
-                l_informationValues.Add(l_valueList);
-            }
-
-            int[] l_numberOfDuplicationPerProp = new int[l_numberOfProperties];
-            int[] l_numberOfDuplicationPerSet = new int[l_numberOfProperties];
-
-            // Get the duplication times of values of each property
-            int l_maximumDuplicationTime = 1;
-            for (int i = 0; i < l_numberOfProperties; i++)
-            {
-                l_maximumDuplicationTime *= l_numberOfValues[i];
-            }
-
-            // Get the duplication times of value in each set belonging to each property
-            for (int i = 0; i < l_numberOfProperties; i++)
-            {
-                int tempNumber = 1;
-                for (int j = i + 1; j < l_numberOfProperties; j++)
-                    tempNumber *= l_numberOfValues[j];
-                l_numberOfDuplicationPerProp[i] = tempNumber;
-            }
-
-            // Get the duplication times of each set belonging to each property
-            for (int i = 0; i < l_numberOfProperties; i++)
-            {
-                l_numberOfDuplicationPerSet[i] = l_maximumDuplicationTime / l_numberOfValues[i];
-                l_numberOfDuplicationPerSet[i] = l_numberOfDuplicationPerSet[i] / l_numberOfDuplicationPerProp[i];
-            }
-
-            // Write all of values into excel file
-            ISheet sheetOutput = wb.GetSheet("Variant Handling");
-
-            // Clear old information in the sheet
-            /* This hasnt been defined yet */
-
-            // Create the rows for filling information
-            for (int row = 0; row < l_maximumDuplicationTime; row++)
-            {
-                IRow rowSheet = sheetOutput.CreateRow(row);
-            }
-
-            for (int column = 0; column < l_numberOfProperties; column++)
-            {
-                for (int dup = 0; dup < l_numberOfDuplicationPerSet[column]; dup++)
-                {
-                    for (int row = 0; row < l_numberOfValues[column]; row++)
-                    {
-                        for (int time = 0; time < l_numberOfDuplicationPerProp[column]; time++)
-                        {
-                            IRow rowSheet = sheetOutput.GetRow(time + row * l_numberOfDuplicationPerProp[column] + dup * l_numberOfValues[column] * l_numberOfDuplicationPerProp[column]);
-                            rowSheet.CreateCell(column).SetCellValue(l_informationValues[column][row]);
-                        }
-                    }
-                }
-            }
-
-            using (FileStream file_write = new FileStream(@"C:\Users\ghy3hc\Desktop\Miscellaneous\Bosch\Bosch\Configuration\Status.xlsx", FileMode.Create, FileAccess.Write))
-            {
-                wb.Write(file_write);
-                file_write.Close();
-            }
+            
         }
 
         private void Cb_SID_SelectedIndexChanged(object sender, EventArgs e)
