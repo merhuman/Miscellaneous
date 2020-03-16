@@ -97,6 +97,7 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
+            this.btn_Raw2InputVSM = new System.Windows.Forms.Button();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -576,6 +577,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.btn_Raw2InputVSM);
             this.groupBox5.Controls.Add(this.tb_RawValue);
             this.groupBox5.Controls.Add(this.label17);
             this.groupBox5.Controls.Add(this.label16);
@@ -810,6 +812,16 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
+            // btn_Raw2InputVSM
+            // 
+            this.btn_Raw2InputVSM.Location = new System.Drawing.Point(179, 156);
+            this.btn_Raw2InputVSM.Name = "btn_Raw2InputVSM";
+            this.btn_Raw2InputVSM.Size = new System.Drawing.Size(77, 53);
+            this.btn_Raw2InputVSM.TabIndex = 17;
+            this.btn_Raw2InputVSM.Text = "Raw -> Input, VSM";
+            this.btn_Raw2InputVSM.UseVisualStyleBackColor = true;
+            this.btn_Raw2InputVSM.Click += new System.EventHandler(this.btn_Raw2InputVSM_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -910,6 +922,7 @@
         private System.Windows.Forms.TextBox tb_ResolutionValue;
         private System.Windows.Forms.TextBox tb_RawValue;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button btn_Raw2InputVSM;
     }
 }
 
