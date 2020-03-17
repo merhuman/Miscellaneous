@@ -11,21 +11,31 @@ namespace Bosch
     {
         class ProjectInfomation
         {
-            string name { set; get; }
-            float release { set; get; }
-            string variant { set; get; }
+            private string _name;
+            private float _release;
+            private string _variant;
+            string Name { set; get; }
+            float Release { set; get; }
+            string Variant { set; get; }
             // May add more information.
         }
 
         class SignalDB
         {
-            string projectName { set; get; }
-            string variant { set; get; }
-            string signalName { set; get; }
-            float minValue { set; get; }
-            float maxValue { set; get; }
-            string vsmName { set; get; }
-            string adiName { set; get; }
+            private string _projectName;
+            private string _variant;
+            private string _signalName;
+            private float _minValue;
+            private float _maxValue;
+            private string _vsmName;
+            private string _adiName;
+            string ProjectName { set; get; }
+            string Variant { set; get; }
+            string SignalName { set; get; }
+            float MinValue { set; get; }
+            float MaxValue { set; get; }
+            string VsmName { set; get; }
+            string AdiName { set; get; }
             List<string> valueTable { set; get; }
 
             SignalDB()
@@ -36,11 +46,16 @@ namespace Bosch
 
         class JsonSetupFile
         {
-            string projectName { get; set; }
-            string nodePrefix { get; set; }
-            string messagePrefix { get; set; }
-            string signalPrefix { get; set; }
-            string valueTablePrefix { get; set; }
+            private string _projectName;
+            private string _nodePrefix;
+            private string _messagePrefix;
+            private string _signalPrefix;
+            private string _valueTablePrefix;
+            string ProjectName { get; set; }
+            string NodePrefix { get; set; }
+            string MessagePrefix { get; set; }
+            string SignalPrefix { get; set; }
+            string ValueTablePrefix { get; set; }
 
             JsonSetupFile(string projectName)
             {

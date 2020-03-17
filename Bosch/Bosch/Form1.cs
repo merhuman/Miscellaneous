@@ -25,8 +25,8 @@ namespace Bosch
         /** Conversion part **/
         enum Test { on = 6, off = 9};
         enum ConvertMode { StringToHex, HexToString, Add0x, Drop0x };
-        string g_SID;
-        string g_DID;
+        string g_SID = string.Empty;
+        string g_DID = string.Empty;
         
         /** Miscellaneous part **/
 
