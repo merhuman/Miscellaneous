@@ -167,9 +167,8 @@ namespace Bosch
 
         private void Btn_Test_Click(object sender, EventArgs e)
         {
-            double testVar = 0.50625;
-            Console.WriteLine(Math.Round(testVar));
-            
+            List<List<int>> testArray = new List<List<int>>() { new List<int>{ 1, 2 }, new List<int> { 3, 4 } };
+            Console.WriteLine(testArray.Count);
         }
 
         private void Tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)
