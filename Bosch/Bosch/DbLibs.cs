@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Data.SQLite;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Bosch
 {
@@ -47,10 +50,10 @@ namespace Bosch
         class JsonSetupFile
         {
             private string _projectName;
-            private string _nodePrefix;
-            private string _messagePrefix;
-            private string _signalPrefix;
-            private string _valueTablePrefix;
+            private string _nodePrefix = "BU_";
+            private string _messagePrefix = "BO_";
+            private string _signalPrefix = "SG_";
+            private string _valueTablePrefix = "VAL_";
             string ProjectName { get; set; }
             string NodePrefix { get; set; }
             string MessagePrefix { get; set; }
@@ -59,8 +62,17 @@ namespace Bosch
 
             JsonSetupFile(string projectName)
             {
-
             }
+
+            public static void ReadJsonFile()
+            {
+                using (StreamReader reader = File.OpenText(@"D:\TH\csharp\Miscellaneous\Bosch\Bosch\Configuration\ProjectConfiguration.json"))
+                {
+                    JObject o = (JObject)JToken.ReadFrom(new JsonTextReader(reader));
+                    ;
+                }
+            }
+
         }
 
         static SQLiteConnection m_dbConnection;
