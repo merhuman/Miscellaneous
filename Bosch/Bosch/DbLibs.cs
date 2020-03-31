@@ -64,6 +64,17 @@ namespace Bosch
             {
             }
 
+            bool ReadIniPrefix(string nodePrefix, string messagePrefix, string signalPrefix, string valueTablePrefix)
+            {
+                int[] checkingStatus = new int[4] { 0, 0, 0, 0 };
+                if (nodePrefix == _nodePrefix)
+                {
+                
+                }
+                
+                return true;
+            }
+
             public static void ReadJsonFile()
             {
                 using (StreamReader reader = File.OpenText(@"D:\TH\csharp\Miscellaneous\Bosch\Bosch\Configuration\ProjectConfiguration.json"))

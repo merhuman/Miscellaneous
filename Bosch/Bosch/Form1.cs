@@ -167,7 +167,21 @@ namespace Bosch
 
         private void Btn_Test_Click(object sender, EventArgs e)
         {
+            string s = "12:40:22AM";
+            string subString = s.Substring(0, 2);
+            int hour;
+            if (s.Substring(8, 2) == "AM")
+            {
+                if (subString == "12") hour = 0;
+                else hour = Convert.ToInt32(subString);
+            }
+            else
+            {
+                if (subString == "12") hour = 12;
+                else hour = Convert.ToInt32(subString) + 12;
+            }
             
+            Console.WriteLine( (hour.ToString() + s.Substring(2, 6)));
         }
 
         private void Tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)
