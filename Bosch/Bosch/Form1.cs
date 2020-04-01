@@ -167,21 +167,23 @@ namespace Bosch
 
         private void Btn_Test_Click(object sender, EventArgs e)
         {
-            string s = "12:40:22AM";
-            string subString = s.Substring(0, 2);
-            int hour;
-            if (s.Substring(8, 2) == "AM")
+            List<int> resultGrades = new List<int>();
+            List<int> grades = new List<int>() { 73, 67, 38, 33 };
+            for (int idx = 0; idx < grades.Count(); idx++)
             {
-                if (subString == "12") hour = 0;
-                else hour = Convert.ToInt32(subString);
+                if (grades[idx] > 40)
+                {
+                    int roundUpNumber = ((grades[idx] + 5) / 5) * 5 ;
+                    if (roundUpNumber - grades[idx] < 3)
+                    {
+                        resultGrades.Add(roundUpNumber);
+                    }
+                    else resultGrades.Add(grades[idx]);
+                }
+                else resultGrades.Add(grades[idx]);
+
             }
-            else
-            {
-                if (subString == "12") hour = 12;
-                else hour = Convert.ToInt32(subString) + 12;
-            }
-            
-            Console.WriteLine( (hour.ToString() + s.Substring(2, 6)));
+
         }
 
         private void Tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)
@@ -450,6 +452,12 @@ namespace Bosch
             l_vsmValue = l_rawValue * l_resolutionValue + l_offSetValue;
             tb_InputValue.Text = l_inputValue.ToString();
             tb_VSMValue.Text = l_vsmValue.ToString();
+        }
+
+        private void btn_GenSensorParam_Click(object sender, EventArgs e)
+        {
+            ParamLibs.ParamFile paramStructure = new ParamLibs.ParamFile();
+            
         }
     }
 }
