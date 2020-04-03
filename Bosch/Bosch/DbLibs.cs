@@ -75,7 +75,7 @@ namespace Bosch
                 return true;
             }
 
-            public static void ReadJsonFile()
+            public static void ReadJsonFile(string filePath)
             {
                 using (StreamReader reader = File.OpenText(@"D:\TH\csharp\Miscellaneous\Bosch\Bosch\Configuration\ProjectConfiguration.json"))
                 {

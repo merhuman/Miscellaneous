@@ -456,7 +456,9 @@ namespace Bosch
 
         private void btn_GenSensorParam_Click(object sender, EventArgs e)
         {
+            string path = @"D:\TH\csharp\Miscellaneous\Bosch\Bosch\Configuration";
             ParamLibs.ParamFile paramStructure = new ParamLibs.ParamFile();
+            paramStructure.GenerateParam(path);
             
         }
     }
