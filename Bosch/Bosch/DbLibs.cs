@@ -14,9 +14,6 @@ namespace Bosch
     {
         class ProjectInfomation
         {
-            private string _name;
-            private float _release;
-            private string _variant;
             string Name { set; get; }
             float Release { set; get; }
             string Variant { set; get; }
@@ -25,13 +22,6 @@ namespace Bosch
 
         class SignalDB
         {
-            private string _projectName;
-            private string _variant;
-            private string _signalName;
-            private float _minValue;
-            private float _maxValue;
-            private string _vsmName;
-            private string _adiName;
             string ProjectName { set; get; }
             string Variant { set; get; }
             string SignalName { set; get; }
@@ -49,16 +39,11 @@ namespace Bosch
 
         class JsonSetupFile
         {
-            private string _projectName;
-            private string _nodePrefix = "BU_";
-            private string _messagePrefix = "BO_";
-            private string _signalPrefix = "SG_";
-            private string _valueTablePrefix = "VAL_";
             string ProjectName { get; set; }
-            string NodePrefix { get; set; }
-            string MessagePrefix { get; set; }
-            string SignalPrefix { get; set; }
-            string ValueTablePrefix { get; set; }
+            string NodePrefix { get; set; } = "BU_";
+            string MessagePrefix { get; set; } = "BO_";
+            string SignalPrefix { get; set; } = "SG_";
+            string ValueTablePrefix { get; set; } = "VAL_";
 
             JsonSetupFile(string projectName)
             {
@@ -66,11 +51,11 @@ namespace Bosch
 
             bool ReadIniPrefix(string nodePrefix, string messagePrefix, string signalPrefix, string valueTablePrefix)
             {
-                int[] checkingStatus = new int[4] { 0, 0, 0, 0 };
-                if (nodePrefix == _nodePrefix)
-                {
-                
-                }
+                bool[] checkingStatus = new bool[4] { false, false, false, false };
+                checkingStatus[0] = (nodePrefix == NodePrefix) ? true : false;
+                checkingStatus[1] = (messagePrefix == MessagePrefix) ? true : false;
+                checkingStatus[2] = (signalPrefix == SignalPrefix) ? true : false;
+                checkingStatus[3] = (valueTablePrefix == ValueTablePrefix) ? true : false;
                 
                 return true;
             }
