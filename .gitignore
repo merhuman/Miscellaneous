@@ -272,3 +272,6 @@ __pycache__/
 
 # txt file.
 .txt
+
+# database.
+.db

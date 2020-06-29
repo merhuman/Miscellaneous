@@ -96,12 +96,11 @@
             this.btn_TestButton2 = new System.Windows.Forms.Button();
             this.btn_ArrangeMisc = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btn_GenSensorParam = new System.Windows.Forms.Button();
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
-            this.cl_FailureOptions = new System.Windows.Forms.CheckedListBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.btn_GenSensorParam = new System.Windows.Forms.Button();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -112,8 +111,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.sts_Strip.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.sts_Strip.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab_FunctionControl
@@ -821,6 +820,26 @@
             this.tabPage1.Text = "Param Generator";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.btn_GenSensorParam);
+            this.groupBox6.Location = new System.Drawing.Point(6, 6);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(288, 234);
+            this.groupBox6.TabIndex = 1;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Failure Options";
+            // 
+            // btn_GenSensorParam
+            // 
+            this.btn_GenSensorParam.Location = new System.Drawing.Point(189, 19);
+            this.btn_GenSensorParam.Name = "btn_GenSensorParam";
+            this.btn_GenSensorParam.Size = new System.Drawing.Size(75, 23);
+            this.btn_GenSensorParam.TabIndex = 1;
+            this.btn_GenSensorParam.Text = "Generate";
+            this.btn_GenSensorParam.UseVisualStyleBackColor = true;
+            this.btn_GenSensorParam.Click += new System.EventHandler(this.btn_GenSensorParam_Click);
+            // 
             // sts_Strip
             // 
             this.sts_Strip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -839,45 +858,6 @@
             // ofd_OpenfileMisc
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
-            // 
-            // cl_FailureOptions
-            // 
-            this.cl_FailureOptions.FormattingEnabled = true;
-            this.cl_FailureOptions.Items.AddRange(new object[] {
-            "Sensor type gen 5",
-            "Short SCL to GND",
-            "Short SCL to Ubatt",
-            "Disturbance on SCL",
-            "VSE Disconnection",
-            "State Communication",
-            "No Communication",
-            "Statusbit Offset",
-            "Statusbit Programmed"});
-            this.cl_FailureOptions.Location = new System.Drawing.Point(6, 19);
-            this.cl_FailureOptions.Name = "cl_FailureOptions";
-            this.cl_FailureOptions.Size = new System.Drawing.Size(167, 139);
-            this.cl_FailureOptions.TabIndex = 0;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.btn_GenSensorParam);
-            this.groupBox6.Controls.Add(this.cl_FailureOptions);
-            this.groupBox6.Location = new System.Drawing.Point(6, 6);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(288, 234);
-            this.groupBox6.TabIndex = 1;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Sensor Failure Options";
-            // 
-            // btn_GenSensorParam
-            // 
-            this.btn_GenSensorParam.Location = new System.Drawing.Point(189, 19);
-            this.btn_GenSensorParam.Name = "btn_GenSensorParam";
-            this.btn_GenSensorParam.Size = new System.Drawing.Size(75, 23);
-            this.btn_GenSensorParam.TabIndex = 1;
-            this.btn_GenSensorParam.Text = "Generate";
-            this.btn_GenSensorParam.UseVisualStyleBackColor = true;
-            this.btn_GenSensorParam.Click += new System.EventHandler(this.btn_GenSensorParam_Click);
             // 
             // Form1
             // 
@@ -904,9 +884,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.sts_Strip.ResumeLayout(false);
             this.sts_Strip.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -985,7 +965,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button btn_GenSensorParam;
-        private System.Windows.Forms.CheckedListBox cl_FailureOptions;
     }
 }
 
