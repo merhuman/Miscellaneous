@@ -369,6 +369,7 @@ namespace Bosch
             }
 
             ProgramLibs.OpenFile(ProgramLibs.FileType.DBC, g_filePath, g_fileName, ref g_nodeNameList, null);
+            ProgramLibs.ConvertToJson(ProgramLibs.FileType.DBC, g_filePath, g_fileName);
         }
 
         private void Btn_ClearInput_Click(object sender, EventArgs e)

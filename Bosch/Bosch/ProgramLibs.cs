@@ -20,7 +20,7 @@ namespace Bosch
 
         /* enums */
         internal enum StringType { Normal, With_0x, Empty };
-        internal enum FileType { Excel, DBC, Undefined };
+        internal enum FileType { Excel, DBC, Json, Undefined };
 
         #region UnderDevelopment
         #endregion UnderDevelopment
@@ -215,12 +215,26 @@ namespace Bosch
                         l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert dbc file to txt file for more convenient purpose
                         File.Copy(inputFilePath, l_sourcePath, true);
                         GetNodesFromDBCFile(l_sourcePath, ref nameList);
+                        
+                        break;
+
+                    case FileType.Json:
+                        File.Copy(inputFilePath, l_sourcePath, true);
                         break;
 
                     default:
                         return false;
                 }
                 return true;
+            }
+            return false;
+        }
+
+        internal static bool ConvertToJson(FileType fileType, string inputFilePath, string fileName)
+        {
+            if (File.Exists(inputFilePath))
+            {
+
             }
             return false;
         }
@@ -261,15 +275,20 @@ namespace Bosch
         internal static bool GetNodesFromDBCFile(string filePath, ref List<string> nodeList)
         {
             string[] l_nodeNameList;
-            foreach (var line in File.ReadAllLines(filePath))
+            if (File.Exists(filePath))
             {
-                if (line.StartsWith("BU_:"))
+                foreach (var line in File.ReadAllLines(filePath))
                 {
-                    l_nodeNameList = line.Split(' ');
-                    nodeList = l_nodeNameList.ToList<string>();
-                    return true;
+                    if (line.StartsWith("BU_:"))
+                    {
+                        l_nodeNameList = line.Split(' ');
+                        nodeList = l_nodeNameList.ToList();
+                        nodeList.Remove("BU_:");
+                        return true;
+                    }
                 }
             }
+            
             return false;
         }
 
