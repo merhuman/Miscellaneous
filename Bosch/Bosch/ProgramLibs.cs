@@ -239,6 +239,25 @@ namespace Bosch
             return false;
         }
 
+        internal static bool GetNodesFromDBCFile(string filePath, ref List<string> nodeList)
+        {
+            string[] l_nodeNameList;
+            if (File.Exists(filePath))
+            {
+                foreach (var line in File.ReadAllLines(filePath))
+                {
+                    if (line.StartsWith("BU_:"))
+                    {
+                        l_nodeNameList = line.Split(' ');
+                        nodeList = l_nodeNameList.ToList();
+                        nodeList.Remove("BU_:");
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         internal static bool ReadAllSignalNamesFromExcel(string filePath, ref List<string> signalNameList, bool includeTitle)
         {
             List<string> l_signalNameList = new List<string>();
@@ -269,26 +288,6 @@ namespace Bosch
         internal static bool SearchString(string inputString)
         {
 
-            return false;
-        }
-
-        internal static bool GetNodesFromDBCFile(string filePath, ref List<string> nodeList)
-        {
-            string[] l_nodeNameList;
-            if (File.Exists(filePath))
-            {
-                foreach (var line in File.ReadAllLines(filePath))
-                {
-                    if (line.StartsWith("BU_:"))
-                    {
-                        l_nodeNameList = line.Split(' ');
-                        nodeList = l_nodeNameList.ToList();
-                        nodeList.Remove("BU_:");
-                        return true;
-                    }
-                }
-            }
-            
             return false;
         }
 
