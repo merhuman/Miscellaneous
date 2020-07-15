@@ -48,9 +48,6 @@
     <Reference Include="Humanizer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.2.0\lib\netstandard1.0\Humanizer.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.Decompiler, Version=5.0.2.5153, Culture=neutral, PublicKeyToken=d4bfe873e7598c49, processorArchitecture=MSIL">
-      <HintPath>..\packages\ICSharpCode.Decompiler.5.0.2.5153\lib\netstandard2.0\ICSharpCode.Decompiler.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=1.0.0.999, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.1.0.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -185,6 +182,7 @@
     <Compile Include="Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
+    <Compile Include="HelpBach.cs" />
     <Compile Include="ParamLibs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgramLibs.cs" />

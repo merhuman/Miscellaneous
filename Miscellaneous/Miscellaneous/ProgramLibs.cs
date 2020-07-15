@@ -230,6 +230,10 @@ namespace Miscellaneous
             return false;
         }
 
+        public class ProjectInfo
+        {          
+        }
+
         internal static bool ConvertToJson(FileType fileType, string inputFilePath, string fileName)
         {
             if (File.Exists(inputFilePath))
@@ -255,6 +259,11 @@ namespace Miscellaneous
                     }
                 }
             }
+            return false;
+        }
+
+        internal static bool GetMessageAndSignal(string filePath)
+        {
             return false;
         }
 

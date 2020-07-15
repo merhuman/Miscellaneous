@@ -15,6 +15,8 @@ using System.Text.RegularExpressions;
 using OfficeOpenXml;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SQLite;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 
 namespace Miscellaneous
@@ -167,22 +169,19 @@ namespace Miscellaneous
 
         private void Btn_Test_Click(object sender, EventArgs e)
         {
-            List<int> resultGrades = new List<int>();
-            List<int> grades = new List<int>() { 73, 67, 38, 33 };
-            for (int idx = 0; idx < grades.Count(); idx++)
-            {
-                if (grades[idx] > 40)
-                {
-                    int roundUpNumber = ((grades[idx] + 5) / 5) * 5 ;
-                    if (roundUpNumber - grades[idx] < 3)
-                    {
-                        resultGrades.Add(roundUpNumber);
-                    }
-                    else resultGrades.Add(grades[idx]);
-                }
-                else resultGrades.Add(grades[idx]);
-
-            }
+            JObject Boards_Total_new = new JObject();
+            Boards_Total_new.Add(new JProperty("Years", new JObject(
+                         new JProperty("2020", new JObject(
+                        new JProperty("Months", new JObject(
+                        new JProperty("May", new JObject(
+                        new JProperty("Days", new JObject(
+                        new JProperty("25", new JObject(
+                        new JProperty("Boards", new JObject(
+                        new JProperty("V001", new JObject(
+                        new JProperty("uptime", 0),
+                        new JProperty("downtime", 0),
+                        new JProperty("start_date", "1999-07-14"),
+                        new JProperty("location", ""))))))))))))))))));
 
         }
 
