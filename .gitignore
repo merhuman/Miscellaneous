@@ -261,17 +261,17 @@ __pycache__/
 *.pyc
 
 # VS and VSCode config files.
-.vs
-.vscode
+*.vs
+*.vscode
 
 # ini files.
-.ini
+*.ini
 
 # json files.
-.json
+*.json
 
 # txt file.
-.txt
+*.txt
 
 # database.
-.db
+*.db
