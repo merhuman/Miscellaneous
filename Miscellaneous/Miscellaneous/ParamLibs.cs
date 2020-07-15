@@ -7,7 +7,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Bosch
+namespace Miscellaneous
 {
     class ParamLibs
     {

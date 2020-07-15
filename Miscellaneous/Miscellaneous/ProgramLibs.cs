@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Data.SQLite;
 
 
-namespace Bosch
+namespace Miscellaneous
 {
     class ProgramLibs
     {

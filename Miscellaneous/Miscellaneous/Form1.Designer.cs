@@ -1,4 +1,4 @@
-﻿namespace Bosch
+﻿namespace Miscellaneous
 {
     partial class Form1
     {

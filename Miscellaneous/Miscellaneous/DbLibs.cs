@@ -8,7 +8,7 @@ using System.Data.SQLite;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Bosch
+namespace Miscellaneous
 {
     class DbLibs
     {
@@ -62,7 +62,7 @@ namespace Bosch
 
             public static void ReadJsonFile(string filePath)
             {
-                using (StreamReader reader = File.OpenText(@"D:\TH\csharp\Miscellaneous\Bosch\Bosch\Configuration\ProjectConfiguration.json"))
+                using (StreamReader reader = File.OpenText(@"D:\TH\csharp\Miscellaneous\Miscellaneous\Miscellaneous\Configuration\ProjectConfiguration.json"))
                 {
                     JObject o = (JObject)JToken.ReadFrom(new JsonTextReader(reader));
                     ;
