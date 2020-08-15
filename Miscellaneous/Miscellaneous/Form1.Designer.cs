@@ -72,6 +72,8 @@
             this.cb_Padding = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btn_CalculateSensorParam = new System.Windows.Forms.Button();
+            this.btn_LoadSensorParamFile = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.btn_Raw2InputVSM = new System.Windows.Forms.Button();
             this.tb_RawValue = new System.Windows.Forms.TextBox();
@@ -97,7 +99,12 @@
             this.btn_ArrangeMisc = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btn_LoadJsonFile_ParamGen = new System.Windows.Forms.Button();
             this.btn_GenSensorParam = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btn_GetRequestorReponse = new System.Windows.Forms.Button();
+            this.tb_OutputFrame = new System.Windows.Forms.TextBox();
+            this.tb_InputFrame = new System.Windows.Forms.TextBox();
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
@@ -112,6 +119,7 @@
             this.groupBox4.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.sts_Strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -120,6 +128,7 @@
             this.tab_FunctionControl.Controls.Add(this.tab_Convert);
             this.tab_FunctionControl.Controls.Add(this.tabPage2);
             this.tab_FunctionControl.Controls.Add(this.tabPage1);
+            this.tab_FunctionControl.Controls.Add(this.tabPage3);
             this.tab_FunctionControl.Location = new System.Drawing.Point(3, 3);
             this.tab_FunctionControl.Name = "tab_FunctionControl";
             this.tab_FunctionControl.SelectedIndex = 0;
@@ -553,7 +562,8 @@
             this.cb_Padding.Items.AddRange(new object[] {
             "0x00",
             "0x20",
-            "0x30"});
+            "0x30",
+            "0xFF"});
             this.cb_Padding.Location = new System.Drawing.Point(124, 48);
             this.cb_Padding.Name = "cb_Padding";
             this.cb_Padding.Size = new System.Drawing.Size(121, 21);
@@ -571,6 +581,8 @@
             // tabPage2
             // 
             this.tabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage2.Controls.Add(this.btn_CalculateSensorParam);
+            this.tabPage2.Controls.Add(this.btn_LoadSensorParamFile);
             this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -580,6 +592,26 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Miscellaneous";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btn_CalculateSensorParam
+            // 
+            this.btn_CalculateSensorParam.Location = new System.Drawing.Point(628, 51);
+            this.btn_CalculateSensorParam.Name = "btn_CalculateSensorParam";
+            this.btn_CalculateSensorParam.Size = new System.Drawing.Size(75, 23);
+            this.btn_CalculateSensorParam.TabIndex = 3;
+            this.btn_CalculateSensorParam.Text = "Calculate";
+            this.btn_CalculateSensorParam.UseVisualStyleBackColor = true;
+            this.btn_CalculateSensorParam.Click += new System.EventHandler(this.Btn_CalculateSensorParam_Click);
+            // 
+            // btn_LoadSensorParamFile
+            // 
+            this.btn_LoadSensorParamFile.Location = new System.Drawing.Point(518, 51);
+            this.btn_LoadSensorParamFile.Name = "btn_LoadSensorParamFile";
+            this.btn_LoadSensorParamFile.Size = new System.Drawing.Size(87, 23);
+            this.btn_LoadSensorParamFile.TabIndex = 2;
+            this.btn_LoadSensorParamFile.Text = "Load Excel File";
+            this.btn_LoadSensorParamFile.UseVisualStyleBackColor = true;
+            this.btn_LoadSensorParamFile.Click += new System.EventHandler(this.Btn_LoadSensorParamFile);
             // 
             // groupBox5
             // 
@@ -822,23 +854,72 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.btn_LoadJsonFile_ParamGen);
             this.groupBox6.Controls.Add(this.btn_GenSensorParam);
             this.groupBox6.Location = new System.Drawing.Point(6, 6);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(288, 234);
             this.groupBox6.TabIndex = 1;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Failure Options";
+            this.groupBox6.Text = "Negative DID";
+            // 
+            // btn_LoadJsonFile_ParamGen
+            // 
+            this.btn_LoadJsonFile_ParamGen.Location = new System.Drawing.Point(32, 32);
+            this.btn_LoadJsonFile_ParamGen.Name = "btn_LoadJsonFile_ParamGen";
+            this.btn_LoadJsonFile_ParamGen.Size = new System.Drawing.Size(75, 23);
+            this.btn_LoadJsonFile_ParamGen.TabIndex = 2;
+            this.btn_LoadJsonFile_ParamGen.Text = "Load Json";
+            this.btn_LoadJsonFile_ParamGen.UseVisualStyleBackColor = true;
+            this.btn_LoadJsonFile_ParamGen.Click += new System.EventHandler(this.Btn_LoadJsonFile_ParamGen_Click);
             // 
             // btn_GenSensorParam
             // 
-            this.btn_GenSensorParam.Location = new System.Drawing.Point(189, 19);
+            this.btn_GenSensorParam.Location = new System.Drawing.Point(163, 32);
             this.btn_GenSensorParam.Name = "btn_GenSensorParam";
             this.btn_GenSensorParam.Size = new System.Drawing.Size(75, 23);
             this.btn_GenSensorParam.TabIndex = 1;
             this.btn_GenSensorParam.Text = "Generate";
             this.btn_GenSensorParam.UseVisualStyleBackColor = true;
-            this.btn_GenSensorParam.Click += new System.EventHandler(this.btn_GenSensorParam_Click);
+            this.btn_GenSensorParam.Click += new System.EventHandler(this.btn_GenParam_Click);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.btn_GetRequestorReponse);
+            this.tabPage3.Controls.Add(this.tb_OutputFrame);
+            this.tabPage3.Controls.Add(this.tb_InputFrame);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(783, 365);
+            this.tabPage3.TabIndex = 3;
+            this.tabPage3.Text = "Frames Mod";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btn_GetRequestorReponse
+            // 
+            this.btn_GetRequestorReponse.Location = new System.Drawing.Point(523, 22);
+            this.btn_GetRequestorReponse.Name = "btn_GetRequestorReponse";
+            this.btn_GetRequestorReponse.Size = new System.Drawing.Size(122, 38);
+            this.btn_GetRequestorReponse.TabIndex = 2;
+            this.btn_GetRequestorReponse.Text = "Get Request/Response";
+            this.btn_GetRequestorReponse.UseVisualStyleBackColor = true;
+            this.btn_GetRequestorReponse.Click += new System.EventHandler(this.Btn_GetRequestorReponse_Click);
+            // 
+            // tb_OutputFrame
+            // 
+            this.tb_OutputFrame.Location = new System.Drawing.Point(27, 193);
+            this.tb_OutputFrame.Multiline = true;
+            this.tb_OutputFrame.Name = "tb_OutputFrame";
+            this.tb_OutputFrame.Size = new System.Drawing.Size(436, 106);
+            this.tb_OutputFrame.TabIndex = 1;
+            // 
+            // tb_InputFrame
+            // 
+            this.tb_InputFrame.Location = new System.Drawing.Point(27, 22);
+            this.tb_InputFrame.Multiline = true;
+            this.tb_InputFrame.Name = "tb_InputFrame";
+            this.tb_InputFrame.Size = new System.Drawing.Size(436, 106);
+            this.tb_InputFrame.TabIndex = 0;
             // 
             // sts_Strip
             // 
@@ -885,6 +966,8 @@
             this.groupBox4.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.sts_Strip.ResumeLayout(false);
             this.sts_Strip.PerformLayout();
             this.ResumeLayout(false);
@@ -965,6 +1048,13 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button btn_GenSensorParam;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button btn_GetRequestorReponse;
+        private System.Windows.Forms.TextBox tb_OutputFrame;
+        private System.Windows.Forms.TextBox tb_InputFrame;
+        private System.Windows.Forms.Button btn_LoadJsonFile_ParamGen;
+        private System.Windows.Forms.Button btn_CalculateSensorParam;
+        private System.Windows.Forms.Button btn_LoadSensorParamFile;
     }
 }
 

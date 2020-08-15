@@ -7,6 +7,9 @@ using System.IO;
 using OfficeOpenXml;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SQLite;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 
 namespace Miscellaneous
@@ -20,7 +23,7 @@ namespace Miscellaneous
 
         /* enums */
         internal enum StringType { Normal, With_0x, Empty };
-        internal enum FileType { Excel, DBC, Json, Undefined };
+        internal enum FileType { Excel, SSParam, DBC, Json, Undefined };
 
         #region UnderDevelopment
         #endregion UnderDevelopment
@@ -230,8 +233,130 @@ namespace Miscellaneous
             return false;
         }
 
+        /// <summary>
+        /// Load SS Parameter File and convert to txt file.
+        /// </summary>
+        /// <param name="inputFilePath"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        internal static bool OpenSSParamFile(string inputFilePath, string fileName)
+        {
+            string l_sourcePath = "./Configuration";
+            Directory.CreateDirectory(l_sourcePath);
+            l_sourcePath = Path.Combine(l_sourcePath, fileName);
+
+            string l_outputString = String.Empty;
+
+            if (!string.IsNullOrEmpty(inputFilePath) && File.Exists(inputFilePath))
+            {
+                List<string> l_signalNameList = new List<string>();
+                byte[] bin = File.ReadAllBytes(inputFilePath);
+
+                using (MemoryStream stream = new MemoryStream(bin))
+                using (ExcelPackage excelPackage = new ExcelPackage(stream))
+                {
+
+                    foreach (ExcelWorksheet worksheet in excelPackage.Workbook.Worksheets)
+                    {
+                        //int l_startRow = (includeTitle == true) ? (worksheet.Dimension.Start.Row + 1) : worksheet.Dimension.Start.Row;
+                        //for (int row = l_startRow; row <= worksheet.Dimension.End.Row; row++)
+                        //{
+                        //    if (worksheet.Cells.Value != null)
+                        //    {
+                        //        l_signalNameList.Add(worksheet.Cells[row, 1].Value.ToString());
+                        //    }
+                        //}
+
+                    }
+                    ExcelWorksheet l_workSheet = excelPackage.Workbook.Worksheets["Origin"];
+                    // Calculation using method from imported dll file.
+                }
+
+            }
+            return false;
+        }
+
         public class ProjectInfo
-        {          
+        {
+            private string _name = String.Empty;
+            private List<float> _release;
+            private List<string> _variant;
+            
+            public string Name
+            {
+                get { return _name; }
+                set { _name = value; }
+            }
+            
+            public bool AddRelease(float release)
+            {
+                _release.Add(release);
+                if (!(_release?.Any() ?? false))
+                {
+                    _release.Add(release);
+                    return true;
+                }
+                return false;
+            }
+            
+            public int NumberOfRelease()
+            {
+                if (!(_release?.Any() ?? false))
+                {
+                    return _release.Count();
+                }
+                return 0;
+            }
+
+            public bool DropRelease(float release)
+            {
+                if (!(_release?.Any() ?? false))
+                {
+                    _release.Remove(release);
+                    return true;
+                }
+                return false;
+            }
+
+            public bool DropRelease(int index)
+            {
+                if (!(_release?.Any() ?? false))
+                {
+                    _release.RemoveAt(index);
+                    return true;
+                }
+                return false;
+            }
+
+            public bool AddVariant(string variant)
+            {
+                if (!(_release?.Any() ?? false))
+                {
+                    _variant.Add(variant);
+                    return true;
+                }
+                return false;
+            }
+
+            public bool DropVariant(string variant)
+            {
+                if (!(_release?.Any() ?? false))
+                {
+                    _variant.Remove(variant);
+                    return true;
+                }
+                return false;
+            }
+
+            public bool DropVariant(int index)
+            {
+                if (!(_release?.Any() ?? false))
+                {
+                    _variant.RemoveAt(index);
+                    return true;
+                }
+                return false;
+            }
         }
 
         internal static bool ConvertToJson(FileType fileType, string inputFilePath, string fileName)
@@ -306,5 +431,26 @@ namespace Miscellaneous
         }
 
         #endregion Search
+
+        #region TextEdit
+        internal static string GetRequestResponse(string inputString)
+        {
+            string l_pattern = @"\[.*?\]";
+            string l_replacement = "";
+            string l_result = "";
+
+            try
+            {
+                l_result = Regex.Replace(inputString, l_pattern, l_replacement, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(0.5));
+
+            }
+            catch
+            {
+
+            }
+
+            return l_result;
+        }
+        #endregion TextEdit
     }
 }

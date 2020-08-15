@@ -275,3 +275,4 @@ __pycache__/
 
 # database.
 *.db
+/Miscellaneous/Miscellaneous/Configuration/SensorParam.xlsx

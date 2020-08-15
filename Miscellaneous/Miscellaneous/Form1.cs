@@ -169,19 +169,6 @@ namespace Miscellaneous
 
         private void Btn_Test_Click(object sender, EventArgs e)
         {
-            JObject Boards_Total_new = new JObject();
-            Boards_Total_new.Add(new JProperty("Years", new JObject(
-                         new JProperty("2020", new JObject(
-                        new JProperty("Months", new JObject(
-                        new JProperty("May", new JObject(
-                        new JProperty("Days", new JObject(
-                        new JProperty("25", new JObject(
-                        new JProperty("Boards", new JObject(
-                        new JProperty("V001", new JObject(
-                        new JProperty("uptime", 0),
-                        new JProperty("downtime", 0),
-                        new JProperty("start_date", "1999-07-14"),
-                        new JProperty("location", ""))))))))))))))))));
 
         }
 
@@ -454,12 +441,54 @@ namespace Miscellaneous
             tb_VSMValue.Text = l_vsmValue.ToString();
         }
 
-        private void btn_GenSensorParam_Click(object sender, EventArgs e)
+        private void btn_GenParam_Click(object sender, EventArgs e)
         {
             string path = @"D:\TH\csharp\Miscellaneous\Miscellaneous\Miscellaneous\Configuration";
             ParamLibs.ParamFile paramStructure = new ParamLibs.ParamFile();
             paramStructure.GenerateParam(path);
             
+        }
+
+        private void Btn_GetRequestorReponse_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_LoadJsonFile_ParamGen_Click(object sender, EventArgs e)
+        {
+            g_odf_Misc.Filter = "Excel Workbook (*.xlsx)|*.xlsx|Excel Macro-Enabled Workbook (*.xlsm)|*.xlsm|Excel 97-2003 (*.xls)|*.xls|All files (*.*)|*.*";
+            List<string> excelData = new List<string>();
+            g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Miscellaneous\Miscellaneous\Configuration";
+
+            if (g_odf_Misc.ShowDialog() == DialogResult.OK)
+            {
+                g_fileName = g_odf_Misc.SafeFileName;
+                g_filePath = g_odf_Misc.FileName;
+
+                JObject rss = JObject.Parse(File.ReadAllText(g_filePath));
+                //logFile.Name = (string)rss["Name"];
+                //logFile.FilePath = (string)rss["FilePath"];
+                //logFile.LogTime = (string)rss["LogTime"];
+            }
+        }
+
+        private void Btn_LoadSensorParamFile(object sender, EventArgs e)
+        {
+            g_odf_Misc.Filter = "Excel Workbook (*.xlsx)|*.xlsx|Excel Macro-Enabled Workbook (*.xlsm)|*.xlsm|Excel 97-2003 (*.xls)|*.xls|All files (*.*)|*.*";
+            List<string> excelData = new List<string>();
+            g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Miscellaneous\Miscellaneous\Configuration";
+
+            if (g_odf_Misc.ShowDialog() == DialogResult.OK)
+            {
+                g_fileName = g_odf_Misc.SafeFileName;
+                g_filePath = g_odf_Misc.FileName;
+                
+            }
+        }
+
+        private void Btn_CalculateSensorParam_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
