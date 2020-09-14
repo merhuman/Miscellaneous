@@ -169,7 +169,7 @@ namespace Miscellaneous
 
         private void Btn_Test_Click(object sender, EventArgs e)
         {
-
+            ProgramLibs.TF_ReadEnvironmentalInformation_CRCCounter("F1B287", 1, 0, 4, 12.1, 20, 0, 7);
         }
 
         private void Tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)
@@ -486,7 +486,27 @@ namespace Miscellaneous
             }
         }
 
-        private void Btn_CalculateSensorParam_Click(object sender, EventArgs e)
+        private void Btn_CalculateSSParam_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_Input2Raw_Click(object sender, EventArgs e)
+        {
+            double l_inputValue;
+            double l_resolutionValue;
+            double l_offSetValue;
+            double l_rawValue;
+
+            double.TryParse(tb_InputValue.Text, out l_inputValue);
+            double.TryParse(tb_ResolutionValue.Text, out l_resolutionValue);
+            double.TryParse(tb_OffsetValue.Text, out l_offSetValue);
+
+            l_rawValue = (l_inputValue - l_offSetValue) / l_resolutionValue;
+            tb_RawValue.Text = l_rawValue.ToString();
+        }
+
+        private void btn_TestButton3_Click(object sender, EventArgs e)
         {
 
         }

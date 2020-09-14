@@ -26,6 +26,12 @@ namespace Miscellaneous
         internal enum FileType { Excel, SSParam, DBC, Json, Undefined };
 
         #region UnderDevelopment
+        public static List<string> GenerateUnknownDID(List<string> validDID)
+        {
+            List<string> l_res = new List<string>();
+
+            return l_res;
+        }
         #endregion UnderDevelopment
 
         #region GeneralFunction
@@ -452,5 +458,45 @@ namespace Miscellaneous
             return l_result;
         }
         #endregion TextEdit
+
+        #region TestedMethods
+        public static string Add0x(string hexString)
+        {
+            string l_res = String.Empty;
+            int l_strLength = hexString.Length;
+            if (hexString.Length % 2 == 0)
+            {
+                for (int idx = 0; idx < l_strLength; idx++)
+                {
+                    if (idx % 2 == 0)
+                    {
+                        l_res += "0x";
+                    }
+                    l_res += hexString[idx];
+
+                    if (idx % 2 != 0 && idx < l_strLength - 1)
+                    {
+                        l_res += ",";
+                    }
+                }
+            }
+
+            return l_res;
+        }
+
+        public static double ConvertInputSignal(int convertType, double inputValue, double resolution, double offset)
+        {
+            double l_result;
+            if (convertType == 0)
+            {
+                l_result = (inputValue * resolution) + offset;
+            }
+            else
+            {
+                l_result = (inputValue - offset) / resolution;
+            }
+            return l_result;
+        }
+        #endregion TestedMethods
     }
 }

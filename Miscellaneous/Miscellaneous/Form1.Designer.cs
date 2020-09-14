@@ -72,9 +72,10 @@
             this.cb_Padding = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btn_CalculateSensorParam = new System.Windows.Forms.Button();
+            this.btn_CalculateSSParam = new System.Windows.Forms.Button();
             this.btn_LoadSensorParamFile = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btn_Input2Raw = new System.Windows.Forms.Button();
             this.btn_Raw2InputVSM = new System.Windows.Forms.Button();
             this.tb_RawValue = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -102,12 +103,14 @@
             this.btn_LoadJsonFile_ParamGen = new System.Windows.Forms.Button();
             this.btn_GenSensorParam = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cb_MultiFrames = new System.Windows.Forms.CheckBox();
             this.btn_GetRequestorReponse = new System.Windows.Forms.Button();
             this.tb_OutputFrame = new System.Windows.Forms.TextBox();
             this.tb_InputFrame = new System.Windows.Forms.TextBox();
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
+            this.btn_TestButton3 = new System.Windows.Forms.Button();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -137,6 +140,7 @@
             // 
             // tab_Convert
             // 
+            this.tab_Convert.Controls.Add(this.btn_TestButton3);
             this.tab_Convert.Controls.Add(this.btn_Clear);
             this.tab_Convert.Controls.Add(this.btn_Compare);
             this.tab_Convert.Controls.Add(this.btn_AddDrop);
@@ -581,7 +585,7 @@
             // tabPage2
             // 
             this.tabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabPage2.Controls.Add(this.btn_CalculateSensorParam);
+            this.tabPage2.Controls.Add(this.btn_CalculateSSParam);
             this.tabPage2.Controls.Add(this.btn_LoadSensorParamFile);
             this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Controls.Add(this.groupBox4);
@@ -593,15 +597,15 @@
             this.tabPage2.Text = "Miscellaneous";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // btn_CalculateSensorParam
+            // btn_CalculateSSParam
             // 
-            this.btn_CalculateSensorParam.Location = new System.Drawing.Point(628, 51);
-            this.btn_CalculateSensorParam.Name = "btn_CalculateSensorParam";
-            this.btn_CalculateSensorParam.Size = new System.Drawing.Size(75, 23);
-            this.btn_CalculateSensorParam.TabIndex = 3;
-            this.btn_CalculateSensorParam.Text = "Calculate";
-            this.btn_CalculateSensorParam.UseVisualStyleBackColor = true;
-            this.btn_CalculateSensorParam.Click += new System.EventHandler(this.Btn_CalculateSensorParam_Click);
+            this.btn_CalculateSSParam.Location = new System.Drawing.Point(628, 51);
+            this.btn_CalculateSSParam.Name = "btn_CalculateSSParam";
+            this.btn_CalculateSSParam.Size = new System.Drawing.Size(75, 23);
+            this.btn_CalculateSSParam.TabIndex = 3;
+            this.btn_CalculateSSParam.Text = "Calculate";
+            this.btn_CalculateSSParam.UseVisualStyleBackColor = true;
+            this.btn_CalculateSSParam.Click += new System.EventHandler(this.Btn_CalculateSSParam_Click);
             // 
             // btn_LoadSensorParamFile
             // 
@@ -615,6 +619,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.btn_Input2Raw);
             this.groupBox5.Controls.Add(this.btn_Raw2InputVSM);
             this.groupBox5.Controls.Add(this.tb_RawValue);
             this.groupBox5.Controls.Add(this.label17);
@@ -640,9 +645,19 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Input Signal";
             // 
+            // btn_Input2Raw
+            // 
+            this.btn_Input2Raw.Location = new System.Drawing.Point(359, 150);
+            this.btn_Input2Raw.Name = "btn_Input2Raw";
+            this.btn_Input2Raw.Size = new System.Drawing.Size(77, 53);
+            this.btn_Input2Raw.TabIndex = 18;
+            this.btn_Input2Raw.Text = "Input -> Raw";
+            this.btn_Input2Raw.UseVisualStyleBackColor = true;
+            this.btn_Input2Raw.Click += new System.EventHandler(this.Btn_Input2Raw_Click);
+            // 
             // btn_Raw2InputVSM
             // 
-            this.btn_Raw2InputVSM.Location = new System.Drawing.Point(179, 156);
+            this.btn_Raw2InputVSM.Location = new System.Drawing.Point(267, 150);
             this.btn_Raw2InputVSM.Name = "btn_Raw2InputVSM";
             this.btn_Raw2InputVSM.Size = new System.Drawing.Size(77, 53);
             this.btn_Raw2InputVSM.TabIndex = 17;
@@ -685,7 +700,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(271, 99);
+            this.pictureBox1.Location = new System.Drawing.Point(267, 64);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(184, 62);
             this.pictureBox1.TabIndex = 4;
@@ -693,7 +708,7 @@
             // 
             // btn_VSM2Input
             // 
-            this.btn_VSM2Input.Location = new System.Drawing.Point(179, 127);
+            this.btn_VSM2Input.Location = new System.Drawing.Point(179, 180);
             this.btn_VSM2Input.Name = "btn_VSM2Input";
             this.btn_VSM2Input.Size = new System.Drawing.Size(77, 23);
             this.btn_VSM2Input.TabIndex = 12;
@@ -703,7 +718,7 @@
             // 
             // btn_Input2VSM
             // 
-            this.btn_Input2VSM.Location = new System.Drawing.Point(179, 99);
+            this.btn_Input2VSM.Location = new System.Drawing.Point(179, 150);
             this.btn_Input2VSM.Name = "btn_Input2VSM";
             this.btn_Input2VSM.Size = new System.Drawing.Size(77, 23);
             this.btn_Input2VSM.TabIndex = 11;
@@ -885,6 +900,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.cb_MultiFrames);
             this.tabPage3.Controls.Add(this.btn_GetRequestorReponse);
             this.tabPage3.Controls.Add(this.tb_OutputFrame);
             this.tabPage3.Controls.Add(this.tb_InputFrame);
@@ -894,6 +910,16 @@
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "Frames Mod";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // cb_MultiFrames
+            // 
+            this.cb_MultiFrames.AutoSize = true;
+            this.cb_MultiFrames.Location = new System.Drawing.Point(533, 101);
+            this.cb_MultiFrames.Name = "cb_MultiFrames";
+            this.cb_MultiFrames.Size = new System.Drawing.Size(99, 17);
+            this.cb_MultiFrames.TabIndex = 3;
+            this.cb_MultiFrames.Text = "Multiple Frames";
+            this.cb_MultiFrames.UseVisualStyleBackColor = true;
             // 
             // btn_GetRequestorReponse
             // 
@@ -939,6 +965,16 @@
             // ofd_OpenfileMisc
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
+            // 
+            // btn_TestButton3
+            // 
+            this.btn_TestButton3.Location = new System.Drawing.Point(687, 302);
+            this.btn_TestButton3.Name = "btn_TestButton3";
+            this.btn_TestButton3.Size = new System.Drawing.Size(75, 23);
+            this.btn_TestButton3.TabIndex = 10;
+            this.btn_TestButton3.Text = "Test button3";
+            this.btn_TestButton3.UseVisualStyleBackColor = true;
+            this.btn_TestButton3.Click += new System.EventHandler(this.btn_TestButton3_Click);
             // 
             // Form1
             // 
@@ -1053,8 +1089,11 @@
         private System.Windows.Forms.TextBox tb_OutputFrame;
         private System.Windows.Forms.TextBox tb_InputFrame;
         private System.Windows.Forms.Button btn_LoadJsonFile_ParamGen;
-        private System.Windows.Forms.Button btn_CalculateSensorParam;
+        private System.Windows.Forms.Button btn_CalculateSSParam;
         private System.Windows.Forms.Button btn_LoadSensorParamFile;
+        private System.Windows.Forms.Button btn_Input2Raw;
+        private System.Windows.Forms.CheckBox cb_MultiFrames;
+        private System.Windows.Forms.Button btn_TestButton3;
     }
 }
 
