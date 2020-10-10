@@ -21,6 +21,9 @@ namespace Miscellaneous
 
         }
 
+        /* class properties */
+        //string pattern1 = "(random)\s*\(\)\s*";
+
         /* enums */
         internal enum StringType { Normal, With_0x, Empty };
         internal enum FileType { Excel, SSParam, DBC, Json, Undefined };
@@ -457,6 +460,36 @@ namespace Miscellaneous
 
             return l_result;
         }
+
+        /// <summary>
+        /// Identify single frame and multi frame request/response
+        /// </summary>
+        /// <param name="inputString">Input hex string</param>
+        /// <returns>
+        /// 0: Multi frame request/response
+        /// 1: Single frame request/response
+        /// -1: Not a request/response
+        /// </returns>
+        public static int DetectSingleFrame(string inputString)
+        {
+            string l_input;
+
+            l_input = inputString.Replace(" ", "");
+            if (0 == 0)
+            {
+                if (l_input.Substring(0, 2) == "10")
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return -1;
+            }
+            
+            return 1;
+        }
+
         #endregion TextEdit
 
         #region TestedMethods
@@ -497,6 +530,9 @@ namespace Miscellaneous
             }
             return l_result;
         }
+
+        
+
         #endregion TestedMethods
     }
 }

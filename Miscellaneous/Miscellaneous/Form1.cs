@@ -169,7 +169,8 @@ namespace Miscellaneous
 
         private void Btn_Test_Click(object sender, EventArgs e)
         {
-            ProgramLibs.TF_ReadEnvironmentalInformation_CRCCounter("F1B287", 1, 0, 4, 12.1, 20, 0, 7);
+            //ProgramLibs.TF_ReadEnvironmentalInformation_CRCCounter("F1B287", 1, 0, 4, 12.1, 20, 0, 7);
+            
         }
 
         private void Tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)
@@ -228,12 +229,12 @@ namespace Miscellaneous
             /* Add 0x to the string */
             if (cb_Mode.SelectedIndex == 2)
             {
-                tb_Output.Text = ProgramLibs.Add0xToHexString(tb_Input.Text);
+                tb_Output.Text = ProgramLibs.Add0xToHexString(l_input.Trim());
             }
             /* Drop 0x from the string */
             else if (cb_Mode.SelectedIndex == 3)
             {
-                tb_Output.Text = tb_Input.Text.Replace("0x", " ").Replace(",", "").Replace("  ", " ").Trim();
+                tb_Output.Text = l_input.Replace("0x", " ").Replace(",", "").Replace("  ", " ").Trim();
                 /*
                  * This line will replace all ",0x" and take string from 3rd letter to neglect
                  */
@@ -318,6 +319,10 @@ namespace Miscellaneous
                 case 10:
                     g_SID = "0x27";
                     break;
+
+                default:
+                    Console.WriteLine("Non-defined value");
+                    break;
             }
         }
 
@@ -372,8 +377,9 @@ namespace Miscellaneous
 
         private void Btn_countInput_Click(object sender, EventArgs e)
         {
-            tb_NumberOfChunksInput.Text = ProgramLibs.CountNumberOfChunks(tb_Input.Text).ToString();
-            tb_NumberOfSpacesInput.Text = ProgramLibs.CountNumberOfSpace(tb_Input.Text).ToString();
+            string l_input = tb_Input.Text;
+            tb_NumberOfChunksInput.Text = ProgramLibs.CountNumberOfChunks(l_input).ToString();
+            tb_NumberOfSpacesInput.Text = ProgramLibs.CountNumberOfSpace(l_input).ToString();
             tb_NumberOfCharsInput.Text = tb_Input.Text.Count().ToString();
         }
 
