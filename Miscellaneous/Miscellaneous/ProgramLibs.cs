@@ -462,6 +462,12 @@ namespace Miscellaneous
             return l_result;
         }
 
+        internal static List<string> GetCounterName(string filePath)
+        {
+            List<string> l_result = new List<string>();
+            return l_result;
+        }
+
         /// <summary>
         /// Identify single frame and multi frame request/response
         /// </summary>
