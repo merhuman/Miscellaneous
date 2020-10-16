@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tab_FunctionControl = new System.Windows.Forms.TabControl();
             this.tab_Convert = new System.Windows.Forms.TabPage();
+            this.btn_TestButton3 = new System.Windows.Forms.Button();
             this.btn_Clear = new System.Windows.Forms.Button();
             this.btn_Compare = new System.Windows.Forms.Button();
             this.btn_AddDrop = new System.Windows.Forms.Button();
@@ -72,6 +73,7 @@
             this.cb_Padding = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btn_LoadJson_Misc = new System.Windows.Forms.Button();
             this.btn_CalculateSSParam = new System.Windows.Forms.Button();
             this.btn_LoadSensorParamFile = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -110,7 +112,7 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
-            this.btn_TestButton3 = new System.Windows.Forms.Button();
+            this.btn_LoadScript_Misc = new System.Windows.Forms.Button();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -157,6 +159,16 @@
             this.tab_Convert.TabIndex = 0;
             this.tab_Convert.Text = "Convert";
             this.tab_Convert.UseVisualStyleBackColor = true;
+            // 
+            // btn_TestButton3
+            // 
+            this.btn_TestButton3.Location = new System.Drawing.Point(687, 302);
+            this.btn_TestButton3.Name = "btn_TestButton3";
+            this.btn_TestButton3.Size = new System.Drawing.Size(75, 23);
+            this.btn_TestButton3.TabIndex = 10;
+            this.btn_TestButton3.Text = "Test button3";
+            this.btn_TestButton3.UseVisualStyleBackColor = true;
+            this.btn_TestButton3.Click += new System.EventHandler(this.btn_TestButton3_Click);
             // 
             // btn_Clear
             // 
@@ -585,6 +597,8 @@
             // tabPage2
             // 
             this.tabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage2.Controls.Add(this.btn_LoadScript_Misc);
+            this.tabPage2.Controls.Add(this.btn_LoadJson_Misc);
             this.tabPage2.Controls.Add(this.btn_CalculateSSParam);
             this.tabPage2.Controls.Add(this.btn_LoadSensorParamFile);
             this.tabPage2.Controls.Add(this.groupBox5);
@@ -596,6 +610,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Miscellaneous";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btn_LoadJson_Misc
+            // 
+            this.btn_LoadJson_Misc.Location = new System.Drawing.Point(518, 115);
+            this.btn_LoadJson_Misc.Name = "btn_LoadJson_Misc";
+            this.btn_LoadJson_Misc.Size = new System.Drawing.Size(87, 23);
+            this.btn_LoadJson_Misc.TabIndex = 4;
+            this.btn_LoadJson_Misc.Text = "Load json";
+            this.btn_LoadJson_Misc.UseVisualStyleBackColor = true;
+            this.btn_LoadJson_Misc.Click += new System.EventHandler(this.Btn_LoadJson_Misc_Click);
             // 
             // btn_CalculateSSParam
             // 
@@ -966,15 +990,15 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
-            // btn_TestButton3
+            // btn_LoadScript_Misc
             // 
-            this.btn_TestButton3.Location = new System.Drawing.Point(687, 302);
-            this.btn_TestButton3.Name = "btn_TestButton3";
-            this.btn_TestButton3.Size = new System.Drawing.Size(75, 23);
-            this.btn_TestButton3.TabIndex = 10;
-            this.btn_TestButton3.Text = "Test button3";
-            this.btn_TestButton3.UseVisualStyleBackColor = true;
-            this.btn_TestButton3.Click += new System.EventHandler(this.btn_TestButton3_Click);
+            this.btn_LoadScript_Misc.Location = new System.Drawing.Point(628, 115);
+            this.btn_LoadScript_Misc.Name = "btn_LoadScript_Misc";
+            this.btn_LoadScript_Misc.Size = new System.Drawing.Size(93, 23);
+            this.btn_LoadScript_Misc.TabIndex = 5;
+            this.btn_LoadScript_Misc.Text = "Load script";
+            this.btn_LoadScript_Misc.UseVisualStyleBackColor = true;
+            this.btn_LoadScript_Misc.Click += new System.EventHandler(this.Btn_LoadScript_Misc_Click);
             // 
             // Form1
             // 
@@ -1094,6 +1118,8 @@
         private System.Windows.Forms.Button btn_Input2Raw;
         private System.Windows.Forms.CheckBox cb_MultiFrames;
         private System.Windows.Forms.Button btn_TestButton3;
+        private System.Windows.Forms.Button btn_LoadJson_Misc;
+        private System.Windows.Forms.Button btn_LoadScript_Misc;
     }
 }
 

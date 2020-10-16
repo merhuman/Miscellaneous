@@ -23,14 +23,16 @@ namespace Miscellaneous
 {
     public partial class Form1 : Form
     {
-        /* enums */
+        /* enums const*/
         /** Conversion part **/
         enum Test { on = 6, off = 9};
         enum ConvertMode { StringToHex, HexToString, Add0x, Drop0x };
         string g_SID = string.Empty;
         string g_DID = string.Empty;
-        
+
         /** Miscellaneous part **/
+        string pattern1 = @"(random)\s*\(\s*15\s*\)\s*";
+        string pattern2 = @"(random)\s*\(\s*255\s*\)\s*";
 
         /* Global variables */
         /** Conversion part **/
@@ -44,6 +46,9 @@ namespace Miscellaneous
 
         List<string> g_signalNameList = new List<string>();
         List<string> g_nodeNameList = new List<string>();
+        List<string> g_nameList1 = new List<string>();
+        List<string> g_nameList2 = new List<string>();
+
         public Form1()
         {
             InitializeComponent();
@@ -515,6 +520,55 @@ namespace Miscellaneous
         private void btn_TestButton3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Btn_LoadJson_Misc_Click(object sender, EventArgs e)
+        {
+            g_odf_Misc.Filter = "Json (*.json)|*.json|All files (*.*)|*.*";
+            List<string> excelData = new List<string>();
+            g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Miscellaneous\Miscellaneous\Configuration";
+
+            List<string> nameList1 = new List<string>();
+            List<string> nameList2 = new List<string>();
+            int numberOfItem = 0;
+
+            if (g_odf_Misc.ShowDialog() == DialogResult.OK)
+            {
+                g_fileName = g_odf_Misc.SafeFileName;
+                g_filePath = g_odf_Misc.FileName;
+
+                JObject rss = JObject.Parse(File.ReadAllText(g_filePath));
+                //logFile.Name = (string)rss["Name"];
+                numberOfItem = Math.Min(rss["NameList1"].Count(), rss["NameList2"].Count());
+
+                for (int idx = 0; idx < numberOfItem; idx++)
+                {
+                    nameList1.Add((string)rss["NameList1"][idx]);
+                    nameList2.Add((string)rss["NameList2"][idx]);
+                }
+            }
+        }
+
+        private void Btn_LoadScript_Misc_Click(object sender, EventArgs e)
+        {
+
+            g_odf_Misc.Filter = "capl (*.can)|*.can|All files (*.*)|*.*";
+            List<string> excelData = new List<string>();
+            g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Miscellaneous\Miscellaneous\Configuration";
+
+            string[] content;
+
+            if (g_odf_Misc.ShowDialog() == DialogResult.OK)
+            {
+                g_fileName = g_odf_Misc.SafeFileName;
+                g_filePath = g_odf_Misc.FileName;
+
+                content = File.ReadAllLines(g_filePath).ToArray<string>();
+                foreach (string line in content)
+                {
+                    Regex.Match(line, pattern1);
+                }
+            }
         }
     }
 }

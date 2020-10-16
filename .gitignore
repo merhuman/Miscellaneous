@@ -276,3 +276,7 @@ __pycache__/
 # database.
 *.db
 /Miscellaneous/Miscellaneous/Configuration/SensorParam.xlsx
+
+# capl.
+*.can
+*.cin

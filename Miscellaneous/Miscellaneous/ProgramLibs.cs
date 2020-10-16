@@ -22,8 +22,7 @@ namespace Miscellaneous
         }
 
         /* class properties */
-        string pattern1= @"(random)\s*\(\s*15\s*\)\s*";
-        string pattern2 = @"(random)\s*\(\s*255\s*\)\s*";
+        
 
         /* enums */
         internal enum StringType { Normal, With_0x, Empty };
