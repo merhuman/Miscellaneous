@@ -519,7 +519,7 @@ namespace Miscellaneous
 
         private void btn_TestButton3_Click(object sender, EventArgs e)
         {
-
+            Console.WriteLine(@"""test");
         }
 
         private void Btn_LoadJson_Misc_Click(object sender, EventArgs e)
@@ -552,12 +552,12 @@ namespace Miscellaneous
         private void Btn_LoadScript_Misc_Click(object sender, EventArgs e)
         {
 
-            g_odf_Misc.Filter = "capl (*.can)|*.can|All files (*.*)|*.*";
+            g_odf_Misc.Filter = "capl (*.can)|*.can|text (*.txt)|*.txt|All files (*.*)|*.*";
             List<string> excelData = new List<string>();
             g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Miscellaneous\Miscellaneous\Configuration";
 
             string[] content;
-
+            bool l_testRes = false;
             if (g_odf_Misc.ShowDialog() == DialogResult.OK)
             {
                 g_fileName = g_odf_Misc.SafeFileName;
@@ -566,7 +566,8 @@ namespace Miscellaneous
                 content = File.ReadAllLines(g_filePath).ToArray<string>();
                 foreach (string line in content)
                 {
-                    Regex.Match(line, pattern1);
+                    l_testRes = Regex.IsMatch(line, pattern1);
+                    if (l_testRes == true) Console.WriteLine("matched");
                 }
             }
         }
