@@ -174,7 +174,7 @@ namespace Miscellaneous
 
         private void Btn_Test_Click(object sender, EventArgs e)
         {
-            //ProgramLibs.TF_ReadEnvironmentalInformation_CRCCounter("F1B287", 1, 0, 4, 12.1, 20, 0, 7);
+            
             
         }
 

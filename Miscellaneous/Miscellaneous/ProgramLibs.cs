@@ -1,14 +1,9 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using OfficeOpenXml;
-using Microsoft.EntityFrameworkCore;
-using System.Data.SQLite;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 
 
@@ -27,6 +22,10 @@ namespace Miscellaneous
         /* enums */
         internal enum StringType { Normal, With_0x, Empty };
         internal enum FileType { Excel, SSParam, DBC, Json, Undefined };
+        public static string g_nodePrefix = "BU_:";
+        public static string g_mesPrefix = "BO_:";
+        public static string g_sigPrefix = "SG_:";
+        public static string g_valTabPrefix = "VAL_:";
 
         #region UnderDevelopment
         public static List<string> GenerateUnknownDID(List<string> validDID)
@@ -210,6 +209,11 @@ namespace Miscellaneous
             string l_sourcePath = "./Configuration";
             Directory.CreateDirectory(l_sourcePath);
             l_sourcePath = Path.Combine(l_sourcePath, fileName);
+            List<string> l_nodeList = new List<string>();
+            List<string> l_mesList = new List<string>();
+            List<string> l_sigList = new List<string>();
+            List<string> l_valTabList = new List<string>();
+
             if (!string.IsNullOrEmpty(inputFilePath))
             {
                 switch (fileType)
@@ -226,8 +230,10 @@ namespace Miscellaneous
                     case FileType.DBC:
                         l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert dbc file to txt file for more convenient purpose
                         File.Copy(inputFilePath, l_sourcePath, true);
-                        GetNodesFromDBCFile(l_sourcePath, ref nameList);
-                        
+                        GetNodesFromDBCFile(l_sourcePath, ref l_nodeList);
+                        GetMessagesFromDBCFile(l_sourcePath, ref l_mesList);
+                        GetSignalsFromDBCFile(l_sourcePath, ref l_sigList);
+                        GetValTablesFromDBCFile(l_sourcePath, ref l_valTabList);
                         break;
 
                     case FileType.Json:
@@ -237,6 +243,7 @@ namespace Miscellaneous
                     default:
                         return false;
                 }
+                ;
                 return true;
             }
             return false;
@@ -379,18 +386,66 @@ namespace Miscellaneous
 
         internal static bool GetNodesFromDBCFile(string filePath, ref List<string> nodeList)
         {
-            string[] l_nodeNameList;
+            string[] l_nodeNameList = new string[] { } ; 
             if (File.Exists(filePath))
             {
                 foreach (var line in File.ReadAllLines(filePath))
                 {
-                    if (line.StartsWith("BU_:"))
+                    if (line.StartsWith(g_nodePrefix))
                     {
                         l_nodeNameList = line.Split(' ');
                         nodeList = l_nodeNameList.ToList();
-                        nodeList.Remove("BU_:");
+                        nodeList.Remove(g_nodePrefix);
                         return true;
                     }
+                }
+            }
+            return false;
+        }
+
+        internal static bool GetMessagesFromDBCFile(string filePath, ref List<string> messageList)
+        {
+            string[] l_messageNameList = new string[] { };
+            foreach (var line in File.ReadAllLines(filePath))
+            {
+                if (line.StartsWith(g_mesPrefix))
+                {
+                    l_messageNameList = line.Split(' ');
+                    messageList = l_messageNameList.ToList();
+                    messageList.Remove(g_mesPrefix);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        internal static bool GetSignalsFromDBCFile(string filePath, ref List<string> signaList)
+        {
+            string[] l_signalNameList = new string[] { };
+            foreach (var line in File.ReadAllLines(filePath))
+            {
+                if (line.StartsWith(g_sigPrefix))
+                {
+                    l_signalNameList = line.Split(' ');
+                    signaList = l_signalNameList.ToList();
+                    signaList.Remove(g_sigPrefix);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        internal static bool GetValTablesFromDBCFile(string filePath, ref List<string> valTableList)
+        {
+            string[] l_valTableList = new string[] { };
+            foreach (var line in File.ReadAllLines(filePath))
+            {
+                if (line.StartsWith(g_valTabPrefix))
+                {
+                    l_valTableList = line.Split(' ');
+                    valTableList = l_valTableList.ToList();
+                    valTableList.Remove(g_valTabPrefix);
+                    return true;
                 }
             }
             return false;
