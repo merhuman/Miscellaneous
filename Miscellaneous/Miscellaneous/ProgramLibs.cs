@@ -211,7 +211,7 @@ namespace Miscellaneous
             l_sourcePath = Path.Combine(l_sourcePath, fileName);
             List<string> l_nodeList = new List<string>();
             List<string[]> l_mesList = new List<string[]>();
-            List<string> l_sigList = new List<string>();
+            List<string[]> l_sigList = new List<string[]>();
             List<string> l_valTabList = new List<string>();
 
             if (!string.IsNullOrEmpty(inputFilePath))
@@ -231,8 +231,8 @@ namespace Miscellaneous
                         l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert dbc file to txt file for more convenient purpose
                         File.Copy(inputFilePath, l_sourcePath, true);
                         GetNodesFromDBCFile(l_sourcePath, ref l_nodeList);
-                        GetMessagesFromDBCFile(l_sourcePath, ref l_mesList);
-                        GetSignalsFromDBCFile(l_sourcePath, ref l_sigList);
+                        GetMessagesFromDBCFile(l_sourcePath, ref l_mesList, ref l_sigList);
+                        //GetSignalsFromDBCFile(l_sourcePath, ref l_sigList);
                         GetValTablesFromDBCFile(l_sourcePath, ref l_valTabList);
                         break;
 
@@ -403,10 +403,22 @@ namespace Miscellaneous
             return false;
         }
 
-        internal static bool GetMessagesFromDBCFile(string filePath, ref List<string[]> messageList)
+        internal static bool GetMessagesFromDBCFile(string filePath, 
+                                                    ref List<string[]> messageList, 
+                                                    ref List<string[]> signalList)
         {
             string[] l_messageNameList = new string[] { };
+            string[] l_signalNameList = new string[] { };
             string[] l_res = new string[4] { String.Empty, String.Empty, String.Empty, String.Empty };
+            string[] l_res2 = new string[8] { String.Empty,
+                                              String.Empty,
+                                              String.Empty,
+                                              String.Empty,
+                                              String.Empty,
+                                              String.Empty,
+                                              String.Empty,
+                                              String.Empty};
+            string l_previousMes = String.Empty;
             foreach (var line in File.ReadAllLines(filePath))
             {
                 if (line.StartsWith(g_mesPrefix))
@@ -416,7 +428,16 @@ namespace Miscellaneous
                     //messageList.Remove(g_mesPrefix);
                     l_messageNameList[2] = l_messageNameList[2].Replace(":", "");
                     Array.Copy(l_messageNameList, 1, l_res, 0, 4);
+                    l_previousMes = l_res[1];
                     messageList.Add(l_res);
+                }
+                else if (line.StartsWith(g_sigPrefix))
+                {
+                    // problem with signal split. Need to use regex.
+                    l_signalNameList = line.Split(' ');
+                    l_res2[0] = l_previousMes;
+                    Array.Copy(l_signalNameList, 2, l_res2, 1, 7);
+                    signalList.Add(l_res2);
                 }
             }
             if (messageList.Count() != 0) return true;
