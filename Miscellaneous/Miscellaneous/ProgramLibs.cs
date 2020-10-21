@@ -22,10 +22,10 @@ namespace Miscellaneous
         /* enums */
         internal enum StringType { Normal, With_0x, Empty };
         internal enum FileType { Excel, SSParam, DBC, Json, Undefined };
-        public static string g_nodePrefix = "BU_:";
-        public static string g_mesPrefix = "BO_";
-        public static string g_sigPrefix = "SG_";
-        public static string g_valTabPrefix = "VAL_";
+        public static string g_nodePrefix = "BU_: ";
+        public static string g_mesPrefix = "BO_ ";
+        public static string g_sigPrefix = " SG_ ";
+        public static string g_valTabPrefix = "VAL_ ";
 
         #region UnderDevelopment
         public static List<string> GenerateUnknownDID(List<string> validDID)
@@ -595,8 +595,6 @@ namespace Miscellaneous
             }
             return l_result;
         }
-
-        
 
         #endregion TestedMethods
     }
