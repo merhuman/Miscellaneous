@@ -23,9 +23,9 @@ namespace Miscellaneous
         internal enum StringType { Normal, With_0x, Empty };
         internal enum FileType { Excel, SSParam, DBC, Json, Undefined };
         public static string g_nodePrefix = "BU_:";
-        public static string g_mesPrefix = "BO_:";
-        public static string g_sigPrefix = "SG_:";
-        public static string g_valTabPrefix = "VAL_:";
+        public static string g_mesPrefix = "BO_";
+        public static string g_sigPrefix = "SG_";
+        public static string g_valTabPrefix = "VAL_";
 
         #region UnderDevelopment
         public static List<string> GenerateUnknownDID(List<string> validDID)
@@ -210,7 +210,7 @@ namespace Miscellaneous
             Directory.CreateDirectory(l_sourcePath);
             l_sourcePath = Path.Combine(l_sourcePath, fileName);
             List<string> l_nodeList = new List<string>();
-            List<string> l_mesList = new List<string>();
+            List<string[]> l_mesList = new List<string[]>();
             List<string> l_sigList = new List<string>();
             List<string> l_valTabList = new List<string>();
 
@@ -403,19 +403,23 @@ namespace Miscellaneous
             return false;
         }
 
-        internal static bool GetMessagesFromDBCFile(string filePath, ref List<string> messageList)
+        internal static bool GetMessagesFromDBCFile(string filePath, ref List<string[]> messageList)
         {
             string[] l_messageNameList = new string[] { };
+            string[] l_res = new string[4] { String.Empty, String.Empty, String.Empty, String.Empty };
             foreach (var line in File.ReadAllLines(filePath))
             {
                 if (line.StartsWith(g_mesPrefix))
                 {
                     l_messageNameList = line.Split(' ');
-                    messageList = l_messageNameList.ToList();
-                    messageList.Remove(g_mesPrefix);
-                    return true;
+                    //messageList = l_messageNameList.ToList();
+                    //messageList.Remove(g_mesPrefix);
+                    l_messageNameList[2] = l_messageNameList[2].Replace(":", "");
+                    Array.Copy(l_messageNameList, 1, l_res, 0, 4);
+                    messageList.Add(l_res);
                 }
             }
+            if (messageList.Count() != 0) return true;
             return false;
         }
 
@@ -429,7 +433,7 @@ namespace Miscellaneous
                     l_signalNameList = line.Split(' ');
                     signaList = l_signalNameList.ToList();
                     signaList.Remove(g_sigPrefix);
-                    return true;
+                    //return true; // edit this later
                 }
             }
             return false;
