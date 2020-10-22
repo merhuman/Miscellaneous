@@ -409,41 +409,42 @@ namespace Miscellaneous
         {
             string[] l_messageNameList = new string[] { };
             string[] l_signalNameList = new string[] { };
-            string[] l_res = new string[4] { String.Empty, String.Empty, String.Empty, String.Empty };
-            string[] l_res2 = new string[8] { String.Empty,
-                                              String.Empty,
-                                              String.Empty,
-                                              String.Empty,
-                                              String.Empty,
-                                              String.Empty,
-                                              String.Empty,
-                                              String.Empty};
+            string[] l_res = new string[] { };
+            string[] l_res2 = new string[] { };
             string l_previousMes = String.Empty;
             foreach (var line in File.ReadAllLines(filePath))
             {
                 if (line.StartsWith(g_mesPrefix))
                 {
-                    l_messageNameList = line.Split(' ');
+                    //l_messageNameList = line.Split(' ');
+                    l_messageNameList = Regex.Split(line, @"\s+");
                     //messageList = l_messageNameList.ToList();
                     //messageList.Remove(g_mesPrefix);
                     l_messageNameList[2] = l_messageNameList[2].Replace(":", "");
                     Array.Copy(l_messageNameList, 1, l_res, 0, 4);
-                    l_previousMes = l_res[1];
-                    messageList.Add(l_res);
+                    l_previousMes = l_res[1]; // careful with this one, it might cause issue
+                    messageList.Add((string[])l_res.Clone());
                 }
                 else if (line.StartsWith(g_sigPrefix))
                 {
                     // problem with signal split. Need to use regex.
-                    l_signalNameList = line.Split(' ');
+                    //l_signalNameList = line.Split(' ');
+                    l_signalNameList = Regex.Split(line.Replace(":",""), @"\s+");
                     l_res2[0] = l_previousMes;
-                    Array.Copy(l_signalNameList, 2, l_res2, 1, 7);
-                    signalList.Add(l_res2);
+                    Array.Copy(l_signalNameList, 2, l_res2, 1, 6);
+                    signalList.Add((string[])l_res2.Clone());
                 }
             }
             if (messageList.Count() != 0) return true;
             return false;
         }
 
+        /// <summary>
+        /// Obsolete
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="signaList"></param>
+        /// <returns></returns>
         internal static bool GetSignalsFromDBCFile(string filePath, ref List<string> signaList)
         {
             string[] l_signalNameList = new string[] { };
@@ -460,17 +461,19 @@ namespace Miscellaneous
             return false;
         }
 
-        internal static bool GetValTablesFromDBCFile(string filePath, ref List<string> valTableList)
+        internal static bool GetValTablesFromDBCFile(string filePath, ref List<string[]> valTableList)
         {
             string[] l_valTableList = new string[] { };
+            string[] l_res = new string[] { };
             foreach (var line in File.ReadAllLines(filePath))
             {
                 if (line.StartsWith(g_valTabPrefix))
                 {
-                    l_valTableList = line.Split(' ');
-                    valTableList = l_valTableList.ToList();
-                    valTableList.Remove(g_valTabPrefix);
-                    return true;
+                    l_valTableList = Regex.Split(line, @"\s+");
+                    //messageList = l_messageNameList.ToList();
+                    //messageList.Remove(g_mesPrefix);
+                    Array.Copy(l_valTableList, 1, l_res, 0, 4);
+                    valTableList.Add((string[])l_res.Clone());
                 }
             }
             return false;
