@@ -212,7 +212,7 @@ namespace Miscellaneous
             List<string> l_nodeList = new List<string>();
             List<string[]> l_mesList = new List<string[]>();
             List<string[]> l_sigList = new List<string[]>();
-            List<string> l_valTabList = new List<string>();
+            List<string[]> l_valTabList = new List<string[]>();
 
             if (!string.IsNullOrEmpty(inputFilePath))
             {
@@ -409,9 +409,17 @@ namespace Miscellaneous
         {
             string[] l_messageNameList = new string[] { };
             string[] l_signalNameList = new string[] { };
-            string[] l_res = new string[] { };
-            string[] l_res2 = new string[] { };
-            string l_previousMes = String.Empty;
+            //string[] l_res = new string[] { };
+            string[] l_res = new string[4] { String.Empty, String.Empty, String.Empty, String.Empty };
+            string[] l_res2 = new string[8] { String.Empty,
+                                              String.Empty,
+                                              String.Empty,
+                                              String.Empty,
+                                              String.Empty,
+                                              String.Empty,
+                                              String.Empty,
+                                              String.Empty };
+                string l_previousMes = String.Empty;
             foreach (var line in File.ReadAllLines(filePath))
             {
                 if (line.StartsWith(g_mesPrefix))
@@ -421,7 +429,7 @@ namespace Miscellaneous
                     //messageList = l_messageNameList.ToList();
                     //messageList.Remove(g_mesPrefix);
                     l_messageNameList[2] = l_messageNameList[2].Replace(":", "");
-                    Array.Copy(l_messageNameList, 1, l_res, 0, 4);
+                    Array.Copy(l_messageNameList, 1, l_res, 0, 4);  // this line gets error if the string array is not defined clearly.
                     l_previousMes = l_res[1]; // careful with this one, it might cause issue
                     messageList.Add((string[])l_res.Clone());
                 }
@@ -431,7 +439,7 @@ namespace Miscellaneous
                     //l_signalNameList = line.Split(' ');
                     l_signalNameList = Regex.Split(line.Replace(":",""), @"\s+");
                     l_res2[0] = l_previousMes;
-                    Array.Copy(l_signalNameList, 2, l_res2, 1, 6);
+                    Array.Copy(l_signalNameList, 2, l_res2, 1, 6);  // this line gets error if the string array is not defined clearly.
                     signalList.Add((string[])l_res2.Clone());
                 }
             }
@@ -472,7 +480,7 @@ namespace Miscellaneous
                     l_valTableList = Regex.Split(line, @"\s+");
                     //messageList = l_messageNameList.ToList();
                     //messageList.Remove(g_mesPrefix);
-                    Array.Copy(l_valTableList, 1, l_res, 0, 4);
+                    Array.Copy(l_valTableList, 1, l_res, 0, 4); // this line gets error if the string array is not defined clearly.
                     valTableList.Add((string[])l_res.Clone());
                 }
             }
