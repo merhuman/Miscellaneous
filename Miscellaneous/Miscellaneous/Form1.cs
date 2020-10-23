@@ -174,8 +174,14 @@ namespace Miscellaneous
 
         private void Btn_Test_Click(object sender, EventArgs e)
         {
-            
-            
+            string[] fruits = { "apple", "banana", "mango", "orange",
+                      "passionfruit", "grape" };
+
+            var query =
+                fruits.Select((fruit, index) =>
+                                  new { index, str = fruit.Substring(0, index) });
+            ;
+
         }
 
         private void Tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)

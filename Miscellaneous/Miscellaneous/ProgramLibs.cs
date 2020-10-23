@@ -228,7 +228,7 @@ namespace Miscellaneous
                         break;
 
                     case FileType.DBC:
-                        l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert dbc file to txt file for more convenient purpose
+                        l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert dbc file to txt file for more convenient purposes
                         File.Copy(inputFilePath, l_sourcePath, true);
                         GetNodesFromDBCFile(l_sourcePath, ref l_nodeList);
                         GetMessagesFromDBCFile(l_sourcePath, ref l_mesList, ref l_sigList);
@@ -410,15 +410,8 @@ namespace Miscellaneous
             string[] l_messageNameList = new string[] { };
             string[] l_signalNameList = new string[] { };
             //string[] l_res = new string[] { };
-            string[] l_res = new string[4] { String.Empty, String.Empty, String.Empty, String.Empty };
-            string[] l_res2 = new string[8] { String.Empty,
-                                              String.Empty,
-                                              String.Empty,
-                                              String.Empty,
-                                              String.Empty,
-                                              String.Empty,
-                                              String.Empty,
-                                              String.Empty };
+            string[] l_res = Enumerable.Repeat(String.Empty, 4).ToArray();
+            string[] l_res2 = Enumerable.Repeat(String.Empty, 8).ToArray();
                 string l_previousMes = String.Empty;
             foreach (var line in File.ReadAllLines(filePath))
             {
@@ -471,16 +464,19 @@ namespace Miscellaneous
 
         internal static bool GetValTablesFromDBCFile(string filePath, ref List<string[]> valTableList)
         {
-            string[] l_valTableList = new string[] { };
-            string[] l_res = new string[] { };
+            List <string> l_valTableList = new List<string>();
+            string[] l_res = Enumerable.Repeat(String.Empty, 3).ToArray();
             foreach (var line in File.ReadAllLines(filePath))
             {
                 if (line.StartsWith(g_valTabPrefix))
                 {
-                    l_valTableList = Regex.Split(line, @"\s+");
+                    l_valTableList = Regex.Split(line, @"\s+").ToList();
                     //messageList = l_messageNameList.ToList();
                     //messageList.Remove(g_mesPrefix);
-                    Array.Copy(l_valTableList, 1, l_res, 0, 4); // this line gets error if the string array is not defined clearly.
+                    //Array.Copy(l_valTableList, 1, l_res, 0, 3); // this line gets error if the string array is not defined clearly.
+                    l_res[0] = l_valTableList[1]; // exclude prefix
+                    l_res[1] = l_valTableList[2];
+                    l_res[2] = l_valTableList.Where(x => x != l_valTableList[0] && x!= l_valTableList[1] && x!= l_valTableList[2]).Aggregate((i, j) => i + j);
                     valTableList.Add((string[])l_res.Clone());
                 }
             }
