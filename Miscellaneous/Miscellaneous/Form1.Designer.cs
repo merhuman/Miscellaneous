@@ -73,6 +73,7 @@
             this.cb_Padding = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btn_LoadScript_Misc = new System.Windows.Forms.Button();
             this.btn_LoadJson_Misc = new System.Windows.Forms.Button();
             this.btn_CalculateSSParam = new System.Windows.Forms.Button();
             this.btn_LoadSensorParamFile = new System.Windows.Forms.Button();
@@ -112,7 +113,8 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
-            this.btn_LoadScript_Misc = new System.Windows.Forms.Button();
+            this.btn_LoadA2L_Misc = new System.Windows.Forms.Button();
+            this.btn_LoadHTML_Misc = new System.Windows.Forms.Button();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -611,6 +613,16 @@
             this.tabPage2.Text = "Miscellaneous";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btn_LoadScript_Misc
+            // 
+            this.btn_LoadScript_Misc.Location = new System.Drawing.Point(628, 115);
+            this.btn_LoadScript_Misc.Name = "btn_LoadScript_Misc";
+            this.btn_LoadScript_Misc.Size = new System.Drawing.Size(93, 23);
+            this.btn_LoadScript_Misc.TabIndex = 5;
+            this.btn_LoadScript_Misc.Text = "Load script";
+            this.btn_LoadScript_Misc.UseVisualStyleBackColor = true;
+            this.btn_LoadScript_Misc.Click += new System.EventHandler(this.Btn_LoadScript_Misc_Click);
+            // 
             // btn_LoadJson_Misc
             // 
             this.btn_LoadJson_Misc.Location = new System.Drawing.Point(518, 115);
@@ -643,6 +655,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.btn_LoadHTML_Misc);
+            this.groupBox5.Controls.Add(this.btn_LoadA2L_Misc);
             this.groupBox5.Controls.Add(this.btn_Input2Raw);
             this.groupBox5.Controls.Add(this.btn_Raw2InputVSM);
             this.groupBox5.Controls.Add(this.tb_RawValue);
@@ -664,7 +678,7 @@
             this.groupBox5.Controls.Add(this.btn_OpenFileExcel_Misc);
             this.groupBox5.Location = new System.Drawing.Point(6, 131);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(469, 228);
+            this.groupBox5.Size = new System.Drawing.Size(506, 228);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Input Signal";
@@ -724,7 +738,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(267, 64);
+            this.pictureBox1.Location = new System.Drawing.Point(306, 64);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(184, 62);
             this.pictureBox1.TabIndex = 4;
@@ -800,7 +814,7 @@
             // 
             // btn_LoadProject
             // 
-            this.btn_LoadProject.Location = new System.Drawing.Point(267, 35);
+            this.btn_LoadProject.Location = new System.Drawing.Point(328, 35);
             this.btn_LoadProject.Name = "btn_LoadProject";
             this.btn_LoadProject.Size = new System.Drawing.Size(75, 23);
             this.btn_LoadProject.TabIndex = 3;
@@ -845,7 +859,7 @@
             this.groupBox4.Controls.Add(this.btn_ArrangeMisc);
             this.groupBox4.Location = new System.Drawing.Point(6, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(469, 119);
+            this.groupBox4.Size = new System.Drawing.Size(506, 119);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Re-Arrange";
@@ -990,15 +1004,25 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
-            // btn_LoadScript_Misc
+            // btn_LoadA2L_Misc
             // 
-            this.btn_LoadScript_Misc.Location = new System.Drawing.Point(628, 115);
-            this.btn_LoadScript_Misc.Name = "btn_LoadScript_Misc";
-            this.btn_LoadScript_Misc.Size = new System.Drawing.Size(93, 23);
-            this.btn_LoadScript_Misc.TabIndex = 5;
-            this.btn_LoadScript_Misc.Text = "Load script";
-            this.btn_LoadScript_Misc.UseVisualStyleBackColor = true;
-            this.btn_LoadScript_Misc.Click += new System.EventHandler(this.Btn_LoadScript_Misc_Click);
+            this.btn_LoadA2L_Misc.Location = new System.Drawing.Point(122, 61);
+            this.btn_LoadA2L_Misc.Name = "btn_LoadA2L_Misc";
+            this.btn_LoadA2L_Misc.Size = new System.Drawing.Size(75, 23);
+            this.btn_LoadA2L_Misc.TabIndex = 19;
+            this.btn_LoadA2L_Misc.Text = "Load A2L";
+            this.btn_LoadA2L_Misc.UseVisualStyleBackColor = true;
+            this.btn_LoadA2L_Misc.Click += new System.EventHandler(this.Btn_LoadA2L_Misc_Click);
+            // 
+            // btn_LoadHTML_Misc
+            // 
+            this.btn_LoadHTML_Misc.Location = new System.Drawing.Point(203, 61);
+            this.btn_LoadHTML_Misc.Name = "btn_LoadHTML_Misc";
+            this.btn_LoadHTML_Misc.Size = new System.Drawing.Size(75, 23);
+            this.btn_LoadHTML_Misc.TabIndex = 20;
+            this.btn_LoadHTML_Misc.Text = "Load html";
+            this.btn_LoadHTML_Misc.UseVisualStyleBackColor = true;
+            this.btn_LoadHTML_Misc.Click += new System.EventHandler(this.Btn_LoadHTML_Misc_Click);
             // 
             // Form1
             // 
@@ -1120,6 +1144,8 @@
         private System.Windows.Forms.Button btn_TestButton3;
         private System.Windows.Forms.Button btn_LoadJson_Misc;
         private System.Windows.Forms.Button btn_LoadScript_Misc;
+        private System.Windows.Forms.Button btn_LoadA2L_Misc;
+        private System.Windows.Forms.Button btn_LoadHTML_Misc;
     }
 }
 

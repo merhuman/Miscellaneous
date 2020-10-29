@@ -352,7 +352,7 @@ namespace Miscellaneous
             {
                 g_fileName = g_odf_Misc.SafeFileName;
                 g_filePath = g_odf_Misc.FileName;
-                ProgramLibs.OpenFile(ProgramLibs.FileType.Excel, g_filePath, g_fileName, ref g_signalNameList, cb_TitleInclude.Checked);
+                ProgramLibs.OpenFile(ProgramLibs.FileType.Excel, g_filePath, g_fileName, cb_TitleInclude.Checked);
             }
         }
 
@@ -370,7 +370,7 @@ namespace Miscellaneous
                 g_filePath = g_odf_Misc.FileName;
             }
 
-            ProgramLibs.OpenFile(ProgramLibs.FileType.DBC, g_filePath, g_fileName, ref g_nodeNameList, null);
+            ProgramLibs.OpenFile(ProgramLibs.FileType.DBC, g_filePath, g_fileName);
             ProgramLibs.ConvertToJson(ProgramLibs.FileType.DBC, g_filePath, g_fileName);
         }
 
@@ -573,8 +573,36 @@ namespace Miscellaneous
                 foreach (string line in content)
                 {
                     l_testRes = Regex.IsMatch(line, pattern1);
-                    if (l_testRes == true) Console.WriteLine("matched");
+                    //if (l_testRes == true) Console.WriteLine("matched");
                 }
+            }
+        }
+
+        private void Btn_LoadA2L_Misc_Click(object sender, EventArgs e)
+        {
+            g_odf_Misc.Filter = "A2L (*.A2L)|*.A2L|text (*.txt)|*.txt|All files (*.*)|*.*";
+            List<string> excelData = new List<string>();
+            g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Miscellaneous\Miscellaneous\Configuration";
+
+            if (g_odf_Misc.ShowDialog() == DialogResult.OK)
+            {
+                g_fileName = g_odf_Misc.SafeFileName;
+                g_filePath = g_odf_Misc.FileName;
+                ProgramLibs.OpenFile(ProgramLibs.FileType.A2L, g_filePath, g_fileName);
+            }
+        }
+
+        private void Btn_LoadHTML_Misc_Click(object sender, EventArgs e)
+        {
+            g_odf_Misc.Filter = "html (*.html)|*.html|htm (*htm)|*.htm|(*text (*.txt)|*.txt|All files (*.*)|*.*";
+            List<string> excelData = new List<string>();
+            g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Miscellaneous\Miscellaneous\Configuration";
+
+            if (g_odf_Misc.ShowDialog() == DialogResult.OK)
+            {
+                g_fileName = g_odf_Misc.SafeFileName;
+                g_filePath = g_odf_Misc.FileName;
+                ProgramLibs.OpenFile(ProgramLibs.FileType.HTML, g_filePath, g_fileName);
             }
         }
     }

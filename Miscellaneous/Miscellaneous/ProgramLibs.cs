@@ -21,13 +21,22 @@ namespace Miscellaneous
 
         /* enums */
         internal enum StringType { Normal, With_0x, Empty };
-        internal enum FileType { Excel, SSParam, DBC, Json, Undefined };
+        internal enum FileType { Excel, SSParam, DBC, Json, A2L, HTML, Undefined };
         public static string g_nodePrefix = "BU_: ";
         public static string g_mesPrefix = "BO_ ";
         public static string g_sigPrefix = " SG_ ";
         public static string g_valTabPrefix = "VAL_ ";
 
+        public static string g_vsmRegex = @"(VSM_)[ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz1234567890]*";
+        public static string g_fusRegex = @"(FUS_)[ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz1234567890]*";
+
         #region UnderDevelopment
+        /// <summary>
+        /// Deduce invalid DIDs from valid DIDs in decimal form.
+        /// Then write them to excel file under hexadecimal form.
+        /// </summary>
+        /// <param name="validDID"></param>
+        /// <returns></returns>
         public static List<string> GenerateUnknownDID(List<string> validDID)
         {
             List<string> l_res = new List<string>();
@@ -204,7 +213,30 @@ namespace Miscellaneous
         #endregion Conversion
 
         #region OpenFile
-        internal static bool OpenFile(FileType fileType, string inputFilePath, string fileName, ref List<string> nameList, Nullable<bool> includeTitle)
+        /*
+         * For now there are 2 versions of OpenFile method. This should be refined later for clearer structure. 
+         */
+        internal static bool OpenFile(FileType fileType, string inputFilePath, string fileName, bool? includeTitle)
+        {
+            string l_sourcePath = "./Configuration";
+            Directory.CreateDirectory(l_sourcePath);
+            l_sourcePath = Path.Combine(l_sourcePath, fileName);
+
+            List<string> l_nameList = new List<string>();
+
+            if (!string.IsNullOrEmpty(inputFilePath))
+            {
+                // Might add try catch structure here later.
+                File.Copy(inputFilePath, l_sourcePath, true);
+                if (includeTitle == null || includeTitle == false)
+                    ReadAllSignalNamesFromExcel(l_sourcePath, ref l_nameList, includeTitle: false);
+                else
+                    ReadAllSignalNamesFromExcel(l_sourcePath, ref l_nameList, includeTitle: true);
+            }
+            return false;
+        }
+
+        internal static bool OpenFile(FileType fileType, string inputFilePath, string fileName)
         {
             string l_sourcePath = "./Configuration";
             Directory.CreateDirectory(l_sourcePath);
@@ -213,6 +245,9 @@ namespace Miscellaneous
             List<string[]> l_mesList = new List<string[]>();
             List<string[]> l_sigList = new List<string[]>();
             List<string[]> l_valTabList = new List<string[]>();
+            List<string> l_fusList = new List<string>();
+            List<string> l_vsmList = new List<string>();
+            List<string> l_nameList = new List<string>();
 
             if (!string.IsNullOrEmpty(inputFilePath))
             {
@@ -221,23 +256,31 @@ namespace Miscellaneous
                     case FileType.Excel:
                         // Might add try catch structure here later.
                         File.Copy(inputFilePath, l_sourcePath, true);                       
-                        if (includeTitle == null || includeTitle == false)
-                            ReadAllSignalNamesFromExcel(l_sourcePath, ref nameList, includeTitle: false);
-                        else
-                            ReadAllSignalNamesFromExcel(l_sourcePath, ref nameList, includeTitle: true);
+                        ReadAllSignalNamesFromExcel(l_sourcePath, ref l_nameList, includeTitle: true);
                         break;
 
                     case FileType.DBC:
                         l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert dbc file to txt file for more convenient purposes
                         File.Copy(inputFilePath, l_sourcePath, true);
                         GetNodesFromDBCFile(l_sourcePath, ref l_nodeList);
-                        GetMessagesFromDBCFile(l_sourcePath, ref l_mesList, ref l_sigList);
-                        //GetSignalsFromDBCFile(l_sourcePath, ref l_sigList);
+                        GetMessageAndSignalFromDBCFile(l_sourcePath, ref l_mesList, ref l_sigList);
                         GetValTablesFromDBCFile(l_sourcePath, ref l_valTabList);
                         break;
 
                     case FileType.Json:
                         File.Copy(inputFilePath, l_sourcePath, true);
+                        break;
+
+                    case FileType.A2L:
+                        l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert a2l file to txt file for more convenient purposes
+                        File.Copy(inputFilePath, l_sourcePath, true);
+                        GetVSMnFUSFromFile(l_sourcePath, ref l_vsmList, ref l_fusList);
+                        break;
+
+                    case FileType.HTML: // for now let's just keep it same as A2L file type.
+                        l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert a2l file to txt file for more convenient purposes
+                        File.Copy(inputFilePath, l_sourcePath, true);
+                        GetVSMnFUSFromFile(l_sourcePath, ref l_vsmList, ref l_fusList);
                         break;
 
                     default:
@@ -300,8 +343,8 @@ namespace Miscellaneous
             
             public string Name
             {
-                get { return _name; }
-                set { _name = value; }
+                get => _name;
+                set => _name = value;
             }
             
             public bool AddRelease(float release)
@@ -403,9 +446,17 @@ namespace Miscellaneous
             return false;
         }
 
-        internal static bool GetMessagesFromDBCFile(string filePath, 
-                                                    ref List<string[]> messageList, 
-                                                    ref List<string[]> signalList)
+        /// <summary>
+        /// Get names of messages and signals
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="messageList"></param>
+        /// <param name="signalList"></param>
+        /// <returns>
+        /// false: if there is no message
+        /// true: if there is at least one message
+        /// </returns>
+        internal static bool GetMessageAndSignalFromDBCFile(string filePath, ref List<string[]> messageList, ref List<string[]> signalList)
         {
             string[] l_messageNameList = new string[] { };
             string[] l_signalNameList = new string[] { };
@@ -441,27 +492,14 @@ namespace Miscellaneous
         }
 
         /// <summary>
-        /// Obsolete
+        /// Get value tables
         /// </summary>
         /// <param name="filePath"></param>
-        /// <param name="signaList"></param>
-        /// <returns></returns>
-        internal static bool GetSignalsFromDBCFile(string filePath, ref List<string> signaList)
-        {
-            string[] l_signalNameList = new string[] { };
-            foreach (var line in File.ReadAllLines(filePath))
-            {
-                if (line.StartsWith(g_sigPrefix))
-                {
-                    l_signalNameList = line.Split(' ');
-                    signaList = l_signalNameList.ToList();
-                    signaList.Remove(g_sigPrefix);
-                    //return true; // edit this later
-                }
-            }
-            return false;
-        }
-
+        /// <param name="valTableList"></param>
+        /// <returns>
+        /// false: if there is no value table
+        /// true: if there is at least one value table
+        /// </returns>
         internal static bool GetValTablesFromDBCFile(string filePath, ref List<string[]> valTableList)
         {
             List <string> l_valTableList = new List<string>();
@@ -480,11 +518,42 @@ namespace Miscellaneous
                     valTableList.Add((string[])l_res.Clone());
                 }
             }
+            if (valTableList.Count() != 0) return true;
             return false;
         }
 
-        internal static bool GetMessageAndSignal(string filePath)
+        internal static bool GetVSMnFUSFromFile(string filePath, ref List<string> vsmList, ref List<string> fusList)
         {
+            HashSet<string> l_vsmList = new HashSet<string>();  // using HashSet helps to boost the process speed.
+            HashSet<string> l_adiList = new HashSet<string>();
+            Regex l_vsmPattern = new Regex(g_vsmRegex);
+            Regex l_fusPattern = new Regex(g_fusRegex);
+            string l_content = String.Empty;
+
+            l_content = File.ReadAllText(filePath);
+            MatchCollection l_rawVSMMatchCollection = l_vsmPattern.Matches(l_content);
+            MatchCollection l_rawFUSMatchCollection = l_fusPattern.Matches(l_content);
+            
+            if (l_rawVSMMatchCollection.Count != 0)
+            {
+                foreach (Match match in l_rawVSMMatchCollection)
+                {
+                    l_vsmList.Add(match.Value);
+                }
+            }
+
+            // error code. unclear cause
+            if (l_rawFUSMatchCollection.Count != 0)
+            {
+                foreach (Match match in l_rawFUSMatchCollection)
+                {
+                    l_adiList.Add(match.Value);
+                }
+            }
+
+            vsmList = l_vsmList.Distinct().ToList();
+            fusList = l_adiList.Distinct().ToList();
+            if (vsmList.Count() != 0 || fusList.Count() != 0) return true;
             return false;
         }
 
