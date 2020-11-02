@@ -463,7 +463,8 @@ namespace Miscellaneous
             //string[] l_res = new string[] { };
             string[] l_res = Enumerable.Repeat(String.Empty, 4).ToArray();
             string[] l_res2 = Enumerable.Repeat(String.Empty, 8).ToArray();
-                string l_previousMes = String.Empty;
+            string l_previousMes = String.Empty;
+
             foreach (var line in File.ReadAllLines(filePath))
             {
                 if (line.StartsWith(g_mesPrefix))
@@ -584,7 +585,7 @@ namespace Miscellaneous
         #endregion OpenFile
 
         #region Search
-        internal static bool SearchString(string inputString)
+        internal static bool SearchString(string filePath, ref List<string[]> messageList, ref List<string[]> signalList)
         {
 
             return false;
@@ -653,6 +654,37 @@ namespace Miscellaneous
         }
 
         #endregion TextEdit
+
+        #region ConvertMethods
+        public static bool ConvertExcel2Param(string filePath, string sheetName)
+        {
+            List<string> l_excelData = new List<string>();
+            byte[] l_bin = File.ReadAllBytes(filePath);
+            
+            using (ExcelPackage l_excelPackage = new ExcelPackage(new MemoryStream(l_bin)))
+            {
+                ExcelWorksheet l_worksheet = l_excelPackage.Workbook.Worksheets[sheetName];
+                for (int rowIdx = l_worksheet.Dimension.Start.Row; rowIdx <= l_worksheet.Dimension.End.Row; rowIdx++)
+                {
+                    for (int colIdx = l_worksheet.Dimension.Start.Column; colIdx <= l_worksheet.Dimension.End.Column; colIdx++)
+                    {
+                        if (l_worksheet.Cells[rowIdx, colIdx] != null)
+                        {
+                            l_excelData.Add(l_worksheet.Cells[rowIdx, colIdx].Value.ToString());
+                        }
+                    }
+                }
+            }
+            if (l_excelData.Count() != 0) return true;
+            return false;
+        }
+
+        public static bool ConvertParam2Excel()
+        {
+
+            return false;
+        }
+        #endregion ConvertMethods
 
         #region TestedMethods
         public static string Add0x(string hexString)

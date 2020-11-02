@@ -605,5 +605,19 @@ namespace Miscellaneous
                 ProgramLibs.OpenFile(ProgramLibs.FileType.HTML, g_filePath, g_fileName);
             }
         }
+
+        private void btn_LoadExcel_ParamGen_Click(object sender, EventArgs e)
+        {
+            g_odf_Misc.Filter = "excel (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+            List<string> excelData = new List<string>();
+            g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Miscellaneous\Miscellaneous\Configuration";
+
+            if (g_odf_Misc.ShowDialog() == DialogResult.OK)
+            {
+                g_fileName = g_odf_Misc.SafeFileName;
+                g_filePath = g_odf_Misc.FileName;
+                ProgramLibs.OpenFile(ProgramLibs.FileType.HTML, g_filePath, g_fileName);
+            }
+        }
     }
 }

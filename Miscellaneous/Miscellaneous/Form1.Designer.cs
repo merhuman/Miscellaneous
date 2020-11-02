@@ -78,6 +78,8 @@
             this.btn_CalculateSSParam = new System.Windows.Forms.Button();
             this.btn_LoadSensorParamFile = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btn_LoadHTML_Misc = new System.Windows.Forms.Button();
+            this.btn_LoadA2L_Misc = new System.Windows.Forms.Button();
             this.btn_Input2Raw = new System.Windows.Forms.Button();
             this.btn_Raw2InputVSM = new System.Windows.Forms.Button();
             this.tb_RawValue = new System.Windows.Forms.TextBox();
@@ -113,8 +115,9 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
-            this.btn_LoadA2L_Misc = new System.Windows.Forms.Button();
-            this.btn_LoadHTML_Misc = new System.Windows.Forms.Button();
+            this.gb_Excel_Param = new System.Windows.Forms.GroupBox();
+            this.btn_LoadExcel_ParamGen = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -128,6 +131,7 @@
             this.groupBox6.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.sts_Strip.SuspendLayout();
+            this.gb_Excel_Param.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab_FunctionControl
@@ -683,6 +687,26 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Input Signal";
             // 
+            // btn_LoadHTML_Misc
+            // 
+            this.btn_LoadHTML_Misc.Location = new System.Drawing.Point(203, 61);
+            this.btn_LoadHTML_Misc.Name = "btn_LoadHTML_Misc";
+            this.btn_LoadHTML_Misc.Size = new System.Drawing.Size(75, 23);
+            this.btn_LoadHTML_Misc.TabIndex = 20;
+            this.btn_LoadHTML_Misc.Text = "Load html";
+            this.btn_LoadHTML_Misc.UseVisualStyleBackColor = true;
+            this.btn_LoadHTML_Misc.Click += new System.EventHandler(this.Btn_LoadHTML_Misc_Click);
+            // 
+            // btn_LoadA2L_Misc
+            // 
+            this.btn_LoadA2L_Misc.Location = new System.Drawing.Point(122, 61);
+            this.btn_LoadA2L_Misc.Name = "btn_LoadA2L_Misc";
+            this.btn_LoadA2L_Misc.Size = new System.Drawing.Size(75, 23);
+            this.btn_LoadA2L_Misc.TabIndex = 19;
+            this.btn_LoadA2L_Misc.Text = "Load A2L";
+            this.btn_LoadA2L_Misc.UseVisualStyleBackColor = true;
+            this.btn_LoadA2L_Misc.Click += new System.EventHandler(this.Btn_LoadA2L_Misc_Click);
+            // 
             // btn_Input2Raw
             // 
             this.btn_Input2Raw.Location = new System.Drawing.Point(359, 150);
@@ -896,6 +920,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.gb_Excel_Param);
             this.tabPage1.Controls.Add(this.groupBox6);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -1004,25 +1029,35 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
-            // btn_LoadA2L_Misc
+            // gb_Excel_Param
             // 
-            this.btn_LoadA2L_Misc.Location = new System.Drawing.Point(122, 61);
-            this.btn_LoadA2L_Misc.Name = "btn_LoadA2L_Misc";
-            this.btn_LoadA2L_Misc.Size = new System.Drawing.Size(75, 23);
-            this.btn_LoadA2L_Misc.TabIndex = 19;
-            this.btn_LoadA2L_Misc.Text = "Load A2L";
-            this.btn_LoadA2L_Misc.UseVisualStyleBackColor = true;
-            this.btn_LoadA2L_Misc.Click += new System.EventHandler(this.Btn_LoadA2L_Misc_Click);
+            this.gb_Excel_Param.Controls.Add(this.button3);
+            this.gb_Excel_Param.Controls.Add(this.btn_LoadExcel_ParamGen);
+            this.gb_Excel_Param.Location = new System.Drawing.Point(309, 6);
+            this.gb_Excel_Param.Name = "gb_Excel_Param";
+            this.gb_Excel_Param.Size = new System.Drawing.Size(281, 234);
+            this.gb_Excel_Param.TabIndex = 2;
+            this.gb_Excel_Param.TabStop = false;
+            this.gb_Excel_Param.Text = "Excel <-> Param";
             // 
-            // btn_LoadHTML_Misc
+            // btn_LoadExcel_ParamGen
             // 
-            this.btn_LoadHTML_Misc.Location = new System.Drawing.Point(203, 61);
-            this.btn_LoadHTML_Misc.Name = "btn_LoadHTML_Misc";
-            this.btn_LoadHTML_Misc.Size = new System.Drawing.Size(75, 23);
-            this.btn_LoadHTML_Misc.TabIndex = 20;
-            this.btn_LoadHTML_Misc.Text = "Load html";
-            this.btn_LoadHTML_Misc.UseVisualStyleBackColor = true;
-            this.btn_LoadHTML_Misc.Click += new System.EventHandler(this.Btn_LoadHTML_Misc_Click);
+            this.btn_LoadExcel_ParamGen.Location = new System.Drawing.Point(29, 32);
+            this.btn_LoadExcel_ParamGen.Name = "btn_LoadExcel_ParamGen";
+            this.btn_LoadExcel_ParamGen.Size = new System.Drawing.Size(75, 23);
+            this.btn_LoadExcel_ParamGen.TabIndex = 0;
+            this.btn_LoadExcel_ParamGen.Text = "Load Excel";
+            this.btn_LoadExcel_ParamGen.UseVisualStyleBackColor = true;
+            this.btn_LoadExcel_ParamGen.Click += new System.EventHandler(this.btn_LoadExcel_ParamGen_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(29, 72);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "Load Param";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1054,6 +1089,7 @@
             this.tabPage3.PerformLayout();
             this.sts_Strip.ResumeLayout(false);
             this.sts_Strip.PerformLayout();
+            this.gb_Excel_Param.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1146,6 +1182,9 @@
         private System.Windows.Forms.Button btn_LoadScript_Misc;
         private System.Windows.Forms.Button btn_LoadA2L_Misc;
         private System.Windows.Forms.Button btn_LoadHTML_Misc;
+        private System.Windows.Forms.GroupBox gb_Excel_Param;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btn_LoadExcel_ParamGen;
     }
 }
 
