@@ -118,6 +118,7 @@
             this.gb_Excel_Param = new System.Windows.Forms.GroupBox();
             this.btn_LoadExcel_ParamGen = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.cb_TitleIncluded_ParamGen = new System.Windows.Forms.CheckBox();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1031,6 +1032,7 @@
             // 
             // gb_Excel_Param
             // 
+            this.gb_Excel_Param.Controls.Add(this.cb_TitleIncluded_ParamGen);
             this.gb_Excel_Param.Controls.Add(this.button3);
             this.gb_Excel_Param.Controls.Add(this.btn_LoadExcel_ParamGen);
             this.gb_Excel_Param.Location = new System.Drawing.Point(309, 6);
@@ -1058,6 +1060,16 @@
             this.button3.TabIndex = 1;
             this.button3.Text = "Load Param";
             this.button3.UseVisualStyleBackColor = true;
+            // 
+            // cb_TitleIncluded_ParamGen
+            // 
+            this.cb_TitleIncluded_ParamGen.AutoSize = true;
+            this.cb_TitleIncluded_ParamGen.Location = new System.Drawing.Point(146, 36);
+            this.cb_TitleIncluded_ParamGen.Name = "cb_TitleIncluded_ParamGen";
+            this.cb_TitleIncluded_ParamGen.Size = new System.Drawing.Size(90, 17);
+            this.cb_TitleIncluded_ParamGen.TabIndex = 2;
+            this.cb_TitleIncluded_ParamGen.Text = "Title Included";
+            this.cb_TitleIncluded_ParamGen.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1090,6 +1102,7 @@
             this.sts_Strip.ResumeLayout(false);
             this.sts_Strip.PerformLayout();
             this.gb_Excel_Param.ResumeLayout(false);
+            this.gb_Excel_Param.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1185,6 +1198,7 @@
         private System.Windows.Forms.GroupBox gb_Excel_Param;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btn_LoadExcel_ParamGen;
+        private System.Windows.Forms.CheckBox cb_TitleIncluded_ParamGen;
     }
 }
 

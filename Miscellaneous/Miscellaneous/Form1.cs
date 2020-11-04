@@ -371,7 +371,6 @@ namespace Miscellaneous
             }
 
             ProgramLibs.OpenFile(ProgramLibs.FileType.DBC, g_filePath, g_fileName);
-            ProgramLibs.ConvertToJson(ProgramLibs.FileType.DBC, g_filePath, g_fileName);
         }
 
         private void Btn_ClearInput_Click(object sender, EventArgs e)
@@ -616,7 +615,7 @@ namespace Miscellaneous
             {
                 g_fileName = g_odf_Misc.SafeFileName;
                 g_filePath = g_odf_Misc.FileName;
-                ProgramLibs.OpenFile(ProgramLibs.FileType.HTML, g_filePath, g_fileName);
+                ProgramLibs.ConvertExcel2Param(g_filePath, "ECU_ID_DID", cb_TitleIncluded_ParamGen.Checked);
             }
         }
     }

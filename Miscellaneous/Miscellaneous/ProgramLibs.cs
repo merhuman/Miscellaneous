@@ -265,6 +265,8 @@ namespace Miscellaneous
                         GetNodesFromDBCFile(l_sourcePath, ref l_nodeList);
                         GetMessageAndSignalFromDBCFile(l_sourcePath, ref l_mesList, ref l_sigList);
                         GetValTablesFromDBCFile(l_sourcePath, ref l_valTabList);
+                        ConvertToSQLite();
+                        ConvertToJson();
                         break;
 
                     case FileType.Json:
@@ -419,6 +421,15 @@ namespace Miscellaneous
         }
 
         internal static bool ConvertToJson(FileType fileType, string inputFilePath, string fileName)
+        {
+            if (File.Exists(inputFilePath))
+            {
+
+            }
+            return false;
+        }
+
+        internal static bool ConvertToSQLite(FileType fileType, string inputFilePath, string fileName)
         {
             if (File.Exists(inputFilePath))
             {
@@ -656,7 +667,7 @@ namespace Miscellaneous
         #endregion TextEdit
 
         #region ConvertMethods
-        public static bool ConvertExcel2Param(string filePath, string sheetName)
+        public static bool ConvertExcel2Param(string filePath, string sheetName, bool titleInclude)
         {
             List<string> l_excelData = new List<string>();
             byte[] l_bin = File.ReadAllBytes(filePath);
@@ -664,18 +675,18 @@ namespace Miscellaneous
             using (ExcelPackage l_excelPackage = new ExcelPackage(new MemoryStream(l_bin)))
             {
                 ExcelWorksheet l_worksheet = l_excelPackage.Workbook.Worksheets[sheetName];
-                for (int rowIdx = l_worksheet.Dimension.Start.Row; rowIdx <= l_worksheet.Dimension.End.Row; rowIdx++)
+                for (int rowIdx = (titleInclude == false)? l_worksheet.Dimension.Start.Row : l_worksheet.Dimension.Start.Row + 1; rowIdx <= l_worksheet.Dimension.End.Row; rowIdx++)
                 {
                     for (int colIdx = l_worksheet.Dimension.Start.Column; colIdx <= l_worksheet.Dimension.End.Column; colIdx++)
                     {
-                        if (l_worksheet.Cells[rowIdx, colIdx] != null)
+                        if (l_worksheet.Cells[rowIdx, colIdx].Value != null)
                         {
                             l_excelData.Add(l_worksheet.Cells[rowIdx, colIdx].Value.ToString());
                         }
                     }
                 }
             }
-            if (l_excelData.Count() != 0) return true;
+            //if (l_excelData.Count() != 0) return true;
             return false;
         }
 
