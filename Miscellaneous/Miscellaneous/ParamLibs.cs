@@ -22,7 +22,7 @@ namespace Miscellaneous
             internal short NumberOfStructSingleRecord { get; set; } = 0;
             internal short NumberOfStructListSingleRecord { get; set; } = 0;
 
-            bool paramGenerate(string filePath)
+            bool ParamGenerate(string filePath)
             {
 
                 return true;

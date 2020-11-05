@@ -726,7 +726,7 @@
             this.btn_Raw2InputVSM.TabIndex = 17;
             this.btn_Raw2InputVSM.Text = "Raw -> Input, VSM";
             this.btn_Raw2InputVSM.UseVisualStyleBackColor = true;
-            this.btn_Raw2InputVSM.Click += new System.EventHandler(this.btn_Raw2InputVSM_Click);
+            this.btn_Raw2InputVSM.Click += new System.EventHandler(this.Btn_Raw2InputVSM_Click);
             // 
             // tb_RawValue
             // 
@@ -777,7 +777,7 @@
             this.btn_VSM2Input.TabIndex = 12;
             this.btn_VSM2Input.Text = "VSM -> Input";
             this.btn_VSM2Input.UseVisualStyleBackColor = true;
-            this.btn_VSM2Input.Click += new System.EventHandler(this.btn_VSM2Input_Click);
+            this.btn_VSM2Input.Click += new System.EventHandler(this.Btn_VSM2Input_Click);
             // 
             // btn_Input2VSM
             // 
@@ -960,7 +960,7 @@
             this.btn_GenSensorParam.TabIndex = 1;
             this.btn_GenSensorParam.Text = "Generate";
             this.btn_GenSensorParam.UseVisualStyleBackColor = true;
-            this.btn_GenSensorParam.Click += new System.EventHandler(this.btn_GenParam_Click);
+            this.btn_GenSensorParam.Click += new System.EventHandler(this.Btn_GenParam_Click);
             // 
             // tabPage3
             // 

@@ -425,7 +425,7 @@ namespace Miscellaneous
             tb_RawValue.Text = l_rawValue.ToString();
         }
 
-        private void btn_VSM2Input_Click(object sender, EventArgs e)
+        private void Btn_VSM2Input_Click(object sender, EventArgs e)
         {
             double l_inputValue;
             double l_resolutionValue;
@@ -441,7 +441,7 @@ namespace Miscellaneous
             tb_RawValue.Text = l_rawValue.ToString();
         }
 
-        private void btn_Raw2InputVSM_Click(object sender, EventArgs e)
+        private void Btn_Raw2InputVSM_Click(object sender, EventArgs e)
         {
             double l_inputValue;
             double l_resolutionValue;
@@ -457,7 +457,7 @@ namespace Miscellaneous
             tb_VSMValue.Text = l_vsmValue.ToString();
         }
 
-        private void btn_GenParam_Click(object sender, EventArgs e)
+        private void Btn_GenParam_Click(object sender, EventArgs e)
         {
             string path = @"D:\TH\csharp\Miscellaneous\Miscellaneous\Miscellaneous\Configuration";
             ParamLibs.ParamFile paramStructure = new ParamLibs.ParamFile();

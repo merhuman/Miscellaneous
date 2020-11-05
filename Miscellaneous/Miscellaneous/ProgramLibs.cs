@@ -5,7 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
+using System.Data;
+using System.Data.SQLite;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Miscellaneous
 {
@@ -241,6 +246,7 @@ namespace Miscellaneous
             string l_sourcePath = "./Configuration";
             Directory.CreateDirectory(l_sourcePath);
             l_sourcePath = Path.Combine(l_sourcePath, fileName);
+            string l_outputPath = String.Empty;
             List<string> l_nodeList = new List<string>();
             List<string[]> l_mesList = new List<string[]>();
             List<string[]> l_sigList = new List<string[]>();
@@ -248,6 +254,8 @@ namespace Miscellaneous
             List<string> l_fusList = new List<string>();
             List<string> l_vsmList = new List<string>();
             List<string> l_nameList = new List<string>();
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
             if (!string.IsNullOrEmpty(inputFilePath))
             {
@@ -265,8 +273,122 @@ namespace Miscellaneous
                         GetNodesFromDBCFile(l_sourcePath, ref l_nodeList);
                         GetMessageAndSignalFromDBCFile(l_sourcePath, ref l_mesList, ref l_sigList);
                         GetValTablesFromDBCFile(l_sourcePath, ref l_valTabList);
-                        ConvertToSQLite();
-                        ConvertToJson();
+
+                        // temporary solution -- excel -- gen mes and sig into corresponding sheets
+                        saveFileDialog1.Filter = "Excel (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+                        saveFileDialog1.Title = "Save Excel As";
+                        saveFileDialog1.InitialDirectory = @"E:\Work";
+                        saveFileDialog1.ShowDialog();
+
+                        string l_savedPath = saveFileDialog1.FileName;
+
+                        FileInfo l_excelFile = new FileInfo(l_savedPath);
+
+                        if (l_savedPath != "")
+                        {
+                            using (ExcelPackage l_excelPackage = new ExcelPackage(l_excelFile))
+                            {
+                                DataTable l_dataTable = new DataTable();
+
+                                // Add mes
+                                l_dataTable.Columns.Add("No", typeof(string));
+                                l_dataTable.Columns.Add("MesID(hex)", typeof(string));
+                                l_dataTable.Columns.Add("MesID(dex)", typeof(string));
+                                l_dataTable.Columns.Add("MesName", typeof(string));
+                                l_dataTable.Columns.Add("DLC", typeof(string));
+                                l_dataTable.Columns.Add("Transmitter", typeof(string));
+
+                                for(int idx = 0; idx < l_mesList.Count(); idx++)
+                                {
+                                    Int64 _mesId = Convert.ToInt64(l_mesList[idx][0]);
+                                    if (0 <= _mesId && _mesId <= 4095) // for common ID number
+                                    {
+                                        l_dataTable.Rows.Add(idx + 1,
+                                            String.Format("{0:x3}", _mesId),
+                                            l_mesList[idx][0],
+                                            l_mesList[idx][1],
+                                            l_mesList[idx][2],
+                                            l_mesList[idx][3]);
+                                    }
+                                    else // for unusual ID number.
+                                    {
+                                        l_dataTable.Rows.Add(idx + 1,
+                                            String.Format("{0:x}", _mesId),
+                                            l_mesList[idx][0],
+                                            l_mesList[idx][1],
+                                            l_mesList[idx][2],
+                                            l_mesList[idx][3]);
+                                    }
+                                }
+
+                                if (l_excelPackage.Workbook.Worksheets.Any(sheet => sheet.Name == "MessageList"))
+                                {
+                                    l_excelPackage.Workbook.Worksheets.Delete("MessageList");
+                                }
+                                ExcelWorksheet l_worksheet = l_excelPackage.Workbook.Worksheets.Add("MessageList");
+
+                                l_worksheet.Cells["A1"].LoadFromDataTable(l_dataTable, true);
+
+                                // Add sig
+                                l_dataTable.Columns.Clear();
+                                l_dataTable.Rows.Clear();
+                                l_dataTable.Columns.Add("No", typeof(string));
+                                l_dataTable.Columns.Add("MesName", typeof(string));
+                                l_dataTable.Columns.Add("SigName", typeof(string));
+                                l_dataTable.Columns.Add("FacRes", typeof(string));
+                                l_dataTable.Columns.Add("MinMax", typeof(string));
+                                l_dataTable.Columns.Add("Unit", typeof(string));
+                                l_dataTable.Columns.Add("Receiver", typeof(string));
+
+                                for (int idx = 0; idx < l_sigList.Count(); idx++)
+                                {
+                                    l_dataTable.Rows.Add(idx + 1, 
+                                        l_sigList[idx][0],
+                                        l_sigList[idx][1],
+                                        l_sigList[idx][3],
+                                        l_sigList[idx][4],
+                                        l_sigList[idx][5],
+                                        l_sigList[idx][6]);
+                                }
+
+                                if (l_excelPackage.Workbook.Worksheets.Any(sheet => sheet.Name == "SignalList"))
+                                {
+                                    l_excelPackage.Workbook.Worksheets.Delete("SignalList");
+                                }
+                                l_worksheet = l_excelPackage.Workbook.Worksheets.Add("SignalList");
+
+                                l_worksheet.Cells["A1"].LoadFromDataTable(l_dataTable, true);
+
+                                l_excelPackage.Save(); // need to add checking open excel file method before this line.
+                                ;
+                            }
+                            
+                        }
+                        else
+                        {
+
+                        }
+
+                        //ConvertToSQLite();
+                        // This has to wait
+                        //saveFileDialog1.Filter = "Json (*.json)|*.json|All files (*.*)|*.*";
+                        //saveFileDialog1.Title = "Save Json As";
+                        //saveFileDialog1.ShowDialog();
+                        //if (saveFileDialog1.FileName != "")
+                        //{
+                        //    switch (saveFileDialog1.FilterIndex)
+                        //    {
+                        //        case 1:
+
+                        //            break;
+
+                        //        default:
+                        //            // not defined filter type or "All File" type.
+                        //            break;
+                        //    }
+                        //}
+                        
+                        //ConvertToJson(FileType.DBC);
                         break;
 
                     case FileType.Json:
@@ -420,12 +542,49 @@ namespace Miscellaneous
             }
         }
 
-        internal static bool ConvertToJson(FileType fileType, string inputFilePath, string fileName)
+        internal static bool ConvertToJson(FileType fileType, string filePath, string fileName)
         {
-            if (File.Exists(inputFilePath))
+            if (File.Exists(filePath))
             {
-
+                
             }
+            else
+            {
+                //System.IO.FileStream fs = File.Open(filePath, );
+
+                //fs.Close();
+                // This structure is bulky, not suitable for enquiry
+                //JObject rss1 =
+                //    new JObject(
+                //        new JProperty("ProjectInfo",
+                //            new JProperty("Name", ""),
+                //            new JProperty("Release", new JArray { }),
+                //            new JProperty("Variant", new JArray { }),
+                //        new JProperty("DBC", 
+                //            new JProperty("Node", new JArray { }),
+                //            new JProperty("Message",
+                //                new JProperty("RandomID", 
+                //                    new JProperty("Name", "TestSignalName"),
+                //                    new JProperty("Transmitter", new JArray { }),
+                //                    new JProperty("Signal",
+                //                        new JProperty("TestSignalName", 
+                //                            new JProperty("EndBit", 7),
+                //                            new JProperty("BitLength", 8),
+                //                            new JProperty("Factor", 1),
+                //                            new JProperty("Offset", 0),
+                //                            new JProperty("Minimum", 0),
+                //                            new JProperty("Maximum", 255),
+                //                            new JProperty("Unit", "Not defined"),
+                //                            new JProperty("Receiver", new JArray { }),
+                //                            new JProperty("InitValueRaw", 0),
+                //                            new JProperty("ValueTable"), 
+                //                            new JProperty("InvalidValue", new JArray { }),
+                //                            new JProperty("UsedInRelease", new JArray { }),
+                //                            new JProperty("VSMName", ""),
+                //                            new JProperty("ADIName", ""))))))));
+                
+            }
+            
             return false;
         }
 
