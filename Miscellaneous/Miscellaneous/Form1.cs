@@ -472,9 +472,10 @@ namespace Miscellaneous
 
         private void Btn_LoadJsonFile_ParamGen_Click(object sender, EventArgs e)
         {
-            g_odf_Misc.Filter = "Excel Workbook (*.xlsx)|*.xlsx|Excel Macro-Enabled Workbook (*.xlsm)|*.xlsm|Excel 97-2003 (*.xls)|*.xls|All files (*.*)|*.*";
+            g_odf_Misc.Filter = "Json (*.json)|*.json|All files (*.*)|*.*";
             List<string> excelData = new List<string>();
             g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Miscellaneous\Miscellaneous\Configuration";
+            string[] test = new string[] { };
 
             if (g_odf_Misc.ShowDialog() == DialogResult.OK)
             {
@@ -482,9 +483,12 @@ namespace Miscellaneous
                 g_filePath = g_odf_Misc.FileName;
 
                 JObject rss = JObject.Parse(File.ReadAllText(g_filePath));
+                test = rss["SupportedDID"].Select(did => did.ToString()).ToArray();
                 //logFile.Name = (string)rss["Name"];
                 //logFile.FilePath = (string)rss["FilePath"];
                 //logFile.LogTime = (string)rss["LogTime"];
+                ProgramLibs.GenerateUnknownDID(test);
+                ;
             }
         }
 

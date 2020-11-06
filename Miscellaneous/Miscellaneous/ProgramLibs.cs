@@ -42,10 +42,54 @@ namespace Miscellaneous
         /// </summary>
         /// <param name="validDID"></param>
         /// <returns></returns>
-        public static List<string> GenerateUnknownDID(List<string> validDID)
+        public static List<string> GenerateUnknownDID(string[] validDID)
         {
             List<string> l_res = new List<string>();
+            int l_upperThres = 65535; // or 0xFFFF
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Excel (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+            saveFileDialog1.Title = "Save Excel As";
+            saveFileDialog1.InitialDirectory = @"E:\Work";
+            saveFileDialog1.ShowDialog();
 
+            string l_savedPath = saveFileDialog1.FileName;
+
+            FileInfo l_excelFile = new FileInfo(l_savedPath);
+            if (l_savedPath != "")
+            {
+                using (ExcelPackage l_excelPackage = new ExcelPackage(l_excelFile))
+                {
+                    int l_startDID = 4096; // change this to suit used case.
+
+                    if (l_excelPackage.Workbook.Worksheets.Any(sheet => sheet.Name == "Unused DIDs"))
+                    {
+                        l_excelPackage.Workbook.Worksheets.Delete("Unused DIDs");
+                    }
+
+                    ExcelWorksheet l_worksheet = l_excelPackage.Workbook.Worksheets.Add("Unused DIDs");
+
+                    for (int rowIdx = 1; rowIdx <= 256; rowIdx++)
+                    {
+                        for (int colIdx = 1; colIdx <= 256; colIdx++)
+                        {
+                            string l_counterStr = String.Format("{0:x4}", l_startDID);
+                            if (!validDID.Any(l_did => l_did == l_counterStr))
+                            {
+                                l_worksheet.Cells[rowIdx, colIdx].Value = l_counterStr;
+                            }
+                            
+                            l_startDID++;
+                            if (l_startDID > l_upperThres) goto LoopEnd;
+                        }
+
+                    }
+
+                LoopEnd:
+                    Console.WriteLine("Finish");
+                    l_excelPackage.Save();
+                }
+            }
+            
             return l_res;
         }
         #endregion UnderDevelopment
