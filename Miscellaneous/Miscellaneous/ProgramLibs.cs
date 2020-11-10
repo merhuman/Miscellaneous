@@ -345,7 +345,7 @@ namespace Miscellaneous
                                 for(int idx = 0; idx < l_mesList.Count(); idx++)
                                 {
                                     Int64 _mesId = Convert.ToInt64(l_mesList[idx][0]);
-                                    if (0 <= _mesId && _mesId <= 4095) // for common ID number
+                                    if (0 <= _mesId && _mesId <= 0x7ff) // for common ID number
                                     {
                                         l_dataTable.Rows.Add(idx + 1,
                                             String.Format("{0:x3}", _mesId),
@@ -354,11 +354,12 @@ namespace Miscellaneous
                                             l_mesList[idx][2],
                                             l_mesList[idx][3]);
                                     }
-                                    else // for unusual ID number.
+                                    else if (0x80000000 <= _mesId && _mesId <= 0x8fffffff) // for unusual ID number.
                                     {
+                                        _mesId -= 0x80000000;
                                         l_dataTable.Rows.Add(idx + 1,
                                             String.Format("{0:x}", _mesId),
-                                            l_mesList[idx][0],
+                                            String.Format("{0}", _mesId),
                                             l_mesList[idx][1],
                                             l_mesList[idx][2],
                                             l_mesList[idx][3]);
@@ -400,6 +401,45 @@ namespace Miscellaneous
                                     l_excelPackage.Workbook.Worksheets.Delete("SignalList");
                                 }
                                 l_worksheet = l_excelPackage.Workbook.Worksheets.Add("SignalList");
+
+                                l_worksheet.Cells["A1"].LoadFromDataTable(l_dataTable, true);
+
+                                // Add Value Table
+                                l_dataTable.Columns.Clear();
+                                l_dataTable.Rows.Clear();
+                                l_dataTable.Columns.Add("No", typeof(string));
+                                l_dataTable.Columns.Add("MesID(hex)", typeof(string));
+                                l_dataTable.Columns.Add("MesID(dec)", typeof(string));
+                                l_dataTable.Columns.Add("SigName", typeof(string));
+                                l_dataTable.Columns.Add("ValTable", typeof(string));
+
+                                for (int idx = 0; idx < l_valTabList.Count(); idx++)
+                                {
+                                    Int64 _mesId = Convert.ToInt64(l_valTabList[idx][0]);
+                                    if (0 <= _mesId && _mesId <= 0x7ff) // for common ID number
+                                    {
+                                        l_dataTable.Rows.Add(idx + 1,
+                                            String.Format("{0:x3}", _mesId),
+                                            l_valTabList[idx][0],
+                                            l_valTabList[idx][1],
+                                            l_valTabList[idx][2]);
+                                    }
+                                    else if (0x80000000 <= _mesId && _mesId <= 0x8fffffff) // for unusual ID number.
+                                    {
+                                        _mesId -= 0x80000000;
+                                        l_dataTable.Rows.Add(idx + 1,
+                                            String.Format("{0:x}", _mesId),
+                                            String.Format("{0}", _mesId),
+                                            l_valTabList[idx][1],
+                                            l_valTabList[idx][2]);
+                                    }
+                                }
+
+                                if (l_excelPackage.Workbook.Worksheets.Any(sheet => sheet.Name == "ValueTableList"))
+                                {
+                                    l_excelPackage.Workbook.Worksheets.Delete("ValueTableList");
+                                }
+                                l_worksheet = l_excelPackage.Workbook.Worksheets.Add("ValueTableList");
 
                                 l_worksheet.Cells["A1"].LoadFromDataTable(l_dataTable, true);
 
@@ -718,20 +758,34 @@ namespace Miscellaneous
         internal static bool GetValTablesFromDBCFile(string filePath, ref List<string[]> valTableList)
         {
             List <string> l_valTableList = new List<string>();
+            bool l_longValTabFlag = false;
             string[] l_res = Enumerable.Repeat(String.Empty, 3).ToArray();
             foreach (var line in File.ReadAllLines(filePath))
             {
-                if (line.StartsWith(g_valTabPrefix))
+                if (line.StartsWith(g_valTabPrefix) && l_longValTabFlag == false)
                 {
                     l_valTableList = Regex.Split(line, @"\s+").ToList();
-                    //messageList = l_messageNameList.ToList();
-                    //messageList.Remove(g_mesPrefix);
-                    //Array.Copy(l_valTableList, 1, l_res, 0, 3); // this line gets error if the string array is not defined clearly.
                     l_res[0] = l_valTableList[1]; // exclude prefix
                     l_res[1] = l_valTableList[2];
-                    l_res[2] = l_valTableList.Where(x => x != l_valTableList[0] && x!= l_valTableList[1] && x!= l_valTableList[2]).Aggregate((i, j) => i + j);
-                    valTableList.Add((string[])l_res.Clone());
+                    l_res[2] = l_valTableList.Where(x => x != l_valTableList[0] && x != l_valTableList[1] && x != l_valTableList[2]).Aggregate((i, j) => i + j);
+
+                    if (!l_res[2].EndsWith(";"))
+                    {
+                        l_longValTabFlag = true; // Value table has more than 1 line.
+                        continue;
+                    }
+                    else
+                    {
+                        l_longValTabFlag = false; // reset the flag
+                    }
                 }
+                else if (l_longValTabFlag == true && !Regex.IsMatch(line, @"^\s+$")) //current line is not an empty line
+                {
+                    l_res[2] = String.Concat(l_res[2], line);
+                }
+                else continue; // current line is empty -> skip it.
+                valTableList.Add((string[])l_res.Clone());
+                l_longValTabFlag = false;
             }
             if (valTableList.Count() != 0) return true;
             return false;
