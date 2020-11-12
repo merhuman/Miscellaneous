@@ -25,7 +25,7 @@ namespace Miscellaneous
         
 
         /* enums */
-        internal enum StringType { Normal, With_0x, Empty };
+        internal enum StringType { Normal, With_space, With_comma, With_0x, With_space0x, With_comma0x, With_spaceComma0x, Empty };
         internal enum FileType { Excel, SSParam, DBC, Json, A2L, HTML, Undefined };
         public static string g_nodePrefix = "BU_: ";
         public static string g_mesPrefix = "BO_ ";
@@ -111,7 +111,22 @@ namespace Miscellaneous
             }
             else if (input.StartsWith("0x"))
             {
-                return StringType.With_0x;
+                if (input.Any(x => x == ',') && !input.Any(x => x == ' '))
+                {
+                    return StringType.With_comma0x;
+                }
+                else if (!input.Any(x => x == ',') && input.Any(x => x == ' '))
+                {
+                    return StringType.With_space0x;
+                }
+                else if (input.Any(x => x == ',') && input.Any(x => x == ' '))
+                {
+                    return StringType.With_spaceComma0x;
+                }
+                else
+                {
+                    return StringType.With_0x;
+                }
             }
             
             return StringType.Normal;
@@ -153,19 +168,28 @@ namespace Miscellaneous
             
             switch (l_stringType)
             {
-                case StringType.With_0x:
+                case StringType.With_comma:
+                case StringType.With_comma0x:
                     l_dataLength = l_string.Split(',').Count();
                     break;
 
+                case StringType.With_space:
                 case StringType.Normal:
-                    l_dataLength = l_string.Aggregate(0, (total, next) => char.IsWhiteSpace(next) ? total = total + 1 : total);
-                    l_dataLength++; // Real number of bytes.
+                    l_dataLength = Regex.Split(l_string, @"\s+").Count();
+                    break;
+
+                case StringType.With_0x:
+                case StringType.With_space0x:
+                    l_dataLength = Regex.Split(l_string, "0x").Count() - 1 ; // minus 1 for the 0x head.
+                    break;
+
+                case StringType.With_spaceComma0x:
+                    // this is really complicated. It will be updated later
                     break;
 
                 default:
                     break;
             }
-
             return l_dataLength;
         }
 

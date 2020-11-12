@@ -109,7 +109,10 @@ namespace Miscellaneous
                         /* Add the padding bytes */
                         if (l_numberOfData > 0)
                         {
-                            l_paddingByte = l_paddingByte.Substring(2); // drop the 0x part of padding byte.
+                            if (l_paddingByte.StartsWith("0x"))
+                            {
+                                l_paddingByte = l_paddingByte.Substring(2); // drop the 0x part of padding byte.
+                            }
                             l_outputResult1 += string.Concat(Enumerable.Repeat(" " + l_paddingByte, l_accessoryByte));
                             l_outputResult2 += string.Concat(Enumerable.Repeat(",0x" + l_paddingByte, l_accessoryByte));
                         }
@@ -143,7 +146,10 @@ namespace Miscellaneous
                 {
                     int.TryParse(tb_NumberOfData.Text, out l_numberOfData);
                     l_paddingByte = (cb_Padding.Text == "") ? "0x00" : cb_Padding.Text;
-                    l_paddingByte = l_paddingByte.Substring(2); // drop the 0x part of padding byte.
+                    if (l_paddingByte.StartsWith("0x"))
+                    {
+                        l_paddingByte = l_paddingByte.Substring(2); // drop the 0x part of padding byte.
+                    }
                     l_outputResult1 += string.Concat(Enumerable.Repeat(" " + l_paddingByte, l_numberOfData));
                     l_outputResult2 += string.Concat(Enumerable.Repeat(",0x" + l_paddingByte, l_numberOfData));
                     tb_Output.Text = l_outputResult1.Trim() + Environment.NewLine + l_outputResult2.Substring(1);
@@ -390,14 +396,15 @@ namespace Miscellaneous
             string l_input = tb_Input.Text;
             tb_NumberOfChunksInput.Text = ProgramLibs.CountNumberOfChunks(l_input).ToString();
             tb_NumberOfSpacesInput.Text = ProgramLibs.CountNumberOfSpace(l_input).ToString();
-            tb_NumberOfCharsInput.Text = tb_Input.Text.Count().ToString();
+            tb_NumberOfCharsInput.Text = l_input.Count().ToString();
         }
 
         private void Btn_countOutput_Click(object sender, EventArgs e)
         {
-            tb_NumberOfChunksOutput.Text = ProgramLibs.CountNumberOfChunks(tb_Output.Text).ToString();
-            tb_NumberOfSpacesOutput.Text = ProgramLibs.CountNumberOfSpace(tb_Output.Text).ToString();
-            tb_NumberOfCharsOutput.Text = tb_Output.Text.Count().ToString();
+            string l_output = tb_Output.Text;
+            tb_NumberOfChunksOutput.Text = ProgramLibs.CountNumberOfChunks(l_output).ToString();
+            tb_NumberOfSpacesOutput.Text = ProgramLibs.CountNumberOfSpace(l_output).ToString();
+            tb_NumberOfCharsOutput.Text = l_output.Count().ToString();
         }
 
         private void Btn_LoadProject_Click(object sender, EventArgs e)

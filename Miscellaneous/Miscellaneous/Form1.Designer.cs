@@ -104,6 +104,10 @@
             this.btn_TestButton2 = new System.Windows.Forms.Button();
             this.btn_ArrangeMisc = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.gb_Excel_Param = new System.Windows.Forms.GroupBox();
+            this.cb_TitleIncluded_ParamGen = new System.Windows.Forms.CheckBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.btn_LoadExcel_ParamGen = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.btn_LoadJsonFile_ParamGen = new System.Windows.Forms.Button();
             this.btn_GenSensorParam = new System.Windows.Forms.Button();
@@ -115,10 +119,6 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
-            this.gb_Excel_Param = new System.Windows.Forms.GroupBox();
-            this.btn_LoadExcel_ParamGen = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.cb_TitleIncluded_ParamGen = new System.Windows.Forms.CheckBox();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -129,10 +129,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.gb_Excel_Param.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.sts_Strip.SuspendLayout();
-            this.gb_Excel_Param.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab_FunctionControl
@@ -586,7 +586,8 @@
             "0x00",
             "0x20",
             "0x30",
-            "0xFF"});
+            "0xFF",
+            "?"});
             this.cb_Padding.Location = new System.Drawing.Point(124, 48);
             this.cb_Padding.Name = "cb_Padding";
             this.cb_Padding.Size = new System.Drawing.Size(121, 21);
@@ -931,6 +932,47 @@
             this.tabPage1.Text = "Param Generator";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // gb_Excel_Param
+            // 
+            this.gb_Excel_Param.Controls.Add(this.cb_TitleIncluded_ParamGen);
+            this.gb_Excel_Param.Controls.Add(this.button3);
+            this.gb_Excel_Param.Controls.Add(this.btn_LoadExcel_ParamGen);
+            this.gb_Excel_Param.Location = new System.Drawing.Point(309, 6);
+            this.gb_Excel_Param.Name = "gb_Excel_Param";
+            this.gb_Excel_Param.Size = new System.Drawing.Size(281, 234);
+            this.gb_Excel_Param.TabIndex = 2;
+            this.gb_Excel_Param.TabStop = false;
+            this.gb_Excel_Param.Text = "Excel <-> Param";
+            // 
+            // cb_TitleIncluded_ParamGen
+            // 
+            this.cb_TitleIncluded_ParamGen.AutoSize = true;
+            this.cb_TitleIncluded_ParamGen.Location = new System.Drawing.Point(146, 36);
+            this.cb_TitleIncluded_ParamGen.Name = "cb_TitleIncluded_ParamGen";
+            this.cb_TitleIncluded_ParamGen.Size = new System.Drawing.Size(90, 17);
+            this.cb_TitleIncluded_ParamGen.TabIndex = 2;
+            this.cb_TitleIncluded_ParamGen.Text = "Title Included";
+            this.cb_TitleIncluded_ParamGen.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(29, 72);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "Load Param";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // btn_LoadExcel_ParamGen
+            // 
+            this.btn_LoadExcel_ParamGen.Location = new System.Drawing.Point(29, 32);
+            this.btn_LoadExcel_ParamGen.Name = "btn_LoadExcel_ParamGen";
+            this.btn_LoadExcel_ParamGen.Size = new System.Drawing.Size(75, 23);
+            this.btn_LoadExcel_ParamGen.TabIndex = 0;
+            this.btn_LoadExcel_ParamGen.Text = "Load Excel";
+            this.btn_LoadExcel_ParamGen.UseVisualStyleBackColor = true;
+            this.btn_LoadExcel_ParamGen.Click += new System.EventHandler(this.btn_LoadExcel_ParamGen_Click);
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.btn_LoadJsonFile_ParamGen);
@@ -1030,47 +1072,6 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
-            // gb_Excel_Param
-            // 
-            this.gb_Excel_Param.Controls.Add(this.cb_TitleIncluded_ParamGen);
-            this.gb_Excel_Param.Controls.Add(this.button3);
-            this.gb_Excel_Param.Controls.Add(this.btn_LoadExcel_ParamGen);
-            this.gb_Excel_Param.Location = new System.Drawing.Point(309, 6);
-            this.gb_Excel_Param.Name = "gb_Excel_Param";
-            this.gb_Excel_Param.Size = new System.Drawing.Size(281, 234);
-            this.gb_Excel_Param.TabIndex = 2;
-            this.gb_Excel_Param.TabStop = false;
-            this.gb_Excel_Param.Text = "Excel <-> Param";
-            // 
-            // btn_LoadExcel_ParamGen
-            // 
-            this.btn_LoadExcel_ParamGen.Location = new System.Drawing.Point(29, 32);
-            this.btn_LoadExcel_ParamGen.Name = "btn_LoadExcel_ParamGen";
-            this.btn_LoadExcel_ParamGen.Size = new System.Drawing.Size(75, 23);
-            this.btn_LoadExcel_ParamGen.TabIndex = 0;
-            this.btn_LoadExcel_ParamGen.Text = "Load Excel";
-            this.btn_LoadExcel_ParamGen.UseVisualStyleBackColor = true;
-            this.btn_LoadExcel_ParamGen.Click += new System.EventHandler(this.btn_LoadExcel_ParamGen_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(29, 72);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Load Param";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // cb_TitleIncluded_ParamGen
-            // 
-            this.cb_TitleIncluded_ParamGen.AutoSize = true;
-            this.cb_TitleIncluded_ParamGen.Location = new System.Drawing.Point(146, 36);
-            this.cb_TitleIncluded_ParamGen.Name = "cb_TitleIncluded_ParamGen";
-            this.cb_TitleIncluded_ParamGen.Size = new System.Drawing.Size(90, 17);
-            this.cb_TitleIncluded_ParamGen.TabIndex = 2;
-            this.cb_TitleIncluded_ParamGen.Text = "Title Included";
-            this.cb_TitleIncluded_ParamGen.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1096,13 +1097,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.gb_Excel_Param.ResumeLayout(false);
+            this.gb_Excel_Param.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.sts_Strip.ResumeLayout(false);
             this.sts_Strip.PerformLayout();
-            this.gb_Excel_Param.ResumeLayout(false);
-            this.gb_Excel_Param.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
