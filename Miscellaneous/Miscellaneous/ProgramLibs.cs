@@ -27,6 +27,8 @@ namespace Miscellaneous
         /* enums */
         internal enum StringType { Normal, With_space, With_comma, With_0x, With_space0x, With_comma0x, With_spaceComma0x, Empty };
         internal enum FileType { Excel, SSParam, DBC, Json, A2L, HTML, Undefined };
+        internal enum ParamDataType { Auto, Integer, Float, String, Data,  Signal, EnvvarInt, EnvvarFloat, EnvvarString,
+        EnvvarData, SysvarInt, SysvarLongLong, SysvarFloat, SysvarString, SysvarData, SysvarIntArray, SysvarFloatArray};
         public static string g_nodePrefix = "BU_: ";
         public static string g_mesPrefix = "BO_ ";
         public static string g_sigPrefix = " SG_ ";
@@ -507,6 +509,43 @@ namespace Miscellaneous
                         l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert a2l file to txt file for more convenient purposes
                         File.Copy(inputFilePath, l_sourcePath, true);
                         GetVSMnFUSFromFile(l_sourcePath, ref l_vsmList, ref l_fusList);
+
+                        saveFileDialog1.Filter = "Excel (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+                        saveFileDialog1.Title = "Save Excel As";
+                        saveFileDialog1.InitialDirectory = @"E:\Work";
+                        saveFileDialog1.ShowDialog();
+
+                        l_savedPath = saveFileDialog1.FileName;
+
+                        l_excelFile = new FileInfo(l_savedPath);
+
+                        if (l_savedPath != "")
+                        {
+                            using (ExcelPackage l_excelPackage = new ExcelPackage(l_excelFile))
+                            {
+                                DataTable l_dataTable = new DataTable();
+
+                                // Add mes
+                                l_dataTable.Columns.Add("No", typeof(string));
+                                l_dataTable.Columns.Add("VSMName", typeof(string));
+
+                                for (int idx = 0; idx < l_vsmList.Count(); idx++)
+                                {
+                                    l_dataTable.Rows.Add(idx + 1,
+                                        l_vsmList[idx]);
+                                }
+
+                                if (l_excelPackage.Workbook.Worksheets.Any(sheet => sheet.Name == "VSMList"))
+                                {
+                                    l_excelPackage.Workbook.Worksheets.Delete("VSMList");
+                                }
+                                ExcelWorksheet l_worksheet = l_excelPackage.Workbook.Worksheets.Add("VSMList");
+
+                                l_worksheet.Cells["A1"].LoadFromDataTable(l_dataTable, true);
+                                l_excelPackage.Save();
+                            }
+                        }
+
                         break;
 
                     case FileType.HTML: // for now let's just keep it same as A2L file type.
@@ -950,24 +989,126 @@ namespace Miscellaneous
         #region ConvertMethods
         public static bool ConvertExcel2Param(string filePath, string sheetName, bool titleInclude)
         {
-            List<string> l_excelData = new List<string>();
+            string l_workbookName = Path.GetFileNameWithoutExtension(filePath);
             byte[] l_bin = File.ReadAllBytes(filePath);
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             
+            string l_header = "Vector Parameter	1.0";
+            string l_type = "StructListSingleRecord";
+            DataTable l_dt = new DataTable();
+            List<string> l_columns = new List<string>();
+
             using (ExcelPackage l_excelPackage = new ExcelPackage(new MemoryStream(l_bin)))
             {
-                ExcelWorksheet l_worksheet = l_excelPackage.Workbook.Worksheets[sheetName];
-                for (int rowIdx = (titleInclude == false)? l_worksheet.Dimension.Start.Row : l_worksheet.Dimension.Start.Row + 1; rowIdx <= l_worksheet.Dimension.End.Row; rowIdx++)
+                //ExcelWorksheet l_worksheet = l_excelPackage.Workbook.Worksheets[sheetName];
+                ExcelWorksheet l_worksheet = l_excelPackage.Workbook.Worksheets[1];
+
+                // check if the worksheet is completely empty
+                if (l_worksheet.Dimension == null)
                 {
-                    for (int colIdx = l_worksheet.Dimension.Start.Column; colIdx <= l_worksheet.Dimension.End.Column; colIdx++)
+                    return false;
+                }
+
+                // create a list to hold the column names
+                List<string> l_columnNames = new List<string>();
+
+                // needed to keep track of empty column headers
+                int l_currentColumn = 1;
+
+                // loop all columns in the sheet and add them to the database
+                foreach (var cell in l_worksheet.Cells[1, 1, 1, l_worksheet.Dimension.End.Column])
+                {
+                    string l_columnName = cell.Text.Trim();
+
+                    // check if the previous header was empty and add it if it was
+                    if (cell.Start.Column != l_currentColumn)
                     {
-                        if (l_worksheet.Cells[rowIdx, colIdx].Value != null)
-                        {
-                            l_excelData.Add(l_worksheet.Cells[rowIdx, colIdx].Value.ToString());
-                        }
+                        l_columnNames.Add("Header_" + l_currentColumn);
+                        l_dt.Columns.Add("Header_" + l_currentColumn);
+                        l_currentColumn++;
                     }
+
+                    // add the column name to the list to count the duplicates
+                    l_columnNames.Add(l_columnName);
+
+                    // count the duplicate column names and make them unique to avoid exception
+                    int l_occurrences = l_columnNames.Count(x => x.Equals(l_columnName));
+                    if (l_occurrences > 1)
+                    {
+                        l_columnName = l_columnName + "_" + l_occurrences;
+                    }
+
+                    // add the column to the datatable
+                    l_dt.Columns.Add(l_columnName);
+                    l_columns.Add(l_columnName);
+                    l_currentColumn++;
+                }
+
+                // start adding contents of excel file to the datable
+                for (int idx = 2; idx <= l_worksheet.Dimension.End.Row; idx++)
+                {
+                    var row = l_worksheet.Cells[idx, 1, idx, l_worksheet.Dimension.End.Column];
+                    DataRow l_newRow = l_dt.NewRow();
+
+                    // loop all cells in the row
+                    foreach (var cell in row)
+                    {
+                        if (cell.Start.Column - 1 < l_dt.Columns.Count) // prevent the Out-of-range exception
+                        {
+                            l_newRow[cell.Start.Column - 1] = cell.Text;
+                        }
+                        else continue;
+                        ;
+                    }
+
+                    l_dt.Rows.Add(l_newRow);
                 }
             }
-            //if (l_excelData.Count() != 0) return true;
+
+            saveFileDialog1.Filter = "text (*.txt)|*.txt|All files (*.*)|*.*";
+            saveFileDialog1.Title = "Save Excel As";
+            saveFileDialog1.InitialDirectory = @"E:\Work";
+            saveFileDialog1.ShowDialog();
+
+            string l_savedPath = saveFileDialog1.FileName;
+
+            // for now let's keep it this way
+            if (File.Exists(l_savedPath))
+            {
+                File.Delete(l_savedPath);
+            }
+            // tomorrow fix the string length.
+            using (FileStream fs = File.Create(saveFileDialog1.FileName))
+            {
+                fs.Write(new UTF8Encoding(true).GetBytes(l_header + "\n\n"), 0, l_header.Length + 2);
+                fs.Write(new UTF8Encoding(true).GetBytes(l_type + "\n\n"), 0, l_type.Length + 2);
+                string l_structName = String.Concat("StructName\t", l_workbookName, "::", sheetName);
+                fs.Write(new UTF8Encoding(true).GetBytes(l_structName + "\n"), 0, l_structName.Length + 1);
+                string l_parameterName = "ParameterName\t\t" + String.Join("\t", l_columns);
+                fs.Write(new UTF8Encoding(true).GetBytes(l_parameterName + "\n"), 0, l_parameterName.Length + 1);
+                string l_typeName = "Type\t\t" + String.Join("\t", l_dt.Rows[0].ItemArray.ToArray());
+                fs.Write(new UTF8Encoding(true).GetBytes(l_typeName + "\n"), 0, l_typeName.Length + 1);
+                fs.Write(new UTF8Encoding(true).GetBytes("Info\t" + "\n"), 0, "Info\t".Length + 1);
+                ;
+                for (int idx = 1; idx < l_dt.Rows.Count; idx++)
+                //for (int idx = 1; idx < 4; idx++)
+                {
+                    string l_valueName = String.Empty;
+                    if (idx == 1)
+                    {
+                        l_valueName = "Values\t\t" + String.Join("\t", l_dt.Rows[idx].ItemArray.ToArray());
+                        fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
+                    }
+                    else
+                    {
+                        l_valueName = "\t\t" + String.Join("\t", l_dt.Rows[idx].ItemArray.ToArray());
+                        fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
+                    }
+                    
+                }
+            }
+
+            if (l_columns.Count() != 0) return true;
             return false;
         }
 

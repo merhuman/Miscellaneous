@@ -626,7 +626,16 @@ namespace Miscellaneous
             {
                 g_fileName = g_odf_Misc.SafeFileName;
                 g_filePath = g_odf_Misc.FileName;
-                ProgramLibs.ConvertExcel2Param(g_filePath, "ECU_ID_DID", cb_TitleIncluded_ParamGen.Checked);
+
+                // These will be updated later for cleaner code
+                ProgramLibs.ConvertExcel2Param(g_filePath, "Ranges", cb_TitleIncluded_ParamGen.Checked);
+                ProgramLibs.ConvertExcel2Param(g_filePath, "Init", cb_TitleIncluded_ParamGen.Checked);
+                ProgramLibs.ConvertExcel2Param(g_filePath, "Timeout", cb_TitleIncluded_ParamGen.Checked);
+                ProgramLibs.ConvertExcel2Param(g_filePath, "Invalid", cb_TitleIncluded_ParamGen.Checked);
+                ProgramLibs.ConvertExcel2Param(g_filePath, "Rolling Counter & Checksum", cb_TitleIncluded_ParamGen.Checked);
+                ProgramLibs.ConvertExcel2Param(g_filePath, "CarMoveDir", cb_TitleIncluded_ParamGen.Checked);
+                ProgramLibs.ConvertExcel2Param(g_filePath, "VehDynInterv", cb_TitleIncluded_ParamGen.Checked);
+                ProgramLibs.ConvertExcel2Param(g_filePath, "VehDynTimeout", cb_TitleIncluded_ParamGen.Checked);
             }
         }
     }
