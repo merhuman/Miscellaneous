@@ -105,7 +105,13 @@
             this.btn_ArrangeMisc = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.gb_Excel_Param = new System.Windows.Forms.GroupBox();
-            this.cb_TitleIncluded_ParamGen = new System.Windows.Forms.CheckBox();
+            this.btn_GenParam_ParamGen = new System.Windows.Forms.Button();
+            this.dg_hostSheetSelection = new System.Windows.Forms.DataGridView();
+            this.db_sheetNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dg_include = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dg_sheetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cb_SheetList_ParamGen = new System.Windows.Forms.ComboBox();
+            this.cb_GenOption_ParamGen = new System.Windows.Forms.CheckBox();
             this.button3 = new System.Windows.Forms.Button();
             this.btn_LoadExcel_ParamGen = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -130,6 +136,7 @@
             this.groupBox4.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.gb_Excel_Param.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dg_hostSheetSelection)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.sts_Strip.SuspendLayout();
@@ -934,25 +941,82 @@
             // 
             // gb_Excel_Param
             // 
-            this.gb_Excel_Param.Controls.Add(this.cb_TitleIncluded_ParamGen);
+            this.gb_Excel_Param.Controls.Add(this.btn_GenParam_ParamGen);
+            this.gb_Excel_Param.Controls.Add(this.dg_hostSheetSelection);
+            this.gb_Excel_Param.Controls.Add(this.cb_SheetList_ParamGen);
+            this.gb_Excel_Param.Controls.Add(this.cb_GenOption_ParamGen);
             this.gb_Excel_Param.Controls.Add(this.button3);
             this.gb_Excel_Param.Controls.Add(this.btn_LoadExcel_ParamGen);
             this.gb_Excel_Param.Location = new System.Drawing.Point(309, 6);
             this.gb_Excel_Param.Name = "gb_Excel_Param";
-            this.gb_Excel_Param.Size = new System.Drawing.Size(281, 234);
+            this.gb_Excel_Param.Size = new System.Drawing.Size(337, 296);
             this.gb_Excel_Param.TabIndex = 2;
             this.gb_Excel_Param.TabStop = false;
             this.gb_Excel_Param.Text = "Excel <-> Param";
             // 
-            // cb_TitleIncluded_ParamGen
+            // btn_GenParam_ParamGen
             // 
-            this.cb_TitleIncluded_ParamGen.AutoSize = true;
-            this.cb_TitleIncluded_ParamGen.Location = new System.Drawing.Point(146, 36);
-            this.cb_TitleIncluded_ParamGen.Name = "cb_TitleIncluded_ParamGen";
-            this.cb_TitleIncluded_ParamGen.Size = new System.Drawing.Size(90, 17);
-            this.cb_TitleIncluded_ParamGen.TabIndex = 2;
-            this.cb_TitleIncluded_ParamGen.Text = "Title Included";
-            this.cb_TitleIncluded_ParamGen.UseVisualStyleBackColor = true;
+            this.btn_GenParam_ParamGen.Location = new System.Drawing.Point(242, 36);
+            this.btn_GenParam_ParamGen.Name = "btn_GenParam_ParamGen";
+            this.btn_GenParam_ParamGen.Size = new System.Drawing.Size(75, 23);
+            this.btn_GenParam_ParamGen.TabIndex = 5;
+            this.btn_GenParam_ParamGen.Text = "Gen Param";
+            this.btn_GenParam_ParamGen.UseVisualStyleBackColor = true;
+            this.btn_GenParam_ParamGen.Click += new System.EventHandler(this.btn_GenParam_ParamGen_Click);
+            // 
+            // dg_hostSheetSelection
+            // 
+            this.dg_hostSheetSelection.AllowUserToAddRows = false;
+            this.dg_hostSheetSelection.BackgroundColor = System.Drawing.SystemColors.Info;
+            this.dg_hostSheetSelection.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dg_hostSheetSelection.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.db_sheetNumber,
+            this.dg_include,
+            this.dg_sheetName});
+            this.dg_hostSheetSelection.Location = new System.Drawing.Point(6, 119);
+            this.dg_hostSheetSelection.Name = "dg_hostSheetSelection";
+            this.dg_hostSheetSelection.RowHeadersVisible = false;
+            this.dg_hostSheetSelection.Size = new System.Drawing.Size(325, 150);
+            this.dg_hostSheetSelection.TabIndex = 4;
+            // 
+            // db_sheetNumber
+            // 
+            this.db_sheetNumber.HeaderText = "No.";
+            this.db_sheetNumber.Name = "db_sheetNumber";
+            this.db_sheetNumber.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.db_sheetNumber.Width = 50;
+            // 
+            // dg_include
+            // 
+            this.dg_include.HeaderText = "Include";
+            this.dg_include.Name = "dg_include";
+            this.dg_include.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dg_include.Width = 50;
+            // 
+            // dg_sheetName
+            // 
+            this.dg_sheetName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dg_sheetName.HeaderText = "Sheet";
+            this.dg_sheetName.Name = "dg_sheetName";
+            this.dg_sheetName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // cb_SheetList_ParamGen
+            // 
+            this.cb_SheetList_ParamGen.FormattingEnabled = true;
+            this.cb_SheetList_ParamGen.Location = new System.Drawing.Point(131, 74);
+            this.cb_SheetList_ParamGen.Name = "cb_SheetList_ParamGen";
+            this.cb_SheetList_ParamGen.Size = new System.Drawing.Size(121, 21);
+            this.cb_SheetList_ParamGen.TabIndex = 3;
+            // 
+            // cb_GenOption_ParamGen
+            // 
+            this.cb_GenOption_ParamGen.AutoSize = true;
+            this.cb_GenOption_ParamGen.Location = new System.Drawing.Point(124, 36);
+            this.cb_GenOption_ParamGen.Name = "cb_GenOption_ParamGen";
+            this.cb_GenOption_ParamGen.Size = new System.Drawing.Size(112, 17);
+            this.cb_GenOption_ParamGen.TabIndex = 2;
+            this.cb_GenOption_ParamGen.Text = "Combine into 1 file";
+            this.cb_GenOption_ParamGen.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
@@ -979,7 +1043,7 @@
             this.groupBox6.Controls.Add(this.btn_GenSensorParam);
             this.groupBox6.Location = new System.Drawing.Point(6, 6);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(288, 234);
+            this.groupBox6.Size = new System.Drawing.Size(288, 296);
             this.groupBox6.TabIndex = 1;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Negative DID";
@@ -1099,6 +1163,7 @@
             this.tabPage1.ResumeLayout(false);
             this.gb_Excel_Param.ResumeLayout(false);
             this.gb_Excel_Param.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dg_hostSheetSelection)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -1199,7 +1264,13 @@
         private System.Windows.Forms.GroupBox gb_Excel_Param;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btn_LoadExcel_ParamGen;
-        private System.Windows.Forms.CheckBox cb_TitleIncluded_ParamGen;
+        private System.Windows.Forms.CheckBox cb_GenOption_ParamGen;
+        private System.Windows.Forms.ComboBox cb_SheetList_ParamGen;
+        private System.Windows.Forms.DataGridView dg_hostSheetSelection;
+        private System.Windows.Forms.DataGridViewTextBoxColumn db_sheetNumber;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dg_include;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dg_sheetName;
+        private System.Windows.Forms.Button btn_GenParam_ParamGen;
     }
 }
 

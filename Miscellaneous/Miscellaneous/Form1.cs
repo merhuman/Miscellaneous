@@ -49,6 +49,8 @@ namespace Miscellaneous
         List<string> g_nameList1 = new List<string>();
         List<string> g_nameList2 = new List<string>();
 
+        Dictionary<string, bool> g_selectedSheets = new Dictionary<string, bool>();
+
         public Form1()
         {
             InitializeComponent();
@@ -622,20 +624,46 @@ namespace Miscellaneous
             List<string> excelData = new List<string>();
             g_odf_Misc.InitialDirectory = @"D:\TH\csharp\Miscellaneous\Miscellaneous\Miscellaneous\Configuration";
 
+            // this step takes a bit too long, it should be faster.
             if (g_odf_Misc.ShowDialog() == DialogResult.OK)
             {
                 g_fileName = g_odf_Misc.SafeFileName;
                 g_filePath = g_odf_Misc.FileName;
 
-                // These will be updated later for cleaner code
-                ProgramLibs.ConvertExcel2Param(g_filePath, "Ranges", cb_TitleIncluded_ParamGen.Checked);
-                ProgramLibs.ConvertExcel2Param(g_filePath, "Init", cb_TitleIncluded_ParamGen.Checked);
-                ProgramLibs.ConvertExcel2Param(g_filePath, "Timeout", cb_TitleIncluded_ParamGen.Checked);
-                ProgramLibs.ConvertExcel2Param(g_filePath, "Invalid", cb_TitleIncluded_ParamGen.Checked);
-                ProgramLibs.ConvertExcel2Param(g_filePath, "Rolling Counter & Checksum", cb_TitleIncluded_ParamGen.Checked);
-                ProgramLibs.ConvertExcel2Param(g_filePath, "CarMoveDir", cb_TitleIncluded_ParamGen.Checked);
-                ProgramLibs.ConvertExcel2Param(g_filePath, "VehDynInterv", cb_TitleIncluded_ParamGen.Checked);
-                ProgramLibs.ConvertExcel2Param(g_filePath, "VehDynTimeout", cb_TitleIncluded_ParamGen.Checked);
+                FileInfo l_excelFile = new FileInfo(g_filePath);
+                ExcelPackage l_excelPackage = new ExcelPackage(l_excelFile);
+
+                DataTable l_dt = new DataTable();
+                string[] l_sheetNameArr = l_excelPackage.Workbook.Worksheets.Select(x => x.Name).ToArray();
+                for (int idx = 0; idx < l_sheetNameArr.Count(); idx++)
+                {
+                    dg_hostSheetSelection.Rows.Add((idx + 1).ToString(), false, l_sheetNameArr[idx]);
+                }
+            }
+        }
+
+        private void btn_GenParam_ParamGen_Click(object sender, EventArgs e)
+        {
+            if (dg_hostSheetSelection.Rows.Count != 0)
+            {
+                FolderBrowserDialog l_folderBrowserDialog = new FolderBrowserDialog();
+                l_folderBrowserDialog.SelectedPath = @"E:\Work";
+                if (l_folderBrowserDialog.ShowDialog() == DialogResult.OK && !String.IsNullOrEmpty(l_folderBrowserDialog.SelectedPath))
+                {
+                    for (int rowIdx = 0; rowIdx < dg_hostSheetSelection.Rows.Count; rowIdx++)
+                    {
+                        if (Convert.ToBoolean(dg_hostSheetSelection.Rows[rowIdx].Cells[1].Value) == true)
+                        {
+                            // For now let it be like this. This function should be fixed to make combined file
+                            ProgramLibs.ConvertExcel2Param(
+                                g_filePath, dg_hostSheetSelection.Rows[rowIdx].Cells[2].Value.ToString(),
+                                cb_GenOption_ParamGen.Checked,
+                                l_folderBrowserDialog.SelectedPath,
+                                ((cb_GenOption_ParamGen.Checked == true && rowIdx == dg_hostSheetSelection.Rows.Count - 1) || cb_GenOption_ParamGen.Checked == false) ? true : false);
+                            ;
+                        }
+                    }
+                }
             }
         }
     }

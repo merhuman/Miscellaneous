@@ -34,8 +34,12 @@ namespace Miscellaneous
         public static string g_sigPrefix = " SG_ ";
         public static string g_valTabPrefix = "VAL_ ";
 
+        // Later on, we may use a input textbox to type in the regex pattern we want to search in the file
         public static string g_vsmRegex = @"(VSM_)[ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz1234567890]*";
         public static string g_fusRegex = @"(FUS_)[ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz1234567890]*";
+        public static string g_adiRegex1 = @"(adi)_*[ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz1234567890]*";
+
+        static DataTable g_dataTable = new DataTable();
 
         #region UnderDevelopment
         /// <summary>
@@ -321,6 +325,7 @@ namespace Miscellaneous
             List<string[]> l_mesList = new List<string[]>();
             List<string[]> l_sigList = new List<string[]>();
             List<string[]> l_valTabList = new List<string[]>();
+            List<string> l_adiList = new List<string>();
             List<string> l_fusList = new List<string>();
             List<string> l_vsmList = new List<string>();
             List<string> l_nameList = new List<string>();
@@ -401,8 +406,10 @@ namespace Miscellaneous
                                 l_worksheet.Cells["A1"].LoadFromDataTable(l_dataTable, true);
 
                                 // Add sig
+                                // Clear data table.
                                 l_dataTable.Columns.Clear();
                                 l_dataTable.Rows.Clear();
+
                                 l_dataTable.Columns.Add("No", typeof(string));
                                 l_dataTable.Columns.Add("MesName", typeof(string));
                                 l_dataTable.Columns.Add("SigName", typeof(string));
@@ -431,8 +438,10 @@ namespace Miscellaneous
                                 l_worksheet.Cells["A1"].LoadFromDataTable(l_dataTable, true);
 
                                 // Add Value Table
+                                // Clear data table.
                                 l_dataTable.Columns.Clear();
                                 l_dataTable.Rows.Clear();
+
                                 l_dataTable.Columns.Add("No", typeof(string));
                                 l_dataTable.Columns.Add("MesID(hex)", typeof(string));
                                 l_dataTable.Columns.Add("MesID(dec)", typeof(string));
@@ -551,7 +560,44 @@ namespace Miscellaneous
                     case FileType.HTML: // for now let's just keep it same as A2L file type.
                         l_sourcePath = Path.ChangeExtension(l_sourcePath, ".txt");  // convert a2l file to txt file for more convenient purposes
                         File.Copy(inputFilePath, l_sourcePath, true);
-                        GetVSMnFUSFromFile(l_sourcePath, ref l_vsmList, ref l_fusList);
+                        GetADIFromFile(l_sourcePath, ref l_adiList);
+
+                        saveFileDialog1.Filter = "Excel (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+                        saveFileDialog1.Title = "Save Excel As";
+                        saveFileDialog1.InitialDirectory = @"E:\Work";
+                        saveFileDialog1.ShowDialog();
+
+                        l_savedPath = saveFileDialog1.FileName;
+
+                        l_excelFile = new FileInfo(l_savedPath);
+
+                        if (l_savedPath != "")
+                        {
+                            using (ExcelPackage l_excelPackage = new ExcelPackage(l_excelFile))
+                            {
+                                DataTable l_dataTable = new DataTable();
+
+                                // Add mes
+                                l_dataTable.Columns.Add("No", typeof(string));
+                                l_dataTable.Columns.Add("ADIName", typeof(string));
+
+                                for (int idx = 0; idx < l_adiList.Count(); idx++)
+                                {
+                                    l_dataTable.Rows.Add(idx + 1,
+                                        l_adiList[idx]);
+                                }
+
+                                if (l_excelPackage.Workbook.Worksheets.Any(sheet => sheet.Name == "ADIList"))
+                                {
+                                    l_excelPackage.Workbook.Worksheets.Delete("ADIList");
+                                }
+                                ExcelWorksheet l_worksheet = l_excelPackage.Workbook.Worksheets.Add("ADIList");
+
+                                l_worksheet.Cells["A1"].LoadFromDataTable(l_dataTable, true);
+                                l_excelPackage.Save();
+                            }
+                        }
+
                         break;
 
                     default:
@@ -889,6 +935,28 @@ namespace Miscellaneous
             return false;
         }
 
+        internal static bool GetADIFromFile(string filePath, ref List<string> adiList)
+        {
+            HashSet<string> l_adiList = new HashSet<string>();
+            Regex l_adiPattern = new Regex(g_adiRegex1);
+            string l_content = String.Empty;
+
+            l_content = File.ReadAllText(filePath);
+            MatchCollection l_rawADIMatchCollection = l_adiPattern.Matches(l_content);
+
+            if (l_rawADIMatchCollection.Count != 0)
+            {
+                foreach(Match match in l_rawADIMatchCollection)
+                {
+                    l_adiList.Add(match.Value);
+                }
+            }
+
+            adiList = l_adiList.Distinct().ToList();
+            if (adiList.Count() != 0) return true;
+            return false;
+        }
+
         internal static bool ReadAllSignalNamesFromExcel(string filePath, ref List<string> signalNameList, bool includeTitle)
         {
             List<string> l_signalNameList = new List<string>();
@@ -987,7 +1055,7 @@ namespace Miscellaneous
         #endregion TextEdit
 
         #region ConvertMethods
-        public static bool ConvertExcel2Param(string filePath, string sheetName, bool titleInclude)
+        public static bool ConvertExcel2Param(string filePath, string sheetName, bool combineFlag, string savingPath, bool genFlag)
         {
             string l_workbookName = Path.GetFileNameWithoutExtension(filePath);
             byte[] l_bin = File.ReadAllBytes(filePath);
@@ -995,13 +1063,13 @@ namespace Miscellaneous
             
             string l_header = "Vector Parameter	1.0";
             string l_type = "StructListSingleRecord";
-            DataTable l_dt = new DataTable();
             List<string> l_columns = new List<string>();
+
 
             using (ExcelPackage l_excelPackage = new ExcelPackage(new MemoryStream(l_bin)))
             {
-                //ExcelWorksheet l_worksheet = l_excelPackage.Workbook.Worksheets[sheetName];
-                ExcelWorksheet l_worksheet = l_excelPackage.Workbook.Worksheets[1];
+                ExcelWorksheet l_worksheet = l_excelPackage.Workbook.Worksheets[sheetName];
+                //ExcelWorksheet l_worksheet = l_excelPackage.Workbook.Worksheets[1];
 
                 // check if the worksheet is completely empty
                 if (l_worksheet.Dimension == null)
@@ -1024,7 +1092,7 @@ namespace Miscellaneous
                     if (cell.Start.Column != l_currentColumn)
                     {
                         l_columnNames.Add("Header_" + l_currentColumn);
-                        l_dt.Columns.Add("Header_" + l_currentColumn);
+                        g_dataTable.Columns.Add("Header_" + l_currentColumn);
                         l_currentColumn++;
                     }
 
@@ -1039,7 +1107,7 @@ namespace Miscellaneous
                     }
 
                     // add the column to the datatable
-                    l_dt.Columns.Add(l_columnName);
+                    g_dataTable.Columns.Add(l_columnName);
                     l_columns.Add(l_columnName);
                     l_currentColumn++;
                 }
@@ -1048,12 +1116,12 @@ namespace Miscellaneous
                 for (int idx = 2; idx <= l_worksheet.Dimension.End.Row; idx++)
                 {
                     var row = l_worksheet.Cells[idx, 1, idx, l_worksheet.Dimension.End.Column];
-                    DataRow l_newRow = l_dt.NewRow();
+                    DataRow l_newRow = g_dataTable.NewRow();
 
                     // loop all cells in the row
                     foreach (var cell in row)
                     {
-                        if (cell.Start.Column - 1 < l_dt.Columns.Count) // prevent the Out-of-range exception
+                        if (cell.Start.Column - 1 < g_dataTable.Columns.Count) // prevent the Out-of-range exception
                         {
                             l_newRow[cell.Start.Column - 1] = cell.Text;
                         }
@@ -1061,52 +1129,70 @@ namespace Miscellaneous
                         ;
                     }
 
-                    l_dt.Rows.Add(l_newRow);
+                    g_dataTable.Rows.Add(l_newRow);
                 }
             }
 
-            saveFileDialog1.Filter = "text (*.txt)|*.txt|All files (*.*)|*.*";
-            saveFileDialog1.Title = "Save Excel As";
-            saveFileDialog1.InitialDirectory = @"E:\Work";
-            saveFileDialog1.ShowDialog();
-
-            string l_savedPath = saveFileDialog1.FileName;
-
-            // for now let's keep it this way
-            if (File.Exists(l_savedPath))
+            if (genFlag == true) // generating-code flag is true
             {
-                File.Delete(l_savedPath);
-            }
-            // tomorrow fix the string length.
-            using (FileStream fs = File.Create(saveFileDialog1.FileName))
-            {
-                fs.Write(new UTF8Encoding(true).GetBytes(l_header + "\n\n"), 0, l_header.Length + 2);
-                fs.Write(new UTF8Encoding(true).GetBytes(l_type + "\n\n"), 0, l_type.Length + 2);
-                string l_structName = String.Concat("StructName\t", l_workbookName, "::", sheetName);
-                fs.Write(new UTF8Encoding(true).GetBytes(l_structName + "\n"), 0, l_structName.Length + 1);
-                string l_parameterName = "ParameterName\t\t" + String.Join("\t", l_columns);
-                fs.Write(new UTF8Encoding(true).GetBytes(l_parameterName + "\n"), 0, l_parameterName.Length + 1);
-                string l_typeName = "Type\t\t" + String.Join("\t", l_dt.Rows[0].ItemArray.ToArray());
-                fs.Write(new UTF8Encoding(true).GetBytes(l_typeName + "\n"), 0, l_typeName.Length + 1);
-                fs.Write(new UTF8Encoding(true).GetBytes("Info\t" + "\n"), 0, "Info\t".Length + 1);
-                ;
-                for (int idx = 1; idx < l_dt.Rows.Count; idx++)
-                //for (int idx = 1; idx < 4; idx++)
+                string l_savingPath = String.Empty;
+                if (combineFlag == true)
                 {
-                    string l_valueName = String.Empty;
-                    if (idx == 1)
+                    l_savingPath = Path.Combine(savingPath, l_workbookName + ".txt");
+                }
+                else
+                {
+                    l_savingPath = Path.Combine(savingPath, sheetName + ".txt");
+                }
+
+                // for now let's keep it this way
+                if (File.Exists(l_savingPath))
+                {
+                    File.Delete(l_savingPath);
+                }
+
+                if (String.IsNullOrEmpty(l_savingPath) == false)
+                {
+                    using (FileStream fs = File.Create(l_savingPath))
                     {
-                        l_valueName = "Values\t\t" + String.Join("\t", l_dt.Rows[idx].ItemArray.ToArray());
-                        fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
+                        fs.Write(new UTF8Encoding(true).GetBytes(l_header + "\n\n"), 0, l_header.Length + 2);
+                        fs.Write(new UTF8Encoding(true).GetBytes(l_type + "\n\n"), 0, l_type.Length + 2);
+                        string l_structName = String.Concat("StructName\t", l_workbookName, "::", sheetName);
+                        fs.Write(new UTF8Encoding(true).GetBytes(l_structName + "\n"), 0, l_structName.Length + 1);
+                        string l_parameterName = "ParameterName\t\t" + String.Join("\t", l_columns);
+                        fs.Write(new UTF8Encoding(true).GetBytes(l_parameterName + "\n"), 0, l_parameterName.Length + 1);
+                        string l_typeName = "Type\t\t" + String.Join("\t", g_dataTable.Rows[0].ItemArray.ToArray());
+                        fs.Write(new UTF8Encoding(true).GetBytes(l_typeName + "\n"), 0, l_typeName.Length + 1);
+                        fs.Write(new UTF8Encoding(true).GetBytes("Info\t" + "\n"), 0, "Info\t".Length + 1);
+                        ;
+                        for (int idx = 1; idx < g_dataTable.Rows.Count; idx++)
+                        {
+                            string l_valueName = String.Empty;
+                            if (idx == 1)
+                            {
+                                l_valueName = "Values\t\t" + String.Join("\t", g_dataTable.Rows[idx].ItemArray.ToArray());
+                                fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
+                            }
+                            else
+                            {
+                                l_valueName = "\t\t" + String.Join("\t", g_dataTable.Rows[idx].ItemArray.ToArray());
+                                fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
+                            }
+
+                        }
                     }
-                    else
-                    {
-                        l_valueName = "\t\t" + String.Join("\t", l_dt.Rows[idx].ItemArray.ToArray());
-                        fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
-                    }
-                    
                 }
             }
+            
+            // ## Issue with clearing data step. Exception "Column with the same name overlap".
+            if (combineFlag == false) // Clear data table.
+            {
+                g_dataTable.Columns.Clear();
+                g_dataTable.Rows.Clear();
+            }
+
+            //l_dt.Columns.Clear();
+            //l_dt.Rows.Clear();
 
             if (l_columns.Count() != 0) return true;
             return false;
