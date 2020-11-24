@@ -43,6 +43,7 @@ namespace Miscellaneous
         string g_filePath = string.Empty;
         string g_fileName = string.Empty;
         string g_fileContent = string.Empty;
+        string g_lastUsedPath = string.Empty;
 
         List<string> g_signalNameList = new List<string>();
         List<string> g_nodeNameList = new List<string>();
@@ -59,7 +60,16 @@ namespace Miscellaneous
         private void Form1_Load(object sender, EventArgs e)
         {
             /* This will be used later */
-            
+            string l_jsonPath = @"..\Configuration\log.json";
+            if (File.Exists(l_jsonPath))
+            {
+                JObject rss = JObject.Parse(File.ReadAllText(l_jsonPath));
+                g_lastUsedPath = rss["lastUsed"].ToString();
+            }
+            else
+            {
+                ;
+            }
         }
          
         private void button1_Click(object sender, EventArgs e)
