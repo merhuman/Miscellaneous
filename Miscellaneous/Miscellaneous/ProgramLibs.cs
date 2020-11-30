@@ -40,6 +40,7 @@ namespace Miscellaneous
         public static string g_adiRegex1 = @"(adi)_*[ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz1234567890]*";
 
         static DataTable g_dataTable = new DataTable();
+        public static bool g_isFirstSheet = true;
 
         #region UnderDevelopment
         /// <summary>
@@ -1146,53 +1147,121 @@ namespace Miscellaneous
                 }
 
                 // for now let's keep it this way
-                if (File.Exists(l_savingPath))
-                {
-                    File.Delete(l_savingPath);
-                }
+                //if (File.Exists(l_savingPath))
+                //{
+                //    File.Delete(l_savingPath);
+                //}
 
                 if (String.IsNullOrEmpty(l_savingPath) == false)
                 {
-                    using (FileStream fs = File.Create(l_savingPath))
+                    if (combineFlag == true)
                     {
-                        fs.Write(new UTF8Encoding(true).GetBytes(l_header + "\n\n"), 0, l_header.Length + 2);
-                        fs.Write(new UTF8Encoding(true).GetBytes(l_type + "\n\n"), 0, l_type.Length + 2);
-                        string l_structName = String.Concat("StructName\t", l_workbookName, "::", sheetName);
-                        fs.Write(new UTF8Encoding(true).GetBytes(l_structName + "\n"), 0, l_structName.Length + 1);
-                        string l_parameterName = "ParameterName\t\t" + String.Join("\t", l_columns);
-                        fs.Write(new UTF8Encoding(true).GetBytes(l_parameterName + "\n"), 0, l_parameterName.Length + 1);
-                        string l_typeName = "Type\t\t" + String.Join("\t", g_dataTable.Rows[0].ItemArray.ToArray());
-                        fs.Write(new UTF8Encoding(true).GetBytes(l_typeName + "\n"), 0, l_typeName.Length + 1);
-                        fs.Write(new UTF8Encoding(true).GetBytes("Info\t" + "\n"), 0, "Info\t".Length + 1);
-                        ;
-                        for (int idx = 1; idx < g_dataTable.Rows.Count; idx++)
+                        if (g_isFirstSheet == true)
                         {
-                            string l_valueName = String.Empty;
-                            if (idx == 1)
+                            using (FileStream fs = File.Create(l_savingPath))
                             {
-                                l_valueName = "Values\t\t" + String.Join("\t", g_dataTable.Rows[idx].ItemArray.ToArray());
-                                fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
-                            }
-                            else
-                            {
-                                l_valueName = "\t\t" + String.Join("\t", g_dataTable.Rows[idx].ItemArray.ToArray());
-                                fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
-                            }
+                                fs.Write(new UTF8Encoding(true).GetBytes(l_header + "\n\n"), 0, l_header.Length + 2);
+                                fs.Write(new UTF8Encoding(true).GetBytes(l_type + "\n\n"), 0, l_type.Length + 2);
+                                string l_structName = String.Concat("StructName\t", l_workbookName, "::", sheetName);
+                                fs.Write(new UTF8Encoding(true).GetBytes(l_structName + "\n"), 0, l_structName.Length + 1);
+                                string l_parameterName = "ParameterName\t\t" + String.Join("\t", l_columns);
+                                fs.Write(new UTF8Encoding(true).GetBytes(l_parameterName + "\n"), 0, l_parameterName.Length + 1);
+                                string l_typeName = "Type\t\t" + String.Join("\t", g_dataTable.Rows[0].ItemArray.ToArray());
+                                fs.Write(new UTF8Encoding(true).GetBytes(l_typeName + "\n"), 0, l_typeName.Length + 1);
+                                fs.Write(new UTF8Encoding(true).GetBytes("Info\t" + "\n"), 0, "Info\t".Length + 1);
+                                
+                                for (int idx = 1; idx < g_dataTable.Rows.Count; idx++)
+                                {
+                                    string l_valueName = String.Empty;
+                                    if (idx == 1)
+                                    {
+                                        l_valueName = "Values\t\t" + String.Join("\t", g_dataTable.Rows[idx].ItemArray.ToArray());
+                                        fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
+                                    }
+                                    else
+                                    {
+                                        l_valueName = "\t\t" + String.Join("\t", g_dataTable.Rows[idx].ItemArray.ToArray());
+                                        fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
+                                    }
 
+                                }
+                            }
+                            g_isFirstSheet = false; // set first sheet flag = false.
+                        }
+                        else
+                        {
+                            using (FileStream fs = new FileStream(l_savingPath, FileMode.Append))
+                            {
+                                string l_structName = String.Concat("\nStructName\t", l_workbookName, "::", sheetName);
+                                fs.Write(new UTF8Encoding(true).GetBytes(l_structName + "\n"), 0, l_structName.Length + 1);
+                                string l_parameterName = "ParameterName\t\t" + String.Join("\t", l_columns);
+                                fs.Write(new UTF8Encoding(true).GetBytes(l_parameterName + "\n"), 0, l_parameterName.Length + 1);
+                                string l_typeName = "Type\t\t" + String.Join("\t", g_dataTable.Rows[0].ItemArray.ToArray());
+                                fs.Write(new UTF8Encoding(true).GetBytes(l_typeName + "\n"), 0, l_typeName.Length + 1);
+                                fs.Write(new UTF8Encoding(true).GetBytes("Info\t" + "\n"), 0, "Info\t".Length + 1);
+                                ;
+                                for (int idx = 1; idx < g_dataTable.Rows.Count; idx++)
+                                {
+                                    string l_valueName = String.Empty;
+                                    if (idx == 1)
+                                    {
+                                        l_valueName = "Values\t\t" + String.Join("\t", g_dataTable.Rows[idx].ItemArray.ToArray());
+                                        fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
+                                    }
+                                    else
+                                    {
+                                        l_valueName = "\t\t" + String.Join("\t", g_dataTable.Rows[idx].ItemArray.ToArray());
+                                        fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    else // combine flag is false
+                    {
+                        using (FileStream fs = File.Create(l_savingPath))
+                        {
+                            fs.Write(new UTF8Encoding(true).GetBytes(l_header + "\n\n"), 0, l_header.Length + 2);
+                            fs.Write(new UTF8Encoding(true).GetBytes(l_type + "\n\n"), 0, l_type.Length + 2);
+                            string l_structName = String.Concat("StructName\t", l_workbookName, "::", sheetName);
+                            fs.Write(new UTF8Encoding(true).GetBytes(l_structName + "\n"), 0, l_structName.Length + 1);
+                            string l_parameterName = "ParameterName\t\t" + String.Join("\t", l_columns);
+                            fs.Write(new UTF8Encoding(true).GetBytes(l_parameterName + "\n"), 0, l_parameterName.Length + 1);
+                            string l_typeName = "Type\t\t" + String.Join("\t", g_dataTable.Rows[0].ItemArray.ToArray());
+                            fs.Write(new UTF8Encoding(true).GetBytes(l_typeName + "\n"), 0, l_typeName.Length + 1);
+                            fs.Write(new UTF8Encoding(true).GetBytes("Info\t" + "\n"), 0, "Info\t".Length + 1);
+                            ;
+                            for (int idx = 1; idx < g_dataTable.Rows.Count; idx++)
+                            {
+                                string l_valueName = String.Empty;
+                                if (idx == 1)
+                                {
+                                    l_valueName = "Values\t\t" + String.Join("\t", g_dataTable.Rows[idx].ItemArray.ToArray());
+                                    fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
+                                }
+                                else
+                                {
+                                    l_valueName = "\t\t" + String.Join("\t", g_dataTable.Rows[idx].ItemArray.ToArray());
+                                    fs.Write(new UTF8Encoding(true).GetBytes(l_valueName + "\n"), 0, l_valueName.Length + 1);
+                                }
+
+                            }
                         }
                     }
                 }
             }
-            
-            // ## Issue with clearing data step. Exception "Column with the same name overlap".
-            if (combineFlag == false) // Clear data table.
-            {
-                g_dataTable.Columns.Clear();
-                g_dataTable.Rows.Clear();
-            }
 
-            //l_dt.Columns.Clear();
-            //l_dt.Rows.Clear();
+            // ## Issue with clearing data step. Exception "Column with the same name overlap".
+            //if (combineFlag == false) // Clear data table.
+            //{
+            //    g_dataTable.Columns.Clear();
+            //    g_dataTable.Rows.Clear();
+            //}
+
+            // Clear data table.
+            g_dataTable.Columns.Clear();
+            g_dataTable.Rows.Clear();
 
             if (l_columns.Count() != 0) return true;
             return false;

@@ -192,14 +192,36 @@ namespace Miscellaneous
 
         private void Btn_Test_Click(object sender, EventArgs e)
         {
-            string[] fruits = { "apple", "banana", "mango", "orange",
-                      "passionfruit", "grape" };
+            const string fileName = @"D:\TestBook1.txt";
 
-            var query =
-                fruits.Select((fruit, index) =>
-                                  new { index, str = fruit.Substring(0, index) });
-            ;
+            // Create random data to write to the file.
+            byte[] dataArray = new byte[100000];
+            new Random().NextBytes(dataArray);
 
+            using (FileStream
+                fileStream = new FileStream(fileName, FileMode.Create))
+            {
+                // Write the data to the file, byte by byte.
+                for (int i = 0; i < dataArray.Length; i++)
+                {
+                    fileStream.WriteByte(dataArray[i]);
+                }
+
+                // Set the stream position to the beginning of the file.
+                fileStream.Seek(0, SeekOrigin.Begin);
+
+                // Read and verify the data.
+                for (int i = 0; i < fileStream.Length; i++)
+                {
+                    if (dataArray[i] != fileStream.ReadByte())
+                    {
+                        Console.WriteLine("Error writing data.");
+                        return;
+                    }
+                }
+                Console.WriteLine("The data was written to {0} " +
+                    "and verified.", fileStream.Name);
+            }
         }
 
         private void Tb_NumberOfData_KeyPress(object sender, KeyPressEventArgs e)
@@ -669,10 +691,11 @@ namespace Miscellaneous
                                 g_filePath, dg_hostSheetSelection.Rows[rowIdx].Cells[2].Value.ToString(),
                                 cb_GenOption_ParamGen.Checked,
                                 l_folderBrowserDialog.SelectedPath,
-                                ((cb_GenOption_ParamGen.Checked == true && rowIdx == dg_hostSheetSelection.Rows.Count - 1) || cb_GenOption_ParamGen.Checked == false) ? true : false);
+                                true);
                             ;
                         }
                     }
+                    ProgramLibs.g_isFirstSheet = true; // reset the First sheet indicating flag.
                 }
             }
         }
