@@ -665,8 +665,11 @@ namespace Miscellaneous
                 FileInfo l_excelFile = new FileInfo(g_filePath);
                 ExcelPackage l_excelPackage = new ExcelPackage(l_excelFile);
 
-                DataTable l_dt = new DataTable();
                 string[] l_sheetNameArr = l_excelPackage.Workbook.Worksheets.Select(x => x.Name).ToArray();
+
+                // Remove all old sheet name rows
+                dg_hostSheetSelection.Rows.Clear();
+
                 for (int idx = 0; idx < l_sheetNameArr.Count(); idx++)
                 {
                     dg_hostSheetSelection.Rows.Add((idx + 1).ToString(), false, l_sheetNameArr[idx]);

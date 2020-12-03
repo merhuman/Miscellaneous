@@ -1192,7 +1192,8 @@ namespace Miscellaneous
                         {
                             using (FileStream fs = new FileStream(l_savingPath, FileMode.Append))
                             {
-                                string l_structName = String.Concat("\nStructName\t", l_workbookName, "::", sheetName);
+                                fs.Write(new UTF8Encoding(true).GetBytes(l_type + "\n\n"), 0, l_type.Length + 2);
+                                string l_structName = String.Concat("\n\nStructName\t", l_workbookName, "::", sheetName);
                                 fs.Write(new UTF8Encoding(true).GetBytes(l_structName + "\n"), 0, l_structName.Length + 1);
                                 string l_parameterName = "ParameterName\t\t" + String.Join("\t", l_columns);
                                 fs.Write(new UTF8Encoding(true).GetBytes(l_parameterName + "\n"), 0, l_parameterName.Length + 1);
