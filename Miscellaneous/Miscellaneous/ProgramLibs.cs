@@ -33,6 +33,7 @@ namespace Miscellaneous
         public static string g_mesPrefix = "BO_ ";
         public static string g_sigPrefix = " SG_ ";
         public static string g_valTabPrefix = "VAL_ ";
+        public static string g_attrPrefix = "BA_";
 
         // Later on, we may use a input textbox to type in the regex pattern we want to search in the file
         public static string g_vsmRegex = @"(VSM_)[ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz1234567890]*";
@@ -326,6 +327,7 @@ namespace Miscellaneous
             List<string[]> l_mesList = new List<string[]>();
             List<string[]> l_sigList = new List<string[]>();
             List<string[]> l_valTabList = new List<string[]>();
+            List<string[]> l_attrList = new List<string[]>();
             List<string> l_adiList = new List<string>();
             List<string> l_fusList = new List<string>();
             List<string> l_vsmList = new List<string>();
@@ -480,7 +482,6 @@ namespace Miscellaneous
                                 l_worksheet.Cells["A1"].LoadFromDataTable(l_dataTable, true);
 
                                 l_excelPackage.Save(); // need to add checking open excel file method before this line.
-                                ;
                             }
                             
                         }
@@ -604,7 +605,6 @@ namespace Miscellaneous
                     default:
                         return false;
                 }
-                ;
                 return true;
             }
             return false;
@@ -807,6 +807,7 @@ namespace Miscellaneous
                     }
                 }
             }
+            if (nodeList.Count != 0) return true;
             return false;
         }
 
@@ -898,6 +899,28 @@ namespace Miscellaneous
                 l_longValTabFlag = false;
             }
             if (valTableList.Count() != 0) return true;
+            return false;
+        }
+
+        internal static bool GetAttributesFromDBCFile(string filePath, ref List<string[]> attrList)
+        {
+            string[] l_attrList = new string[] { };
+            string[] l_res = new string[] { };
+            if (File.Exists(filePath))
+            {
+                foreach (var line in File.ReadAllLines(filePath))
+                {
+                    if (line.StartsWith(g_attrPrefix))
+                    {
+                        l_attrList = line.Split(' ');
+                        l_res[0] = l_attrList[1];
+                        l_res[1] = l_attrList[3];
+                        l_res[2] = l_attrList[4];
+                        return true;
+                    }
+                }
+            }
+            if (attrList.Count != 0) return true;
             return false;
         }
 
