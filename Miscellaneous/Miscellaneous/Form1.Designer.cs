@@ -125,6 +125,7 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
+            this.btn_CreateSQLite = new System.Windows.Forms.Button();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -612,6 +613,7 @@
             // tabPage2
             // 
             this.tabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage2.Controls.Add(this.btn_CreateSQLite);
             this.tabPage2.Controls.Add(this.btn_LoadScript_Misc);
             this.tabPage2.Controls.Add(this.btn_LoadJson_Misc);
             this.tabPage2.Controls.Add(this.btn_CalculateSSParam);
@@ -1136,6 +1138,16 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
+            // btn_CreateSQLite
+            // 
+            this.btn_CreateSQLite.Location = new System.Drawing.Point(579, 192);
+            this.btn_CreateSQLite.Name = "btn_CreateSQLite";
+            this.btn_CreateSQLite.Size = new System.Drawing.Size(75, 23);
+            this.btn_CreateSQLite.TabIndex = 6;
+            this.btn_CreateSQLite.Text = "Create sqlite";
+            this.btn_CreateSQLite.UseVisualStyleBackColor = true;
+            this.btn_CreateSQLite.Click += new System.EventHandler(this.btn_CreateSQLite_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1271,6 +1283,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn dg_include;
         private System.Windows.Forms.DataGridViewTextBoxColumn dg_sheetName;
         private System.Windows.Forms.Button btn_GenParam_ParamGen;
+        private System.Windows.Forms.Button btn_CreateSQLite;
     }
 }
 

@@ -702,5 +702,54 @@ namespace Miscellaneous
                 }
             }
         }
+
+        private void btn_CreateSQLite_Click(object sender, EventArgs e)
+        {
+            //if (!File.Exists(@"D:\TH\csharp\test2.db"))
+            //{
+            //    SQLiteConnection.CreateFile(@"D:\TH\csharp\test2.db");
+            //}
+
+            //string cs = @"URI=file:D:\TH\csharp\test2.db";
+
+            //SQLiteConnection conn;
+            //conn = new SQLiteConnection(cs);
+            //conn.Open();
+
+            //string sql = "drop table if exists highscores";
+            //SQLiteCommand command = new SQLiteCommand(sql, conn);
+            //command.ExecuteNonQuery();
+
+            //sql = "create table highscores (name varchar(20), score int)";
+            //command = new SQLiteCommand(sql, conn);
+            //command.ExecuteNonQuery();
+
+            //sql = "insert into highscores (name, score) values ('Me', 9001)";
+            //command = new SQLiteCommand(sql, conn);
+            //command.ExecuteNonQuery();
+            //sql = "insert into highscores (name, score) values ('Myself', 6000)";
+            //command = new SQLiteCommand(sql, conn);
+            //command.ExecuteNonQuery();
+            //sql = "insert into highscores (name, score) values ('And I', 9001)";
+            //command = new SQLiteCommand(sql, conn);
+            //command.ExecuteNonQuery();
+
+            //sql = "select * from highscores order by score desc";
+            //command = new SQLiteCommand(sql, conn);
+            //command.ExecuteNonQuery();
+
+
+            //sql = "select * from highscores order by score desc";
+            //command = new SQLiteCommand(sql, conn);
+            //command.ExecuteNonQuery();
+
+            //SQLiteDataReader reader = command.ExecuteReader();
+            //while (reader.Read())
+            //    Console.WriteLine("Name: " + reader["name"] + "\tScore: " + reader["score"]);
+
+            //conn.Close();
+            SQLiteLib.CreateSQLiteFile(@"D:\TH\csharp\");
+
+        }
     }
 }
