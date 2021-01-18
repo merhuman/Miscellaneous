@@ -73,6 +73,7 @@
             this.cb_Padding = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btn_CreateSQLite = new System.Windows.Forms.Button();
             this.btn_LoadScript_Misc = new System.Windows.Forms.Button();
             this.btn_LoadJson_Misc = new System.Windows.Forms.Button();
             this.btn_CalculateSSParam = new System.Windows.Forms.Button();
@@ -125,7 +126,7 @@
             this.sts_Strip = new System.Windows.Forms.StatusStrip();
             this.ts_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.ofd_OpenfileMisc = new System.Windows.Forms.OpenFileDialog();
-            this.btn_CreateSQLite = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tab_FunctionControl.SuspendLayout();
             this.tab_Convert.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -627,6 +628,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Miscellaneous";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btn_CreateSQLite
+            // 
+            this.btn_CreateSQLite.Location = new System.Drawing.Point(579, 192);
+            this.btn_CreateSQLite.Name = "btn_CreateSQLite";
+            this.btn_CreateSQLite.Size = new System.Drawing.Size(75, 23);
+            this.btn_CreateSQLite.TabIndex = 6;
+            this.btn_CreateSQLite.Text = "Create sqlite";
+            this.btn_CreateSQLite.UseVisualStyleBackColor = true;
+            this.btn_CreateSQLite.Click += new System.EventHandler(this.btn_CreateSQLite_Click);
             // 
             // btn_LoadScript_Misc
             // 
@@ -1138,16 +1149,6 @@
             // 
             this.ofd_OpenfileMisc.FileName = "openFileDialog1";
             // 
-            // btn_CreateSQLite
-            // 
-            this.btn_CreateSQLite.Location = new System.Drawing.Point(579, 192);
-            this.btn_CreateSQLite.Name = "btn_CreateSQLite";
-            this.btn_CreateSQLite.Size = new System.Drawing.Size(75, 23);
-            this.btn_CreateSQLite.TabIndex = 6;
-            this.btn_CreateSQLite.Text = "Create sqlite";
-            this.btn_CreateSQLite.UseVisualStyleBackColor = true;
-            this.btn_CreateSQLite.Click += new System.EventHandler(this.btn_CreateSQLite_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1284,6 +1285,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dg_sheetName;
         private System.Windows.Forms.Button btn_GenParam_ParamGen;
         private System.Windows.Forms.Button btn_CreateSQLite;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

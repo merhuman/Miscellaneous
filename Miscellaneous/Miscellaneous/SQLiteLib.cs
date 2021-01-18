@@ -12,17 +12,22 @@ using System.Data.SQLite;
 
 namespace Miscellaneous
 {
-    public class SQLiteLib
+    public static class SQLiteLib
     {
+        static string g_savePathFile = string.Empty;
         internal static void CreateSQLiteFile(string filePath)
         {
-            OpenFileDialog l_fileBrowser = new OpenFileDialog();
+            SaveFileDialog l_saveFileDialog = new SaveFileDialog();
             string l_outputPath = string.Empty;
+            string l_savedPath = string.Empty;
 
+            l_saveFileDialog.Filter = "db (*.db)|*.db|sql (*sql)|*.sql|sqlite(*.sqlite)|*.sqlite";
+            l_saveFileDialog.Title = "Save database as";
+            l_saveFileDialog.InitialDirectory = @"E:\Work";
 
-            if (l_fileBrowser.ShowDialog() == DialogResult.OK)
+            if (l_saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                
+                l_savedPath = l_saveFileDialog.FileName;
             }
         }
 
@@ -46,14 +51,14 @@ namespace Miscellaneous
         internal static void CreateTable(SQLiteConnection conn)
         {
             SQLiteCommand l_sqliteCmd;
-            string l_createSQL = "CREATE TABLE SampleTable" +
-                "(Col1 VARCHAR(20), Col2 INT)";
-            string l_createSQL1 = "CREATE TABLE SamppleTable1" +
-                "(Col1 VARCHAR(20), Col2 INT)";
-            l_sqliteCmd = conn.CreateCommand();
-            l_sqliteCmd.CommandText = l_createSQL;
+            string sql;
+
+            sql = "drop table if exists Message";
+            l_sqliteCmd = new SQLiteCommand(sql, conn);
             l_sqliteCmd.ExecuteNonQuery();
-            l_sqliteCmd.CommandText = l_createSQL1;
+
+            sql = "create table Message ()";
+            l_sqliteCmd = new SQLiteCommand(sql, conn);
             l_sqliteCmd.ExecuteNonQuery();
         }
 
