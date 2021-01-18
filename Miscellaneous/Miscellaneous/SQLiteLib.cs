@@ -15,11 +15,11 @@ namespace Miscellaneous
     public static class SQLiteLib
     {
         static string g_savePathFile = string.Empty;
-        internal static void CreateSQLiteFile(string filePath)
+
+        internal static void CreateSQLiteFile()
         {
             SaveFileDialog l_saveFileDialog = new SaveFileDialog();
             string l_outputPath = string.Empty;
-            string l_savedPath = string.Empty;
 
             l_saveFileDialog.Filter = "db (*.db)|*.db|sql (*sql)|*.sql|sqlite(*.sqlite)|*.sqlite";
             l_saveFileDialog.Title = "Save database as";
@@ -27,7 +27,7 @@ namespace Miscellaneous
 
             if (l_saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                l_savedPath = l_saveFileDialog.FileName;
+                g_savePathFile = l_saveFileDialog.FileName;
             }
         }
 
@@ -53,13 +53,46 @@ namespace Miscellaneous
             SQLiteCommand l_sqliteCmd;
             string sql;
 
+            sql = "drop table if exists Info";
+            l_sqliteCmd = new SQLiteCommand(sql, conn);
+            l_sqliteCmd.ExecuteNonQuery();
+
             sql = "drop table if exists Message";
             l_sqliteCmd = new SQLiteCommand(sql, conn);
             l_sqliteCmd.ExecuteNonQuery();
 
-            sql = "create table Message ()";
+            sql = "drop table if exists Signal";
             l_sqliteCmd = new SQLiteCommand(sql, conn);
             l_sqliteCmd.ExecuteNonQuery();
+
+            sql = "create table Info (" +
+                "prjname varchar(50), " +
+                "bustype varchar(10), " +
+                "ver double(8))";
+            l_sqliteCmd = new SQLiteCommand(sql, conn);
+            l_sqliteCmd.ExecuteNonQuery();
+
+            sql = "create table Message (" +
+                "mesid integer(64), " +
+                "name varchar(50), " +
+                "size integer(8), " +
+                "txnode varchar(50))";
+            l_sqliteCmd = new SQLiteCommand(sql, conn);
+            l_sqliteCmd.ExecuteNonQuery();
+
+            sql = "create table Signal (" +
+                "name varchar(50), " +
+                "size integer(8)," +
+                "mesid integer(64)," +
+                "rxnode varchar(50)," +
+                "min double(64)," +
+                "max double(64)," +
+                "factor double(8)," +
+                "offset integer(8))";
+            l_sqliteCmd = new SQLiteCommand(sql, conn);
+            l_sqliteCmd.ExecuteNonQuery();
+
+
         }
 
         internal static void InsertData(SQLiteConnection conn)

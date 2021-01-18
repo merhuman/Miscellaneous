@@ -748,7 +748,7 @@ namespace Miscellaneous
             //    Console.WriteLine("Name: " + reader["name"] + "\tScore: " + reader["score"]);
 
             //conn.Close();
-            SQLiteLib.CreateSQLiteFile(@"D:\TH\csharp\");
+            SQLiteLib.CreateSQLiteFile();
 
         }
     }
