@@ -53,26 +53,26 @@ namespace Miscellaneous
             SQLiteCommand l_sqliteCmd;
             string sql;
 
-            sql = "drop table if exists Info";
+            sql = "DROP TABLE IF EXISTS Info";
             l_sqliteCmd = new SQLiteCommand(sql, conn);
             l_sqliteCmd.ExecuteNonQuery();
 
-            sql = "drop table if exists Message";
+            sql = "DROP TABLE IF EXISTS Message";
             l_sqliteCmd = new SQLiteCommand(sql, conn);
             l_sqliteCmd.ExecuteNonQuery();
 
-            sql = "drop table if exists Signal";
+            sql = "DROP TABLE IF EXISTS Signal";
             l_sqliteCmd = new SQLiteCommand(sql, conn);
             l_sqliteCmd.ExecuteNonQuery();
 
-            sql = "create table Info (" +
+            sql = "CREATE TABLE Info (" +
                 "prjname varchar(50), " +
                 "bustype varchar(10), " +
                 "ver double(8))";
             l_sqliteCmd = new SQLiteCommand(sql, conn);
             l_sqliteCmd.ExecuteNonQuery();
 
-            sql = "create table Message (" +
+            sql = "CREATE TABLE Message (" +
                 "mesid integer(64), " +
                 "name varchar(50), " +
                 "size integer(8), " +
@@ -80,7 +80,7 @@ namespace Miscellaneous
             l_sqliteCmd = new SQLiteCommand(sql, conn);
             l_sqliteCmd.ExecuteNonQuery();
 
-            sql = "create table Signal (" +
+            sql = "CREATE TABLE Signal (" +
                 "name varchar(50), " +
                 "size integer(8)," +
                 "mesid integer(64)," +
@@ -91,8 +91,6 @@ namespace Miscellaneous
                 "offset integer(8))";
             l_sqliteCmd = new SQLiteCommand(sql, conn);
             l_sqliteCmd.ExecuteNonQuery();
-
-
         }
 
         internal static void InsertData(SQLiteConnection conn)
